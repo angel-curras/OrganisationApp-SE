@@ -1,0 +1,30 @@
+### Get all items.
+GET http://localhost:8080/items
+
+### Create an item
+POST http://localhost:8080/item
+Content-Type: application/json
+
+{
+    "name": "Item 1",
+    "description": "Item 1 description"
+}
+
+
+### Update an item
+PUT http://localhost:8080/item
+Content-Type: application/json
+
+{
+    "id": 2,
+    "name": "Item 1 updated",
+    "description": "Item 1 description updated"
+}
+
+### Delete an item
+DELETE http://localhost:8080/item
+Content-Type: application/json
+
+{
+    "id": 1
+}
