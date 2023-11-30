@@ -32,10 +32,10 @@ class Item {
     }
 
     /**
-     * Custom Konstruktor für Name und Beschreibung des Itesm.
+     * Custom Konstruktor für Name und Beschreibung des Items.
      *
-     * @param name
-     * @param description
+     * @param name          Name des Items
+     * @param description   Beschreibung des Items
      */
     public Item(String name, String description) {
         this.name = name;
