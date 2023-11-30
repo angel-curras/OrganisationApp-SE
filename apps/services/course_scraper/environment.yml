@@ -1,0 +1,9 @@
+name: se_praktikum_scraper
+channels:
+  - defaults
+dependencies:
+  - python=3.10.9
+  - beautifulsoup4
+  - requests
+  - psycopg2
+  - python-dotenv
