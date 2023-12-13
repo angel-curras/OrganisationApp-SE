@@ -2,103 +2,130 @@ package edu.hm.cs.organisation_app;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
 @Entity
-class Module {
+@Valid
+public class Module {
+    /**
+     * Eindeutige ID des Moduls.
+     */
+    private @Id
+    @GeneratedValue
+    Long id;
+
     /**
      * Eindeutige ID des Moduls. Wird bereitgestellt von ZPA.
      */
-    private @Id
-    Long id;
+    @NotNull(message = "ZPA-ID cannot be null")
+    Long zpaId;
 
     /**
      * Name des Moduls.
      */
+    @NotNull(message = "Name cannot be null")
+    @Size(min = 1, max = 100, message = "Name must be between 1 and 100 characters")
     private String name;
 
     /**
      * Anzahl der Sprachen, in denen das Modul angeboten wird.
      */
+    @NotNull(message = "AnzahlSprachen cannot be null")
     private int anzahlSprachen;
 
     /**
      * Verantwortliche Person für das Modul.
      */
+    @NotNull(message = "Verantwortlich cannot be null")
     private String verantwortlich;
 
     /**
      * Anzahl der Semesterwochenstunden.
      */
+    @NotNull(message = "SWS cannot be null")
     private int sws;
 
     /**
      * Anzahl der ECTS-Punkte.
      */
+    @NotNull(message = "ECTS cannot be null")
     private int ects;
 
     /**
      * Liste der Sprachen, in denen das Modul angeboten wird.
      */
+    @NotNull(message = "Sprachen cannot be null")
     private String sprachen;
 
     /**
      * Lehrform: Seminar, Praktikum, SU mit Praktikum, SU mit Übung, SU, je nach Fach.
      */
+    @NotNull(message = "Lehrform cannot be null")
     private String lehrform;
 
     /**
      * Zeitpunkt, zu dem das Modul angeboten wird. (z.B. jedes Semester, jedes Wintersemester, jedes Sommersemester, nach Ankündigung)
      */
+    @NotNull(message = "Angebot cannot be null")
     private String angebot;
 
     /**
      * Aufwand in Stunden.
      */
+    @NotNull(message = "Aufwand cannot be null")
     @Column(columnDefinition = "TEXT")
     private String aufwand;
 
     /**
      * Voraussetzungen für das Modul.
      */
+    @NotNull(message = "Voraussetzungen cannot be null")
     @Column(columnDefinition = "TEXT")
     private String voraussetzungen;
 
     /**
      * Lernziele des Moduls.
      */
+    @NotNull(message = "Ziele cannot be null")
     @Column(columnDefinition = "TEXT")
     private String ziele;
 
     /**
      * Inhalt des Moduls.
      */
+    @NotNull(message = "Inhalt cannot be null")
     @Column(columnDefinition = "TEXT")
     private String inhalt;
 
     /**
      * Medien und Methoden des Moduls.
      */
+    @NotNull(message = "MedienUndMethoden cannot be null")
     @Column(columnDefinition = "TEXT")
     private String medienUndMethoden;
 
     /**
      * Literatur des Moduls.
      */
+    @NotNull(message = "Literatur cannot be null")
     @Column(columnDefinition = "TEXT")
     private String literatur;
 
     /**
      * ZPA-URL des Moduls.
      */
+    @NotNull(message = "URL cannot be null")
     private String url;
 
-
     /**
-     * Default Konstruktor. Wir für die Interaktion mit der Datenbank benötigt.
+     * Default Konstruktor. Wird für die Interaktion mit der Datenbank benötigt.
      */
     public Module() {
     }
@@ -106,7 +133,7 @@ class Module {
     /**
      * Custom Konstruktor für alle Eigenschaften des Moduls.
      *
-     * @param id                Eindeutige ID des Moduls. Wird bereitgestellt von ZPA.
+     * @param zpaId                Eindeutige ID des Moduls. Wird bereitgestellt von ZPA.
      * @param name              Name des Moduls.
      * @param anzahlSprachen    Anzahl der Sprachen, in denen das Modul angeboten wird.
      * @param verantwortlich    Verantwortliche Person für das Modul.
@@ -123,8 +150,8 @@ class Module {
      * @param literatur         Literatur des Moduls.
      * @param url               ZPA-URL des Moduls.
      */
-    public Module(Long id, String name, int anzahlSprachen, String verantwortlich, int sws, int ects, String sprachen, String lehrform, String angebot, String aufwand, String voraussetzungen, String ziele, String inhalt, String medienUndMethoden, String literatur, String url) {
-        this.id = id;
+    public Module(Long zpaId, String name, int anzahlSprachen, String verantwortlich, int sws, int ects, String sprachen, String lehrform, String angebot, String aufwand, String voraussetzungen, String ziele, String inhalt, String medienUndMethoden, String literatur, String url) {
+        this.zpaId = zpaId;
         this.name = name;
         this.anzahlSprachen = anzahlSprachen;
         this.verantwortlich = verantwortlich;
@@ -146,6 +173,10 @@ class Module {
     // Werden für die Interaktion mit der Datenbank benötigt.
     public Long getId() {
         return this.id;
+    }
+
+    public Long getZpaId() {
+        return this.zpaId;
     }
 
     public String getName() {
@@ -209,8 +240,8 @@ class Module {
     }
 
     @Transactional
-    public void setId(Long id) {
-        this.id = id;
+    public void setZpaId(Long zpaId) {
+        this.zpaId = zpaId;
     }
 
     @Transactional

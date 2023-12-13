@@ -1,0 +1,37 @@
+[
+  {
+    "zpaId": 16,
+    "name": "Analysis",
+    "url": "https://zpa.cs.hm.edu/public/module/16/",
+    "verantwortlich": "Prof. Dr. Wolfgang Högele",
+    "sws": "4",
+    "ects": "5",
+    "sprachen": "Deutsch, Englisch",
+    "anzahlSprachen": 2,
+    "lehrform": "SU mit Übung",
+    "angebot": "in jedem Wintersemester",
+    "aufwand": "40 Präsenzstunden Vorlesung, 20 Präsenzstunden Übung, 20 Stunden Arbeit am JiTT-Material, 30 Stunden Vor-/Nachbereitung der Übungen, 40 Stunden Nachbereitung der Vorlesung und Prüfungsvorbereitung",
+    "voraussetzungen": "Schulkenntnisse Mathematik, wie Sie in der FOS/BOS Technik bzw. der gymnasialen Oberstufe vermittelt werden.",
+    "ziele": "Die Studierenden sind in der Lage, \n \n einfache Sachverhalte in der Sprache der Mathematik zu formulieren (Modellbildungskompetenz) \n mathematische Argumentationen kritisch zu reflektieren \n die Probleme der eindimensionalen Analysis zu klassifizieren, geeignete Lösungsverfahren auszuwählen und sie sicher, formal korrekt und kreativ einzusetzen \n sicher mit Termen, (Un-)Gleichungen und Funktionen umzugehen \n die Grundbegriffe der Analysis wie Konvergenz, Stetigkeit, Differenzierbarkeit zu benutzen, miteinander zu verknüfen und auf andere Bereiche anzuwenden",
+    "inhalt": "Grundlegende Konzepte, Methoden und numerische Verfahren der eindimensionalen Analysis für die folgenden Themengebiete \n \n Logische Grundlagen und Beweisverfahren, insbesondere vollständige Induktion \n Funktionen und Modelle (Polynome(Polynominterpolation, Horner-Schema ,...), Log- u. Exponetialfkt., trig. Funktionen, Lösung von trigonometrischen Gleichungen und Exponential- und Logarithmusgleichungen, inverse Funktionen,...) \n Differentiation und ihre Anwendung (Differentiationsregeln, implizite Differentiation,  Extremwertaufgaben, L'Hospital, Newton-Verfahren,...) \n Integration und ihre Anwendung  \n Reihen (Folgen, Konvergenz unendlicher Reihen, Taylorpolynome und -reihen,...)",
+    "medienUndMethoden": "Folien bzw. Beamer; \"unvollständiges\" Skript für die Studierenden; Tafel; \nJust in Time Teaching (JiTT); Peer Instruction (PI); Veranschaulichung und Einübung des Gelernten u.a. mit Hilfe von Computeralgebrasystemen;",
+    "literatur": "Thomas, Weir, Hass: Analysis 1, Pearson, ISBN 978-3-86894-170-8 \n James Stewart: Calculus, Cengage Learning, International Metric Edition, ISBN 9780495383628"
+  },
+  {
+  "zpaId": 10,
+  "name": "Algorithmen und Datenstrukturen",
+  "url": "https://zpa.cs.hm.edu/public/module/10/",
+  "verantwortlich": "Prof. Dr. Bastian Katz",
+  "sws": "4", "ECTS": "5",
+  "sprachen": "Deutsch",
+  "anzahlSprachen": 1,
+  "lehrform": "SU mit Praktikum",
+  "angebot": "in jedem Sommersemester",
+  "aufwand": "Präsenzstudium: ca. 42 Std., Eigenstudium: ca. 108 Std.",
+  "voraussetzungen": "Grundlegende Kenntnisse der Wirtschaftsinformatik. \n Programmierkenntnisse etwa aus den Modulen Softwareentwicklung I und II des Grundstudiums.",
+  "ziele": "LERNZIELE :\nDie Studierenden sollen die wichtigsten, im wirtschaftlichen Umfeld eingesetzten Datenstrukturen und Algorithmen sowie die jeweiligen Eigenschaften kennen und die Eignung von algorithmischen Ansätzen für praktisch relevante Fragestellungen analysieren und bewerten können. \n FACH- UND METHODENKOMPETENZ : \n \n Die Studierenden kennen grundlegende Datenstrukturen und Algorithmen in ihrer Funktionsweise und ihren Eigenschaften. \n Die Studierenden können für reale Problemstellungen geeignete Algorithmen und Datenstrukturen benennen und verwenden. \n Die Studierenden können bekannte Algorithmen und Datenstrukturen in einer Hochsprache implementieren. \n Die Studierenden können einfache unbekannte Algorithmen analysieren und ihre Eignung für einen spezifischen Einsatz bewerten. \n \n ÜBERFACHLICHE KOMPETENZ :\nAbstraktionsvermögen - Die Studierenden übertragen reale Problemstellung in geeignete, algorithmisch lösbare Repräsentationen.",
+  "inhalt": "Algorithmenbegriff und Eigenschaften von Algorithmen \n Algorithmenanalyse (Asymptotische Komplexität)  \n Elementare Datenstrukturen \n Abstrakte Datentypen (z. B. Stacks, Schlangen, Bäume, Heaps) und Implementierungsvarianten \n Rekursion \n Auswahl an algorithmischen Paradigmen (z.B. Teile-und-herrsche, Greedy, Dynamische Programmierung)  \n Sortierverfahren \n Suchverfahren \n Auswahl weiterer klassischer algorithmischer Problemstellungen zum Beispiel aus den Bereichen Stringalgorithmen, Graphenalgorithmen oder Geometrische Algorithmen",
+  "medienUndMethoden": "Tafel und Folien (Powerpoint),Fallstudien, multimediale Präsentationen",
+  "literatur": "Th.H. Cormen, C.E. Leiserson, R. Rivest, C. Stein: Algorithmen – Eine Einführung. Oldenbourg, 2. Auflage, 2007. \n Gunter Saake, Kai-Uwe Sattler Algorithmen und Datenstrukturen. dpunkt Verlag, 3. Auflage, 2006 \n Mark Allen Weiss Data Structures and Problem Solving Using Java, Addison Wesley, 3. Auflage, 2005 \n Robert Sedgewick Algorithms in Java, Parts 1-4, Part 5, Addison Wesley, 3. Auflage, 2003 \n H.P. Gumm, M. Sommer: Einführung in die Informatik. Oldenbourg, 8. Auflage 2008"
+  }
+]
