@@ -11,7 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,18 +23,21 @@ class ModuleController {
     @Autowired
     private ModuleRepository repository;
 
-    ModuleController(ModuleRepository repository) {
-        this.repository = repository;
+    private ModuleService moduleService;
+
+    public ModuleController(ModuleRepository moduleRepository, ModuleService moduleService) {
+        this.repository = moduleRepository;
+        this.moduleService = moduleService;
     }
 
     @GetMapping("/modules")
     public Page<Module> allModules(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "10") int size,
                                    @RequestParam(defaultValue = "name") String sortBy,
-                                   @RequestParam(defaultValue = "asc") String sortDir) {
-        Sort.Direction direction = sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
-        return this.repository.findAll(pageable);
+                                   @RequestParam(defaultValue = "asc") String sortDir,
+                                   @RequestParam(required = false) String search) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
+        return (search == null || search.isEmpty()) ? moduleService.findAll(pageable) : moduleService.fetchFromSearchQuery(search, pageable);
     }
 
     @GetMapping("/modules/{id}")
