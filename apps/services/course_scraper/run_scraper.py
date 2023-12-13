@@ -18,6 +18,7 @@ def post_module(module_data):
         print(f"Module posted successfully: {module_data_camel_case['name']} \n\n")
     else:
         print(f"Failed to post module: {module_data_camel_case['name']} \n\n")
+        print(response.content)
 
 # Define the base URL of the module listings page
 base_url = 'https://zpa.cs.hm.edu/public/module/'
@@ -37,7 +38,7 @@ for page_number in range(1, num_pages + 1):
         if module_tables:
             module_data = {}
             # page_no is id
-            module_data['id'] = page_number
+            module_data['zpa_id'] = page_number
             table = module_tables[0]
             rows = table.find_all('tr')
 
@@ -46,7 +47,7 @@ for page_number in range(1, num_pages + 1):
                 if len(columns) == 2 and columns[0].get('class', [''])[0] == 'left':
                     key = columns[0].text.strip().replace(' ', '_')
                     value = columns[1].get_text(separator=' ').strip()
-                    
+
                     if key == 'Sprache(n)':
                         key = 'Sprachen'
                         languages = []

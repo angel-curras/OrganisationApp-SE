@@ -9,10 +9,8 @@ import 'create_page.dart';
 import 'update_page.dart';
 
 class HomePage extends StatefulWidget {
-
   // Fields.
   final String title = "Organisation App";
-  final Backend backend = Backend();
   final http.Client client = http.Client();
 
   // Constructor.
@@ -24,19 +22,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   // necessary for mocking (unit and widget tests)
   late Backend _backend; // library with functions to access backend
   late http.Client _client; // REST client proxy
 
-   @override
+  @override
   void initState() {
     super.initState();
-    _backend = widget.backend;
+    _backend = Backend();
     _client = widget.client;
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -69,10 +66,8 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () {
                             showDialog<bool>(
                               context: context,
-                              builder: (BuildContext context) =>
-                                  Dialog(
-                                child:
-                                    UpdateItemPage(_backend, _client, item),
+                              builder: (BuildContext context) => Dialog(
+                                child: UpdateItemPage(_backend, _client, item),
                               ),
                             ).then((result) {
                               print("Item was edited!");
@@ -126,4 +121,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
