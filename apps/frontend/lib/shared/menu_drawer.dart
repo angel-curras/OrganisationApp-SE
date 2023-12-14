@@ -74,7 +74,7 @@ class MenuDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(
-              FontAwesomeIcons.globe, // replace with your own icon
+              FontAwesomeIcons.m, // replace with your own icon
               size: 25,
             ),
             title: const Text('Moodle'),
@@ -84,10 +84,20 @@ class MenuDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(
+              FontAwesomeIcons.idCard, // replace with your own icon
+              size: 25,
+            ),
+            title: const Text('Primuss'),
+            onTap: () {
+              Navigator.pushNamed(context, '/primuss');
+            },
+          ),
+          ListTile(
+            leading: const Icon(
               FontAwesomeIcons.comments, // replace with your own icon
               size: 25,
             ),
-            title: const Text('Chat GPT'),
+            title: const Text('ChatGPT'),
             onTap: () {
               Navigator.pushNamed(context, '/chatgpt');
             },
