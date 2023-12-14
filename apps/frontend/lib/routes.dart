@@ -5,6 +5,7 @@ import 'package:organisation_app/pages/courses/courses_list.dart';
 import 'package:organisation_app/pages/home/home_page.dart';
 import 'package:organisation_app/pages/login/login_page.dart';
 import 'package:organisation_app/pages/moodle/moodle_page.dart';
+import 'package:organisation_app/pages/primuss/primuss_page.dart';
 import 'package:organisation_app/pages/progress/progress_page.dart';
 import 'package:organisation_app/pages/todos/todos_page.dart';
 

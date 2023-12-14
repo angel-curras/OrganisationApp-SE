@@ -68,6 +68,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		929E74565AA4E2017235F11F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7C104D19D928721F4397D57 /* Pods_RunnerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -163,6 +171,29 @@
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
+			sourceTree = "<group>";
+		};
+		A1BBA68A61A7C03C64A06300 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F9FB643AA3449995CD640E00 /* Pods-Runner.debug.xcconfig */,
+				C866ECF85D31C02C3CA1BD5C /* Pods-Runner.release.xcconfig */,
+				302799E6824C6C60211F2480 /* Pods-Runner.profile.xcconfig */,
+				1549576A2947BF8BDA423BBC /* Pods-RunnerTests.debug.xcconfig */,
+				D560BB5EDED43CCCE73B1258 /* Pods-RunnerTests.release.xcconfig */,
+				C65456B7F9536FAD960B6185 /* Pods-RunnerTests.profile.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B9A2DE515BFA971D46BBE0E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EBECD5224004AEB05130C323 /* Pods_Runner.framework */,
+				93164909C87C656F03A3F42F /* Pods_RunnerTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
