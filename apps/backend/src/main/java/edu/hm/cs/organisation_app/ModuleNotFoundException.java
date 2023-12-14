@@ -1,4 +1,5 @@
 package edu.hm.cs.organisation_app;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

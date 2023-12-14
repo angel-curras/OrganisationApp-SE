@@ -2,35 +2,29 @@ package edu.hm.cs.organisation_app.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.hm.cs.organisation_app.Module;
 import edu.hm.cs.organisation_app.ModuleNotFoundException;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.Matchers.is;
-
-import edu.hm.cs.organisation_app.Module;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -48,6 +42,7 @@ public class ModuleControllerTest {
 
     /**
      * Reads a JSON file from the resources folder and returns it as a string.
+     *
      * @param path The path to the JSON file.
      * @return The JSON file as a string.
      * @throws Exception If the file could not be read.
@@ -59,6 +54,7 @@ public class ModuleControllerTest {
 
     /**
      * Creates a test module.
+     *
      * @return The test module.
      */
     private Module createTestModule() {
@@ -66,7 +62,7 @@ public class ModuleControllerTest {
                 16L,
                 "Analysis",
                 2,
-                "Prof.Dr. Wolfgang Högele",
+                "Prof. Dr. Wolfgang Högele",
                 4,
                 5,
                 "Deutsch, Englisch",
@@ -84,6 +80,7 @@ public class ModuleControllerTest {
 
     /**
      * Creates a test module and saves it to the database.
+     *
      * @return The test module.
      */
     private ResultActions postModule(Module module) throws Exception {
@@ -96,6 +93,7 @@ public class ModuleControllerTest {
 
     /**
      * Tests if the endpoint /modules accepts a POST request with a valid module.
+     *
      * @throws Exception If the test fails.
      */
     @Test
@@ -106,6 +104,7 @@ public class ModuleControllerTest {
 
     /**
      * Tests if the endpoint /modules accepts multiple POST requests with valid modules.
+     *
      * @throws Exception If the test fails.
      */
     @Test
@@ -114,7 +113,8 @@ public class ModuleControllerTest {
         String jsonContent = readJson("mock_modules.json");
 
         // Parse the JSON content into a list of modules
-        List<Module> modules = objectMapper.readValue(jsonContent, new TypeReference<List<Module>>() {});
+        List<Module> modules = objectMapper.readValue(jsonContent, new TypeReference<List<Module>>() {
+        });
 
         // Iterate over the list and post each module
         for (Module module : modules) {
@@ -129,6 +129,7 @@ public class ModuleControllerTest {
 
     /**
      * Tests if the endpoint /modules returns a list of modules.
+     *
      * @throws Exception If the test fails.
      */
     @Test
@@ -140,6 +141,7 @@ public class ModuleControllerTest {
 
     /**
      * Tests if the endpoint /modules/{id} returns a module with the given id.
+     *
      * @throws Exception If the test fails.
      */
     @Test
@@ -158,6 +160,7 @@ public class ModuleControllerTest {
 
     /**
      * Tests if the endpoint /modules can update a module.
+     *
      * @throws Exception If the test fails.
      */
     @Test
@@ -179,6 +182,7 @@ public class ModuleControllerTest {
 
     /**
      * Tests if the endpoint /modules can delete a module.
+     *
      * @throws Exception If the test fails.
      */
     @Test
@@ -198,6 +202,7 @@ public class ModuleControllerTest {
 
     /**
      * Tests validation of the module.
+     *
      * @throws Exception If the test fails.
      */
     @Test

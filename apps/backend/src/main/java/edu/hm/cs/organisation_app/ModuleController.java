@@ -3,19 +3,18 @@ package edu.hm.cs.organisation_app;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 @RestController
 class ModuleController {
@@ -23,7 +22,7 @@ class ModuleController {
     @Autowired
     private ModuleRepository repository;
 
-    private ModuleService moduleService;
+    private final ModuleService moduleService;
 
     public ModuleController(ModuleRepository moduleRepository, ModuleService moduleService) {
         this.repository = moduleRepository;
@@ -32,7 +31,7 @@ class ModuleController {
 
     @GetMapping("/modules")
     public Page<Module> allModules(@RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "10") int size,
+                                   @RequestParam(defaultValue = "20") int size,
                                    @RequestParam(defaultValue = "name") String sortBy,
                                    @RequestParam(defaultValue = "asc") String sortDir,
                                    @RequestParam(required = false) String search) {

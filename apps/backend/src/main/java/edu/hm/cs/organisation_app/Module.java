@@ -1,9 +1,6 @@
 package edu.hm.cs.organisation_app;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -15,18 +12,16 @@ import java.util.Objects;
 @Valid
 public class Module {
     /**
-     * Eindeutige ID des Moduls.
-     */
-    private @Id
-    @GeneratedValue
-    Long id;
-
-    /**
-     * Eindeutige ID des Moduls. Wird bereitgestellt von ZPA.
+     * Wird bereitgestellt von ZPA.
      */
     @NotNull(message = "ZPA-ID cannot be null")
     Long zpaId;
-
+    /**
+     * Eindeutige ID des Moduls.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     /**
      * Name des Moduls.
      */
@@ -133,7 +128,7 @@ public class Module {
     /**
      * Custom Konstruktor für alle Eigenschaften des Moduls.
      *
-     * @param zpaId                Eindeutige ID des Moduls. Wird bereitgestellt von ZPA.
+     * @param zpaId             Eindeutige ID des Moduls. Wird bereitgestellt von ZPA.
      * @param name              Name des Moduls.
      * @param anzahlSprachen    Anzahl der Sprachen, in denen das Modul angeboten wird.
      * @param verantwortlich    Verantwortliche Person für das Modul.
@@ -179,69 +174,13 @@ public class Module {
         return this.zpaId;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public int getAnzahlSprachen() {
-        return this.anzahlSprachen;
-    }
-
-    public String getVerantwortlich() {
-        return this.verantwortlich;
-    }
-
-    public int getSws() {
-        return this.sws;
-    }
-
-    public int getEcts() {
-        return this.ects;
-    }
-
-    public String getSprachen() {
-        return this.sprachen;
-    }
-
-    public String getLehrform() {
-        return this.lehrform;
-    }
-
-    public String getAngebot() {
-        return this.angebot;
-    }
-
-    public String getAufwand() {
-        return this.aufwand;
-    }
-
-    public String getVoraussetzungen() {
-        return this.voraussetzungen;
-    }
-
-    public String getZiele() {
-        return this.ziele;
-    }
-
-    public String getInhalt() {
-        return this.inhalt;
-    }
-
-    public String getMedienUndMethoden() {
-        return this.medienUndMethoden;
-    }
-
-    public String getLiteratur() {
-        return this.literatur;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
-
     @Transactional
     public void setZpaId(Long zpaId) {
         this.zpaId = zpaId;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     @Transactional
@@ -249,9 +188,17 @@ public class Module {
         this.name = name;
     }
 
+    public int getAnzahlSprachen() {
+        return this.anzahlSprachen;
+    }
+
     @Transactional
     public void setAnzahlSprachen(int anzahlSprachen) {
         this.anzahlSprachen = anzahlSprachen;
+    }
+
+    public String getVerantwortlich() {
+        return this.verantwortlich;
     }
 
     @Transactional
@@ -259,9 +206,17 @@ public class Module {
         this.verantwortlich = verantwortlich;
     }
 
+    public int getSws() {
+        return this.sws;
+    }
+
     @Transactional
     public void setSws(int sws) {
         this.sws = sws;
+    }
+
+    public int getEcts() {
+        return this.ects;
     }
 
     @Transactional
@@ -269,9 +224,17 @@ public class Module {
         this.ects = ects;
     }
 
+    public String getSprachen() {
+        return this.sprachen;
+    }
+
     @Transactional
     public void setSprachen(String sprachen) {
         this.sprachen = sprachen;
+    }
+
+    public String getLehrform() {
+        return this.lehrform;
     }
 
     @Transactional
@@ -279,9 +242,17 @@ public class Module {
         this.lehrform = lehrform;
     }
 
+    public String getAngebot() {
+        return this.angebot;
+    }
+
     @Transactional
     public void setAngebot(String angebot) {
         this.angebot = angebot;
+    }
+
+    public String getAufwand() {
+        return this.aufwand;
     }
 
     @Transactional
@@ -289,9 +260,17 @@ public class Module {
         this.aufwand = aufwand;
     }
 
+    public String getVoraussetzungen() {
+        return this.voraussetzungen;
+    }
+
     @Transactional
     public void setVoraussetzungen(String voraussetzungen) {
         this.voraussetzungen = voraussetzungen;
+    }
+
+    public String getZiele() {
+        return this.ziele;
     }
 
     @Transactional
@@ -299,9 +278,17 @@ public class Module {
         this.ziele = ziele;
     }
 
+    public String getInhalt() {
+        return this.inhalt;
+    }
+
     @Transactional
     public void setInhalt(String inhalt) {
         this.inhalt = inhalt;
+    }
+
+    public String getMedienUndMethoden() {
+        return this.medienUndMethoden;
     }
 
     @Transactional
@@ -309,9 +296,17 @@ public class Module {
         this.medienUndMethoden = medienUndMethoden;
     }
 
+    public String getLiteratur() {
+        return this.literatur;
+    }
+
     @Transactional
     public void setLiteratur(String literatur) {
         this.literatur = literatur;
+    }
+
+    public String getUrl() {
+        return this.url;
     }
 
     @Transactional
