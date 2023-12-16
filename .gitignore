@@ -1,9 +1,18 @@
 # Ignore the following files and folders
 
+# Ignore all the IDE files in any folder
 **/.idea
-**/*.log
-**/*.env
-*.env
-.vscode
+**/*.iml
+**/*.vscode
 
-*.mv.db
+# Ignore temp files like logs, and backups
+**/*.log
+**/*.bkp
+**/*.tmp
+**/*.dtmp
+**/*.temp
+**/*.cache
+**/*.swp
+
+# Ignore MAC OS files
+**/.DS_Store
