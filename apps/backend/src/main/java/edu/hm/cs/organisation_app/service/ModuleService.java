@@ -1,7 +1,7 @@
 package edu.hm.cs.organisation_app.service;
 
 import edu.hm.cs.organisation_app.model.Module;
-import edu.hm.cs.organisation_app.database.ModuleRepository;
+import edu.hm.cs.organisation_app.database.ModulesRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModuleService {
 
-    private final ModuleRepository repository;
+    private final ModulesRepository repository;
 
     // Constructor injection is recommended for dependency injection
-    public ModuleService(ModuleRepository repository) {
+    public ModuleService(ModulesRepository repository) {
         this.repository = repository;
     }
 
