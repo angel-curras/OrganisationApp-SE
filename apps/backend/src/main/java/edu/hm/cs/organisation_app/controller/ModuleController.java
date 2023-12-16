@@ -1,7 +1,7 @@
 package edu.hm.cs.organisation_app.controller;
 
 import edu.hm.cs.organisation_app.model.Module;
-import edu.hm.cs.organisation_app.database.ModulesRepository;
+import edu.hm.cs.organisation_app.database.ModuleRepository;
 import edu.hm.cs.organisation_app.model.ModuleNotFoundException;
 import edu.hm.cs.organisation_app.service.ModuleService;
 import jakarta.transaction.Transactional;
@@ -24,12 +24,12 @@ import java.util.Map;
 class ModuleController {
 
     @Autowired
-    private ModulesRepository repository;
+    private ModuleRepository repository;
 
     private final ModuleService moduleService;
 
-    public ModuleController(ModulesRepository modulesRepository, ModuleService moduleService) {
-        this.repository = modulesRepository;
+    public ModuleController(ModuleRepository moduleRepository, ModuleService moduleService) {
+        this.repository = moduleRepository;
         this.moduleService = moduleService;
     }
 
