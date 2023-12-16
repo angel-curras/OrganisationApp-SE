@@ -1,4 +1,4 @@
-package edu.hm.cs.organisation_app;
+package edu.hm.cs.organisation_app.model;
 
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;

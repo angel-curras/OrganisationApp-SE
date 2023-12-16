@@ -2,8 +2,8 @@ package edu.hm.cs.organisation_app.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.hm.cs.organisation_app.Module;
-import edu.hm.cs.organisation_app.ModuleNotFoundException;
+import edu.hm.cs.organisation_app.model.Module;
+import edu.hm.cs.organisation_app.model.ModuleNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

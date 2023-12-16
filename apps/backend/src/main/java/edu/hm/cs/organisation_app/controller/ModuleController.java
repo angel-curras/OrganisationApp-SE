@@ -1,5 +1,9 @@
-package edu.hm.cs.organisation_app;
+package edu.hm.cs.organisation_app.controller;
 
+import edu.hm.cs.organisation_app.model.Module;
+import edu.hm.cs.organisation_app.database.ModuleRepository;
+import edu.hm.cs.organisation_app.model.ModuleNotFoundException;
+import edu.hm.cs.organisation_app.service.ModuleService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
