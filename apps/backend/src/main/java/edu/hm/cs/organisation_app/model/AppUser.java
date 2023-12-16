@@ -1,5 +1,6 @@
 package edu.hm.cs.organisation_app.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
@@ -18,16 +19,37 @@ public class AppUser {
   /* Fields */
   @Id
   @NotNull(message = "Username is mandatory")
+  @JsonProperty("user_name")
   private String userName;
 
   @NotNull(message = "The full name is mandatory")
+  @JsonProperty("full_name")
   private String fullName;
 
   @NotNull(message = "The user type is mandatory")
+  @JsonProperty("user_type")
   private String userType;
 
   /* Constructors */
 
+  /**
+   * Constructor for User.
+   */
+  public AppUser() {
+  } // end of constructor
+
+  /**
+   * Constructor for User.
+   *
+   * @param userName The username.
+   * @param fullName The full name.
+   * @param userType The user type.
+   */
+  public AppUser(String userName, String fullName, String userType) {
+    this.userName = userName;
+    this.fullName = fullName;
+    this.userType = userType;
+  } // end of constructor
 
   /* Getters and Setters */
 
@@ -86,5 +108,12 @@ public class AppUser {
   }
   /* Methods */
 
-
+  @Override
+  public String toString() {
+    return "AppUser{" +
+            "userName='" + userName + '\'' +
+            ", fullName='" + fullName + '\'' +
+            ", userType='" + userType + '\'' +
+            '}';
+  }
 } // end of class User
