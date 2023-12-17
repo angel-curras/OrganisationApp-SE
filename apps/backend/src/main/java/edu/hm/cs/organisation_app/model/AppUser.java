@@ -1,11 +1,16 @@
 package edu.hm.cs.organisation_app.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a User.
@@ -16,18 +21,21 @@ import jakarta.validation.constraints.NotNull;
 @Valid
 public class AppUser {
 
+  @OneToMany(mappedBy = "owner")
+  private List<Course> courses;
   /* Fields */
   @Id
   @NotNull(message = "Username is mandatory")
   @JsonProperty("user_name")
+  @Column(name = "USER_NAME")
   private String userName;
-
   @NotNull(message = "The full name is mandatory")
   @JsonProperty("full_name")
+  @Column(name = "FULL_NAME")
   private String fullName;
-
   @NotNull(message = "The user type is mandatory")
   @JsonProperty("user_type")
+  @Column(name = "USER_TYPE")
   private String userType;
 
   /* Constructors */
@@ -49,6 +57,7 @@ public class AppUser {
     this.userName = userName;
     this.fullName = fullName;
     this.userType = userType;
+    this.courses = new ArrayList<>();
   } // end of constructor
 
   /* Getters and Setters */
@@ -106,7 +115,15 @@ public class AppUser {
   public void setUserType(String userType) {
     this.userType = userType;
   }
+
   /* Methods */
+  public void addCourse(Course course) {
+    this.courses.add(course);
+  }
+
+  public List<Course> getCourses() {
+    return this.courses;
+  }
 
   @Override
   public String toString() {

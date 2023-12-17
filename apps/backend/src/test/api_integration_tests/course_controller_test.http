@@ -1,0 +1,62 @@
+### Get all courses
+GET {{base_url}}/courses
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let courses = response.body;
+    client.test("Courses array exists", function () {
+        client.assert(Array.isArray(courses), "Courses is not an array");
+    });
+%}
+
+
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 2,
+  "user_name": "acurrass"
+}
+
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 3,
+  "user_name": "acurrass"
+}
+
+
+### Subscribe to the same course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 2,
+  "user_name": "admin"
+}
+
+
+### Unknown user
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 2,
+  "user_name": "unknown"
+}
+
+
+### Unknown module
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 0,
+  "user_name": "test"
+}
