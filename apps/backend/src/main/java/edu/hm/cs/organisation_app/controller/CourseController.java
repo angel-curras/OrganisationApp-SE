@@ -35,9 +35,27 @@ public class CourseController {
     return service.getAllCourses();
   }
 
+  @GetMapping("/{courseId}")
+  @ResponseStatus(HttpStatus.OK)
+  public Course getCourseById(@PathVariable Long courseId) {
+    return service.getCourseById(courseId);
+  }
+
   @PostMapping("")
   public Course createCourse(@RequestBody CourseSubscription courseSubscription) {
     return service.createCourse(courseSubscription);
+  }
+
+  @PutMapping("/{courseId}")
+  @ResponseStatus(HttpStatus.OK)
+  public Course updateCourse(@PathVariable Long courseId, @RequestBody CourseSubscription courseSubscription) {
+    return service.updateCourseById(courseId, courseSubscription);
+  }
+
+  @DeleteMapping("/{courseId}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteCourse(@PathVariable Long courseId) {
+    service.deleteCourseById(courseId);
   }
 
 

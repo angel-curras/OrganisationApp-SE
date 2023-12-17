@@ -50,16 +50,33 @@ public class CourseService {
     Module module =
             moduleRepository.findById(moduleId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Module not found."));
 
-    // Create the course and save it to the database
-
+    // Check if the user is already subscribed to this course.
     List<Course> userCourses = user.getCourses();
     for (Course course : userCourses) {
       if (Objects.equals(course.getModuleId(), moduleId)) {
         throw new ResponseStatusException(HttpStatus.CONFLICT, "User already subscribed to this course.");
       }
     }
+
+    // Create the course and save it to the database
     Course course = new Course(module, user);
     user.addCourse(course);
+    return courseRepository.save(course);
+  }
+
+  public Course getCourseById(Long courseId) {
+    return courseRepository.findById(String.valueOf(courseId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found."));
+  }
+
+  public void deleteCourseById(Long courseId) {
+    courseRepository.deleteById(String.valueOf(courseId));
+  }
+
+  public Course updateCourseById(Long courseId, CourseSubscription courseSubscription) {
+    Course course = courseRepository.findById(String.valueOf(courseId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found."));
+    Long moduleId = courseSubscription.getModuleId();
+    Module module =
+            moduleRepository.findById(moduleId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Module not found."));
     return courseRepository.save(course);
   }
 

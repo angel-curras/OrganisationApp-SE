@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 /**
  * Represents a Course.
  *
@@ -28,6 +30,10 @@ public class Course {
   @ManyToOne
   @JoinColumn(name = "user_name", referencedColumnName = "user_name", nullable = false)
   private AppUser owner;
+
+  @OneToMany
+  @JoinColumn(name = "course_id")
+  private List<Task> tasks;
 
   /* Constructors */
   public Course() {
