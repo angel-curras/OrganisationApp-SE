@@ -1,26 +1,26 @@
 package edu.hm.cs.organisation_app.controller;
 
-import edu.hm.cs.organisation_app.service.TaskService;
+import edu.hm.cs.organisation_app.service.CalendarEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Represents a TaskController.
+ * Represents a CalendarEventController.
  *
  * @author Angel Curras Sanchez
  */
 @RestController
-@RequestMapping("/tasks")
-public class TaskController {
+@RequestMapping("/calendar-events")
+public class CalendarEventController {
 
   /* Fields */
-  TaskService taskService;
-
+  CalendarEventService calendarEventService;
+  
   /* Constructors */
   @Autowired
-  public TaskController(TaskService taskService) {
-    this.taskService = taskService;
+  public CalendarEventController(CalendarEventService calendarEventService) {
+    this.calendarEventService = calendarEventService;
   }
 
 
@@ -30,4 +30,4 @@ public class TaskController {
   /* Methods */
 
 
-} // end of class TaskController
+} // end of class CalendarEventController

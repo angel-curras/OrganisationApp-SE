@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +60,8 @@ public class CourseService {
     }
 
     // Create the course and save it to the database
-    Course course = new Course(module, user);
+    LocalDate today = LocalDate.now();
+    Course course = new Course(module, user, today, today.plusMonths(6));
     user.addCourse(course);
     return courseRepository.save(course);
   }
