@@ -24,8 +24,8 @@ public class UserControllerTest {
   private UserController userController;
 
   private void initDB() {
-    userController.createUser(new AppUser("user1", "User 1", "user"));
-    userController.createUser(new AppUser("user2", "User 2", "user"));
+    userController.postUser(new AppUser("user1", "User 1", "user"));
+    userController.postUser(new AppUser("user2", "User 2", "user"));
   }
 
   private void clearDB() {
@@ -35,7 +35,7 @@ public class UserControllerTest {
   @Test
   void testGetAllUsersEmpty() {
     this.clearDB();
-    List<AppUser> users = userController.getAllUsers();
+    List<AppUser> users = userController.getUsers();
     Assertions.assertEquals(0, users.size());
   }
 
@@ -43,7 +43,7 @@ public class UserControllerTest {
   void testGetAllUsersAdded() {
     this.clearDB();
     this.initDB();
-    List<AppUser> users = userController.getAllUsers();
+    List<AppUser> users = userController.getUsers();
     Assertions.assertEquals(2, users.size());
 
     Assertions.assertEquals("user1", users.get(0).getUserName());
@@ -68,7 +68,7 @@ public class UserControllerTest {
     user.setFullName(fullName);
     user.setUserType(userType);
 
-    AppUser createdUser = userController.createUser(user);
+    AppUser createdUser = userController.postUser(user);
     Assertions.assertEquals(username, createdUser.getUserName());
     Assertions.assertEquals(fullName, createdUser.getFullName());
     Assertions.assertEquals(userType, createdUser.getUserType());
@@ -79,7 +79,7 @@ public class UserControllerTest {
   void testGetUserInfoByUsername() {
     this.clearDB();
     this.initDB();
-    AppUser user = userController.getUserInfoByUsername("user1");
+    AppUser user = userController.getUser("user1");
     Assertions.assertEquals("user1", user.getUserName());
     Assertions.assertEquals("User 1", user.getFullName());
     Assertions.assertEquals("user", user.getUserType());

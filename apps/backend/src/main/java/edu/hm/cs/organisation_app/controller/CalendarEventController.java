@@ -1,9 +1,13 @@
 package edu.hm.cs.organisation_app.controller;
 
+import edu.hm.cs.organisation_app.model.CalendarEvent;
 import edu.hm.cs.organisation_app.service.CalendarEventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Represents a CalendarEventController.
@@ -15,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CalendarEventController {
 
   /* Fields */
-  CalendarEventService calendarEventService;
-  
+  CalendarEventService service;
+
   /* Constructors */
   @Autowired
-  public CalendarEventController(CalendarEventService calendarEventService) {
-    this.calendarEventService = calendarEventService;
+  public CalendarEventController(CalendarEventService service) {
+    this.service = service;
   }
 
 
@@ -29,5 +33,9 @@ public class CalendarEventController {
 
   /* Methods */
 
+  @GetMapping("")
+  public List<CalendarEvent> getAllCalendarEvents() {
+    return this.service.getAllCalendarEvents();
+  }
 
 } // end of class CalendarEventController

@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppointmentGeneratorController {
 
   /* Fields */
-  AppointmentGeneratorService appointmentGeneratorService;
+  AppointmentGeneratorService service;
 
   /* Constructors */
   @Autowired
-  public AppointmentGeneratorController(AppointmentGeneratorService appointmentGeneratorService) {
-    this.appointmentGeneratorService = appointmentGeneratorService;
+  public AppointmentGeneratorController(AppointmentGeneratorService service) {
+    this.service = service;
   }
-
 
   /* Getters and Setters */
 

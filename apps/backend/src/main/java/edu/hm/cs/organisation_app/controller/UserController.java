@@ -1,11 +1,10 @@
 package edu.hm.cs.organisation_app.controller;
 
-import edu.hm.cs.organisation_app.database.UserRepository;
 import edu.hm.cs.organisation_app.model.AppUser;
+import edu.hm.cs.organisation_app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,35 +18,35 @@ import java.util.List;
 public class UserController {
 
   /* Fields */
-  private final UserRepository repository;
+
+  private final UserService service;
 
   /* Constructors */
   @Autowired
-  public UserController(UserRepository repository) {
-    this.repository = repository;
+  public UserController(UserService service) {
+    this.service = service;
   }
 
   /* Methods */
   @GetMapping("")
   @ResponseStatus(HttpStatus.OK)
-  public List<AppUser> getAllUsers() {
-    return repository.findAll();
+  public List<AppUser> getUsers() {
+    return service.getAllUsers();
   }
 
   @GetMapping("/{username}")
   @ResponseStatus(HttpStatus.OK)
-  public AppUser getUserInfoByUsername(@PathVariable String username) {
-    return repository.findById(username)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
+  public AppUser getUser(@PathVariable String username) {
+    return service.getUserInfoByUsername(username);
   }
 
   @PostMapping("")
-  public AppUser createUser(@RequestBody AppUser user) {
-    return repository.save(user);
+  public AppUser postUser(@RequestBody AppUser user) {
+    return service.createUser(user);
   }
 
   public void deleteAllUsers() {
-    repository.deleteAll();
+    service.deleteAll();
   }
 
 } // end of class UserController
