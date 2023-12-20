@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:organisation_app/services/login_service.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -21,7 +21,20 @@ class LoginPage extends StatelessWidget {
               child: LoginButton(
                 icon: FontAwesomeIcons.userNinja,
                 text: 'Continue as Guest',
-                loginMethod: () => Navigator.pushNamed(context, '/'),
+                loginMethod: () async {
+                  BuildContext initialContext = context;
+                  bool result = await LoginService().login('guest');
+                  if (!context.mounted) return;
+                  if (result) {
+                    Navigator.pushReplacementNamed(initialContext, '/');
+                  } else {
+                    ScaffoldMessenger.of(initialContext).showSnackBar(
+                      const SnackBar(
+                        content: Text('Login failed'),
+                      ),
+                    );
+                  }
+                },
                 color: Colors.deepPurple,
               ),
             )
