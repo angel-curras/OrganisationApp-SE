@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:organisation_app/settings/app_settings.dart';
+import 'package:provider/provider.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({
@@ -16,18 +18,23 @@ class MenuDrawer extends StatelessWidget {
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
+          UserAccountsDrawerHeader(
+            accountName: Text(context.read<AppSettings>().user.fullName),
+            accountEmail: Text(context.read<AppSettings>().user.userName),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.person,
+                color: Colors.black,
+              ),
             ),
-            child: Text('Menu'),
           ),
           ListTile(
             leading: const Icon(
               FontAwesomeIcons.house, // replace with your own icon
               size: 25,
             ),
-            title: const Text('Home'),
+            title: const Text('My Semester'),
             onTap: () {
               Navigator.pushNamed(context, '/');
             },
@@ -37,7 +44,7 @@ class MenuDrawer extends StatelessWidget {
               FontAwesomeIcons.book, // replace with your own icon
               size: 25,
             ),
-            title: const Text('Courses'),
+            title: const Text('Modules'),
             onTap: () {
               Navigator.pushNamed(context, '/courses');
             },
@@ -62,16 +69,7 @@ class MenuDrawer extends StatelessWidget {
               Navigator.pushNamed(context, '/todos');
             },
           ),
-          ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.barsProgress, // replace with your own icon
-              size: 25,
-            ),
-            title: const Text('Progress'),
-            onTap: () {
-              Navigator.pushNamed(context, '/progress');
-            },
-          ),
+          const Divider(),
           ListTile(
             leading: const Icon(
               FontAwesomeIcons.m, // replace with your own icon
@@ -110,6 +108,22 @@ class MenuDrawer extends StatelessWidget {
             title: const Text('About'),
             onTap: () {
               Navigator.pushNamed(context, '/about');
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(
+              FontAwesomeIcons.arrowRightFromBracket,
+              // replace with your own icon
+              size: 25,
+            ),
+            title: const Text(
+              'Logout',
+              style: TextStyle(color: Colors.red),
+            ),
+            onTap: () {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/login', (route) => false);
             },
           ),
         ],

@@ -19,4 +19,5 @@ var appRoutes = {
   '/moodle': (context) => const MoodlePage(),
   '/chatgpt': (context) => const ChatGptPage(),
   '/about': (context) => const AboutPage(),
+  '/primuss': (context) => const PrimussPage(),
 };

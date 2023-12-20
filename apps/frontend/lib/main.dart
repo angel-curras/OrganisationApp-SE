@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:organisation_app/routes.dart';
+import 'package:organisation_app/settings/app_settings.dart';
+import 'package:organisation_app/settings/environment.dart';
+import 'package:provider/provider.dart';
 
 import 'theme.dart';
 
-void main() {
+Future<void> setUpEnvironment() async {
+  await dotenv.load(fileName: Environment.fileName);
+}
+
+Future<void> main() async {
+  // Load the environment variables.
+  await setUpEnvironment();
   runApp(const OrganisationApp());
 }
 
 class OrganisationApp extends StatelessWidget {
   const OrganisationApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Organisation App',
-      theme: appTheme,
-      routes: appRoutes,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppSettings()),
+      ],
+      child: MaterialApp(
+        title: 'Organisation App',
+        theme: appTheme,
+        routes: appRoutes,
+      ),
     );
-  }
-}
+  } // end of build()
+} // end of class OrganisationApp
