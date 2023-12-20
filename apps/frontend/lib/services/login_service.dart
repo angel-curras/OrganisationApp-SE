@@ -20,5 +20,6 @@ class LoginService {
 
   Future<void> logout() async {
     appSettings.user = AppUser(userName: "", userType: "", fullName: "");
+    await appSettings.saveSettings();
   } // end of logout()
 } // end of class LoginService

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:organisation_app/services/backend.dart';
 import 'package:organisation_app/model/module.dart';
 import 'package:organisation_app/pages/courses/module_details_page.dart';
 import 'package:organisation_app/pages/courses/module_search_delegate.dart';
+import 'package:organisation_app/services/backend.dart';
+
+import '../../shared/menu_drawer.dart';
 
 class CoursesPage extends StatefulWidget {
   const CoursesPage({Key? key}) : super(key: key);
@@ -123,6 +125,7 @@ class _CoursesPageState extends State<CoursesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 3, 134, 204),
         title: const Text('Courses'),
         actions: [
           IconButton(
@@ -231,6 +234,7 @@ class _CoursesPageState extends State<CoursesPage> {
         tooltip: 'Sort',
         child: const Icon(Icons.sort),
       ),
+      drawer: const MenuDrawer(),
     );
   }
 

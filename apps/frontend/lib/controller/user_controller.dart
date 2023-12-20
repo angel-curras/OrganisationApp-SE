@@ -26,7 +26,7 @@ class UserController {
     if (response.statusCode == 200) {
       return List<AppUser>.from(json
           .decode(utf8.decode(response.bodyBytes))
-          .map((element) => AppUser.fromJson(element)));
+          .map((element) => AppUser.fromJsonMap(element)));
     } else {
       throw Exception('Failed to decode the list of users.');
     } // end of if
@@ -38,7 +38,7 @@ class UserController {
 
     // check response from backend
     if (response.statusCode == 200) {
-      return AppUser.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+      return AppUser.fromJsonMap(json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('User not found.');
     } // end of if

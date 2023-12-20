@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/backend.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
-import 'package:organisation_app/shared/user_drawer.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -136,7 +135,6 @@ class _HomePageState extends State<HomePage> {
         child: const Icon(Icons.add),
       ),
       drawer: const MenuDrawer(),
-      endDrawer: const UserDrawer(),
     );
   }
 }
