@@ -1,5 +1,7 @@
-package edu.hm.cs.organisation_app;
+package edu.hm.cs.organisation_app.service;
 
+import edu.hm.cs.organisation_app.model.Module;
+import edu.hm.cs.organisation_app.database.ModuleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

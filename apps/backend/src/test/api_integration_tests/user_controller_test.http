@@ -1,0 +1,58 @@
+### Get all users
+GET {{base_url}}/users
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let users = response.body;
+    client.test("Players array exists", function () {
+        client.assert(Array.isArray(users), "Users is not an array");
+    });
+%}
+
+
+### Get user by id (known user)
+< {%
+    client.global.set("user_name", "test")
+    client.global.set("full_name", "Test User")
+    client.global.set("user_type", "STUDENT")
+%}
+GET {{base_url}}/users/{{user_name}}
+
+> {%
+    client.test("GET /users (known) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let user = response.body;
+    client.test("User exists", function () {
+        client.assert(user, "User does not exist");
+    });
+
+    client.test("User name is correct", function () {
+        client.assert(user.user_name === client.global.get("user_name"), "User name is not correct");
+    });
+
+    client.test("Full name is correct", function () {
+        client.assert(user.full_name === client.global.get("full_name"), "Full name is not correct");
+    });
+
+    client.test("User type is correct", function () {
+        client.assert(user.user_type === client.global.get("user_type"), "User type is not correct");
+    });
+%}
+
+
+### Get user by id (unknown user)
+< {%
+    client.global.set("user_name", "unknown")
+%}
+GET {{base_url}}/users/{{user_name}}
+
+> {%
+    client.test("GET /users (unknown) returns 404", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+%}
