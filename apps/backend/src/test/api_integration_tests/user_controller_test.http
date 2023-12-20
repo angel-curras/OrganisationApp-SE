@@ -47,7 +47,7 @@ GET {{base_url}}/users/{{user_name}}
 
 ### Get user by id (unknown user)
 < {%
-    client.global.set("user_name", "unknown")
+    client.global.set("user_name", "test")
 %}
 GET {{base_url}}/users/{{user_name}}
 
