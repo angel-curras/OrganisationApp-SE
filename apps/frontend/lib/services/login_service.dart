@@ -10,8 +10,7 @@ class LoginService {
   Future<bool> login(String username) async {
     try {
       AppUser user = await userController.getUser(username);
-      appSettings.user = user;
-      await appSettings.saveSettings();
+      appSettings.rememberUser(user);
       return true;
     } catch (e) {
       return false;
@@ -19,7 +18,6 @@ class LoginService {
   } // end of login()
 
   Future<void> logout() async {
-    appSettings.user = AppUser(userName: "", userType: "", fullName: "");
-    await appSettings.saveSettings();
+    await appSettings.forgetUser();
   } // end of logout()
 } // end of class LoginService

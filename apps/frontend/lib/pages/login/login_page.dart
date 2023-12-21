@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
                   bool result = await LoginService().login('guest');
                   if (!context.mounted) return;
                   if (result) {
-                    Navigator.pushReplacementNamed(initialContext, '/');
+                    Navigator.pushReplacementNamed(initialContext, '/home');
                   } else {
                     ScaffoldMessenger.of(initialContext).showSnackBar(
                       const SnackBar(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/backend.dart';
-import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   // Fields.
@@ -28,19 +26,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _backend = Backend();
     _client = widget.client;
-
-    // Post creation
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      isUserLoggedIn();
-    });
-  }
-
-  void isUserLoggedIn() {
-    bool result = context.read<AppSettings>().isUserLoggedIn();
-
-    if (!result) {
-      Navigator.pushReplacementNamed(context, '/login');
-    }
   }
 
   @override

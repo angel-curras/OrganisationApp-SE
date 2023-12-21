@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
-import 'package:organisation_app/shared/user_drawer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class IntegratedBrowser extends StatefulWidget {
