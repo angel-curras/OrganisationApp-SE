@@ -9,6 +9,10 @@ class CreateItemPage extends StatefulWidget {
 
   const CreateItemPage(this._backend, this._client);
 
+  Backend get backend => _backend;
+
+  http.Client get client => _client;
+
   @override
   CreateItemPageState createState() {
     return CreateItemPageState();
@@ -16,15 +20,13 @@ class CreateItemPage extends StatefulWidget {
 }
 
 class CreateItemPageState extends State<CreateItemPage> {
-
   // Key to access HTTP Form state
   final _formKey = GlobalKey<FormState>();
 
-
   // necessary for mocking (unit and widget tests)
-  late Backend _backend;    // library with functions to access backend
+  late Backend _backend; // library with functions to access backend
   late http.Client _client; // REST client proxy
-  
+
   @override
   void initState() {
     super.initState();
@@ -34,47 +36,44 @@ class CreateItemPageState extends State<CreateItemPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController nameController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+    final nameField = TextFormField(
+      key: Key("name"),
+      controller: nameController,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(hintText: "Please enter item name"),
+      validator: (text) {
+        if (text == null || text.isEmpty) {
+          return 'Error: please enter item name';
+        }
+        return null;
+      },
+    );
 
-  final nameField = TextFormField(
-    key: Key("name"),
-    controller: nameController,
-    keyboardType: TextInputType.text,
-    decoration: InputDecoration (
-      hintText: "Please enter item name"
-    ),
-    validator: (text) {
-      if (text == null || text.isEmpty) {
-        return 'Error: please enter item name';
-      }
-      return null;
-    },
-  );
+    final descriptionField = TextFormField(
+      key: Key("desc"),
+      controller: descriptionController,
+      keyboardType: TextInputType.multiline,
+      maxLines: 4,
+      decoration: InputDecoration(
+        hintText: "Please enter item description",
+      ),
+      validator: (text) {
+        if (text == null || text.isEmpty) {
+          return 'Error: please enter item description';
+        }
+        return null;
+      },
+    );
 
-  final descriptionField = TextFormField(
-    key: Key("desc"),
-    controller: descriptionController,
-    keyboardType: TextInputType.multiline,
-    maxLines: 4,
-    decoration: InputDecoration (
-      hintText: "Please enter item description",
-    ),
-    validator: (text) {
-      if (text == null || text.isEmpty) {
-        return 'Error: please enter item description';
-      }
-      return null;
-    },
-  );
-
-
-  final saveButton = ElevatedButton(
+    final saveButton = ElevatedButton(
       onPressed: () {
         if (_formKey.currentState!.validate()) {
-          _backend.createItem(_client, nameController.text, descriptionController.text)
-          .then((value) => Navigator.pop(context));
+          _backend
+              .createItem(_client, nameController.text, "2021-01-01", 3, false)
+              .then((value) => Navigator.pop(context));
         }
       },
       child: Text('Create'),
@@ -84,12 +83,8 @@ class CreateItemPageState extends State<CreateItemPage> {
       key: _formKey,
       child: ListView(
         padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-        children: <Widget>[
-          nameField,
-          descriptionField,
-          saveButton
-        ],
+        children: <Widget>[nameField, descriptionField, saveButton],
       ),
-    ); 
+    );
   }
 }

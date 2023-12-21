@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ class Backend {
   }
 
   // use IP 10.0.2.2 to access localhost from windows client
-  static const _backend = "http://127.0.0.1:8080/";
+  // static const _backend = "http://127.0.0.1:8080/";
 
   // use IP 10.0.2.2 to access localhost from emulator!
   // static const _backend = "http://10.0.2.2:8080/";
@@ -25,12 +26,12 @@ class Backend {
   // static const _backend = "http://192.168.178.22:8080/";
 
   // use custom IP 10.0.2.2 to access the endpoint from a real phone!
-  // static const _backend = "http://10.181.91.20:8080/";
+  static const _backend = "http://192.168.178.170:8080/";
 
   // get item list from backend
   Future<List<Item>> fetchItemList(http.Client client) async {
     // access REST interface with get request
-    final response = await client.get(Uri.parse('${_backend}items'));
+    final response = await client.get(Uri.parse('${_backend}tasks'));
 
     // check response from backend
     if (response.statusCode == 200) {
@@ -43,15 +44,17 @@ class Backend {
   }
 
   // save new item on backend
-  Future<Item> createItem(
-      http.Client client, String name, String description) async {
+  Future<Item> createItem(http.Client client, String name, String deadline,
+      int priority, bool done) async {
     Map data = {
       'name': name,
-      'description': description,
+      'deadline': deadline,
+      'priority': priority,
+      'done': done,
     };
 
     // access REST interface with post request
-    var response = await client.post(Uri.parse('${_backend}item'),
+    var response = await client.post(Uri.parse('${_backend}task'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
@@ -64,12 +67,13 @@ class Backend {
   }
 
   // Update item on backend
-  Future<void> updateItem(
-      http.Client client, int id, String name, String description) async {
+  Future<void> updateItem(http.Client client, int id, String name,
+      String deadline, int priority) async {
     Map data = {
       'id': id,
       'name': name,
-      'description': description,
+      'deadline': deadline,
+      'priority': priority,
     };
 
     // access REST interface with put request
@@ -176,6 +180,20 @@ class Backend {
       return Module.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to load Itemlist');
+    }
+  }
+
+  // create a Get request for the backend
+  Future<List<String>> getRequest(http.Client client, String url) async {
+    // access REST interface with get request
+    final response = await client.get(Uri.parse('$_backend$url'));
+
+    // check response from backend
+    if (response.statusCode == 200) {
+      return List<String>.from(
+          json.decode(utf8.decode(response.bodyBytes)).map((x) => x));
+    } else {
+      throw Exception('Failed to load $url');
     }
   }
 }

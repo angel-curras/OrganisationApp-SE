@@ -24,7 +24,9 @@ public class TaskService {
     this.taskRepository = taskRepository;
   }
 
-
+  public Task createTask(Task task) {
+    return taskRepository.save(task);
+  }
   /* Getters and Setters */
 
 

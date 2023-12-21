@@ -3,9 +3,7 @@ package edu.hm.cs.organisation_app.controller;
 import edu.hm.cs.organisation_app.model.Task;
 import edu.hm.cs.organisation_app.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +25,10 @@ public class TaskController {
     this.service = service;
   }
 
-
+  @PostMapping("task")
+    public Task createTask(@RequestBody Task newTask) {
+        return this.service.createTask(newTask);
+    }
   /* Getters and Setters */
 
 

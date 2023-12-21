@@ -56,7 +56,6 @@ class _HomePageState extends State<HomePage> {
                 return Card(
                   child: ListTile(
                     title: Text(item!.name),
-                    subtitle: Text(item.description),
                     trailing:
                         Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                       IconButton(

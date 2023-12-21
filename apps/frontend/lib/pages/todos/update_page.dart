@@ -9,7 +9,7 @@ class UpdateItemPage extends StatefulWidget {
   final http.Client _client;
   final Item item;
 
-  const UpdateItemPage(this._backend, this._client, this.item);
+  const UpdateItemPage(this._backend, this._client, this.item, {super.key});
 
   @override
   UpdateItemPageState createState() {
@@ -40,10 +40,10 @@ class UpdateItemPageState extends State<UpdateItemPage> {
     nameController.text = item.name;
 
     final nameField = TextFormField(
-      key: Key("name"),
+      key: const Key("name"),
       controller: nameController,
       keyboardType: TextInputType.text,
-      decoration: InputDecoration(hintText: "Please enter item name"),
+      decoration: const InputDecoration(hintText: "Please enter item name"),
       validator: (text) {
         if (text == null || text.isEmpty) {
           return 'Error: please enter item name';
@@ -57,17 +57,17 @@ class UpdateItemPageState extends State<UpdateItemPage> {
         if (_formKey.currentState!.validate()) {
           _backend
               .updateItem(
-                  _client, item.id, nameController.text, "2021-06-01", 3)
+              _client, item.id, nameController.text, "3", item.priority)
               .then((value) => Navigator.pop(context));
         }
       },
-      child: Text('Update'),
+      child: const Text('Update'),
     );
 
     return Form(
       key: _formKey,
       child: ListView(
-        padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         children: <Widget>[nameField, saveButton],
       ),
     );
