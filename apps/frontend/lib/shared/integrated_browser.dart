@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
-import 'package:organisation_app/shared/user_drawer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class IntegratedBrowser extends StatefulWidget {
   final String title;
   final String startUrl;
+
   const IntegratedBrowser(
       {super.key, required this.title, required this.startUrl});
 
@@ -14,11 +14,8 @@ class IntegratedBrowser extends StatefulWidget {
 }
 
 class _IntegratedBrowserState extends State<IntegratedBrowser> {
-
-  
   final _controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(const Color(0x00000000))
     ..setNavigationDelegate(
       NavigationDelegate(
         onProgress: (int progress) {
@@ -53,7 +50,6 @@ class _IntegratedBrowserState extends State<IntegratedBrowser> {
       ),
       drawer: const MenuDrawer(),
       body: WebViewWidget(controller: _controller),
-      endDrawer: const UserDrawer(),
     );
   }
 }

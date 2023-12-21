@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:organisation_app/model/item.dart';
 import 'package:organisation_app/model/module.dart';
+import 'package:organisation_app/model/task.dart';
+import 'package:organisation_app/settings/environment.dart';
 
 class Backend {
   static final Backend _singleton = Backend._internal();
@@ -15,61 +17,56 @@ class Backend {
     // init things inside this
   }
 
-  // use IP 10.0.2.2 to access localhost from windows client
-  static const _backend = "http://127.0.0.1:8080/";
-
-  // use IP 10.0.2.2 to access localhost from emulator!
-  // static const _backend = "http://10.0.2.2:8080/";
-
-  // use custom IP 10.0.2.2 to access the endpoint from a real phone!
-  // static const _backend = "http://192.168.178.22:8080/";
-
-  // use custom IP 10.0.2.2 to access the endpoint from a real phone!
-  // static const _backend = "http://10.181.91.20:8080/";
+  // Access the backend API
+  static final _backend = "${Environment.apiUrl}/";
 
   // get item list from backend
-  Future<List<Item>> fetchItemList(http.Client client) async {
+  Future<List<Task>> fetchItemList(http.Client client) async {
     // access REST interface with get request
-    final response = await client.get(Uri.parse('${_backend}items'));
+    final response = await client.get(Uri.parse('${_backend}tasks'));
 
     // check response from backend
     if (response.statusCode == 200) {
-      return List<Item>.from(json
+      return List<Task>.from(json
           .decode(utf8.decode(response.bodyBytes))
-          .map((x) => Item.fromJson(x)));
+          .map((x) => Task.fromJson(x)));
     } else {
       throw Exception('Failed to load Itemlist');
     }
   }
 
   // save new item on backend
-  Future<Item> createItem(
-      http.Client client, String name, String description) async {
+  Future<Task> createTask(http.Client client, String name, String deadline,
+      int priority, bool done, String frequency) async {
     Map data = {
-      'name': name,
-      'description': description,
+      'task_name': name,
+      'priority': priority,
+      'is_done': done,
+      'frequency': frequency,
+      'deadline': deadline,
     };
 
     // access REST interface with post request
-    var response = await client.post(Uri.parse('${_backend}item'),
+    var response = await client.post(Uri.parse('${_backend}tasks/task'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
     // check response from backend
     if (response.statusCode == 200) {
-      return Item.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+      return Task.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to create item');
     }
   }
 
   // Update item on backend
-  Future<void> updateItem(
-      http.Client client, int id, String name, String description) async {
+  Future<void> updateTask(http.Client client, int id, String name,
+      String deadline, int priority) async {
     Map data = {
       'id': id,
       'name': name,
-      'description': description,
+      'deadline': deadline,
+      'priority': priority,
     };
 
     // access REST interface with put request
@@ -84,13 +81,14 @@ class Backend {
   }
 
   // delete item on backend
-  Future<void> deleteItem(http.Client client, int id) async {
+  Future<void> deleteTask(http.Client client, int id) async {
     Map data = {
       'id': id,
     };
 
     // access REST interface with delete request
-    var response = await client.delete(Uri.parse('${_backend}item'),
+    var response = await client.delete(
+        Uri.parse('${_backend}tasks/task/{{id}}'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
@@ -175,7 +173,40 @@ class Backend {
     if (response.statusCode == 200) {
       return Module.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     } else {
-      throw Exception('Failed to load Itemlist');
+      throw Exception('Failed to fetch Module');
+    }
+  }
+
+  // set done value of item on backend
+  Future<void> updateItemDoneStatus(
+      http.Client client, int id, bool? done) async {
+    Map data = {
+      'id': id,
+      'done': done,
+    };
+
+    // access REST interface with put request
+    var response = await client.put(Uri.parse('${_backend}item/done'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: json.encode(data));
+
+    // check response from backend
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update item');
+    }
+  }
+
+  // create a Get request for the backend
+  Future<List<String>> getRequest(http.Client client, String url) async {
+    // access REST interface with get request
+    final response = await client.get(Uri.parse('$_backend$url'));
+
+    // check response from backend
+    if (response.statusCode == 200) {
+      return List<String>.from(
+          json.decode(utf8.decode(response.bodyBytes)).map((x) => x));
+    } else {
+      throw Exception('Failed to load $url');
     }
   }
 }
