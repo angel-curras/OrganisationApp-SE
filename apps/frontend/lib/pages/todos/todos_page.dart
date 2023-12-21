@@ -5,7 +5,7 @@ import 'package:organisation_app/services/backend.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
 import 'package:organisation_app/shared/user_drawer.dart';
 
-import '../home/create_page.dart';
+import 'create_page.dart';
 import 'update_page.dart';
 
 class TodosPage extends StatefulWidget {
@@ -44,31 +44,42 @@ class _TodosPageState extends State<TodosPage> {
           child: Text('ToDo List'),
         ),
       ),
-
       body: FutureBuilder<List<Item>>(
-        future: _backend.fetchItemList(http.Client()),
+        future: _backend.fetchItemList(_client),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // The future has completed.
-            // Return the list of items.
             return ListView.builder(
               itemCount: snapshot.data?.length,
               itemBuilder: (_, int position) {
                 final item = snapshot.data?[position];
                 return Card(
                   child: ListTile(
-                    title: Text(item!.name),
+                    leading: Checkbox(
+                      key: Key("doneCheckbox_$position"),
+                      value: item!.done ?? false,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          item.done = value!;
+                          // Update the backend with the 'done' attribute.
+                          _backend.updateItemDoneStatus(
+                              _client, item.id, value);
+                        });
+                      },
+                    ),
+                    title: Text(item.name),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Text("Frequence: ${item.frequency}"),
                         Text(
                             "deadline: ${item.deadline.day}/${item.deadline.month}/${item.deadline.year}"),
                         Text("Priority: ${item.priority}"),
                       ],
                     ),
-                    trailing:
-                        Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                      IconButton(
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        IconButton(
                           key: const Key("edit"),
                           icon: const Icon(Icons.edit),
                           tooltip: 'Edit Item',
@@ -82,47 +93,34 @@ class _TodosPageState extends State<TodosPage> {
                               print("Item was edited!");
                               setState(() {});
                             });
-                          }), //CheckBox to check if you have done the item
-                      /*IconButton(
-                          key: Key("check"),
-                          icon: Icon(Icons.check),
-                          tooltip: 'Check Item',
+                          },
+                        ),
+                        IconButton(
+                          key: const Key("delete"),
+                          icon: const Icon(Icons.delete),
+                          tooltip: 'Delete Item',
                           onPressed: () {
-                            print("Check Item");
+                            print("Delete Item");
                             setState(() {
-                              _backend.checkItem(_client, item.id);
+                              _backend.deleteItem(_client, item.id);
                             });
-                          }),*/
-                      IconButton(
-                        key: const Key("delete"),
-                        icon: const Icon(Icons.delete),
-                        tooltip: 'Delete Item',
-                        onPressed: () {
-                          print("Delete Item");
-                          setState(() {
-                            _backend.deleteItem(_client, item.id);
-                          });
-                        },
-                      )
-                    ]),
+                          },
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
             );
           } else if (snapshot.hasError) {
-            // The future has completed with an error.
             return Text('${snapshot.error}');
           } else {
-            // The future is still in progress.
-            // Return the progress indicator widget.
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
         },
       ),
-
-      // Button to add items.
       floatingActionButton: FloatingActionButton(
         tooltip: 'New',
         onPressed: () => showDialog<bool>(

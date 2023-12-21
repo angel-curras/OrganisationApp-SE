@@ -4,13 +4,15 @@ class Item {
   DateTime deadline;
   int priority;
   bool done = false;
+  String frequency;
 
   Item({
     required this.id,
     required this.name,
-    required this.deadline,
     required this.priority,
+    required this.deadline,
     required this.done,
+    required this.frequency,
   });
 
   // parse Item from JSON-data
@@ -20,6 +22,7 @@ class Item {
         deadline: json["deadline"],
         priority: json["priority"],
         done: json["done"],
+        frequency: json["frequency"],
       );
 
   get deadlineDate => deadline;
@@ -31,6 +34,7 @@ class Item {
         "deadline": deadline,
         "priority": priority,
         "done": done,
+        "frequency": frequency,
       };
 }
 

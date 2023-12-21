@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 typedef OnDateSelectedCallback = void Function(DateTime selectedDate);
 
+/// RestorationProperty objects can be used because of RestorationMixin.
 class DatePickerExample extends StatefulWidget {
-  const DatePickerExample({super.key, this.restorationId, this.onDateSelected});
+  const DatePickerExample({
+    Key? key,
+    this.restorationId,
+    this.onDateSelected,
+  }) : super(key: key);
 
   final String? restorationId;
   final OnDateSelectedCallback? onDateSelected;
@@ -12,17 +17,11 @@ class DatePickerExample extends StatefulWidget {
   State<DatePickerExample> createState() => _DatePickerExampleState();
 }
 
-/// RestorationProperty objects can be used because of RestorationMixin.
 class _DatePickerExampleState extends State<DatePickerExample>
     with RestorationMixin {
-  // Fields
-
-  // Methods
-
-  @override
-  String? get restorationId => widget.restorationId;
   final RestorableDateTime _selectedDate = RestorableDateTime(
-      DateTime(DateTime.now().day, DateTime.now().month, DateTime.now().year));
+    DateTime.now(),
+  );
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
       RestorableRouteFuture<DateTime?>(
     onComplete: _selectDate,
@@ -34,7 +33,9 @@ class _DatePickerExampleState extends State<DatePickerExample>
     },
   );
 
-  @pragma('vm:entry-point')
+  static const int _minYear = 2000;
+  static const int _maxYear = 3000;
+
   static Route<DateTime> _datePickerRoute(
     BuildContext context,
     Object? arguments,
@@ -46,8 +47,8 @@ class _DatePickerExampleState extends State<DatePickerExample>
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2000),
-          lastDate: DateTime(3000),
+          firstDate: DateTime(_minYear),
+          lastDate: DateTime(_maxYear),
         );
       },
     );
@@ -64,17 +65,17 @@ class _DatePickerExampleState extends State<DatePickerExample>
     if (newSelectedDate != null) {
       setState(() {
         _selectedDate.value = newSelectedDate;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                'Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+          ),
+        );
       });
-      // Call the callback to notify that a new date is selected
       widget.onDateSelected?.call(newSelectedDate);
     }
   }
 
-// make this widget so that it can be shown in the app
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -84,4 +85,7 @@ class _DatePickerExampleState extends State<DatePickerExample>
       child: const Text('Pick a date'),
     );
   }
+
+  @override
+  String? get restorationId => widget.restorationId;
 }

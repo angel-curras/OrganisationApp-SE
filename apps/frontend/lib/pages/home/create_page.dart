@@ -72,7 +72,8 @@ class CreateItemPageState extends State<CreateItemPage> {
       onPressed: () {
         if (_formKey.currentState!.validate()) {
           _backend
-              .createItem(_client, nameController.text, "2021-01-01", 3, false)
+              .createItem(
+                  _client, nameController.text, "2021-01-01", 3, false, "once")
               .then((value) => Navigator.pop(context));
         }
       },

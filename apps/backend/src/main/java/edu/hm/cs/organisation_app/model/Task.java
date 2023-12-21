@@ -61,11 +61,60 @@ public class Task {
 
   /* Getters and Setters */
 
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setPriority(int priority) {
+    this.priority = priority;
+  }
+
+  public void setDone(boolean done) {
+    this.done = done;
+  }
+
+  public void setFrequency(String frequency) {
+    this.frequency = frequency;
+  }
+
+  public void setDeadline(Date deadline) {
+    this.deadline = deadline;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public int getPriority() {
+    return priority;
+  }
+
+  public String getFrequency() {
+    return frequency;
+  }
+
+  public CalendarEvent getCalendarEvent() {
+    return calendarEvent;
+  }
+
+  public Date getDeadline() {
+    return deadline;
+  }
+
   /**
    * Getter for done.
    *
    * @return Gets the value of done and returns done.
    */
+
 
   public boolean isDone() {
     return this.done;

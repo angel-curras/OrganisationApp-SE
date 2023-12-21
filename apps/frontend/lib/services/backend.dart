@@ -26,7 +26,10 @@ class Backend {
   // static const _backend = "http://192.168.178.22:8080/";
 
   // use custom IP 10.0.2.2 to access the endpoint from a real phone!
-  static const _backend = "http://192.168.178.170:8080/";
+  //static const _backend = "http://192.168.178.170:8080/";
+
+  // use custom IP 10.0.2.2 to access the endpoint from a real phone!
+  static const _backend = "http://10.181.214.142:8080/";
 
   // get item list from backend
   Future<List<Item>> fetchItemList(http.Client client) async {
@@ -45,16 +48,17 @@ class Backend {
 
   // save new item on backend
   Future<Item> createItem(http.Client client, String name, String deadline,
-      int priority, bool done) async {
+      int priority, bool done, String frequency) async {
     Map data = {
-      'name': name,
-      'deadline': deadline,
+      'task_name': name,
       'priority': priority,
-      'done': done,
+      'is_done': done,
+      'frequency': frequency,
+      'deadline': deadline,
     };
 
     // access REST interface with post request
-    var response = await client.post(Uri.parse('${_backend}task'),
+    var response = await client.post(Uri.parse('${_backend}tasks/task'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
@@ -92,9 +96,10 @@ class Backend {
     Map data = {
       'id': id,
     };
-
+    print('delete item with id: $id');
     // access REST interface with delete request
-    var response = await client.delete(Uri.parse('${_backend}item'),
+    var response = await client.delete(
+        Uri.parse('${_backend}tasks/task/{{id}}'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
@@ -180,6 +185,25 @@ class Backend {
       return Module.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to load Itemlist');
+    }
+  }
+
+  // set done value of item on backend
+  Future<void> updateItemDoneStatus(
+      http.Client client, int id, bool? done) async {
+    Map data = {
+      'id': id,
+      'done': done,
+    };
+
+    // access REST interface with put request
+    var response = await client.put(Uri.parse('${_backend}item/done'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: json.encode(data));
+
+    // check response from backend
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update item');
     }
   }
 

@@ -24,8 +24,30 @@ public class TaskService {
     this.taskRepository = taskRepository;
   }
 
+  //update task
+    public Task updateTask(Task newTask, long id) {
+        return taskRepository.findById(id)
+                .map(task -> {
+                    task.setName(newTask.getName());
+                    task.setPriority(newTask.getPriority());
+                    task.setDone(newTask.isDone());
+                    task.setFrequency(newTask.getFrequency());
+                    task.setCalendarEvent(newTask.getCalendarEvent());
+                    task.setDeadline(newTask.getDeadline());
+                    return taskRepository.save(task);
+                })
+                .orElseGet(() -> {
+                    newTask.setId(id);
+                    return taskRepository.save(newTask);
+                });
+    }
+
   public Task createTask(Task task) {
     return taskRepository.save(task);
+  }
+
+  public void deleteTask(long id) {
+      taskRepository.deleteById(id);
   }
   /* Getters and Setters */
 

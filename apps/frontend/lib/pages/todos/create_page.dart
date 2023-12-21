@@ -2,33 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/backend.dart';
 
-import '../home/create_page.dart';
 import 'DatePickerExample.dart';
 
-// widget class to create stateful new item page
-class CreateItemPageState extends State<CreateItemPage> {
-  // Key to access HTTP Form state
-  final _formKey = GlobalKey<FormState>();
-  late Backend backend;
-  late http.Client client;
+class CreateItemPage extends StatefulWidget {
+  final Backend _backend;
+  final http.Client _client;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Move the variables here to maintain their state across rebuilds
+  CreateItemPage(this._backend, this._client, {Key? key}) : super(key: key);
+
+  Backend get backend => _backend;
+
+  http.Client get client => _client;
+
+  GlobalKey<FormState> get formKey => _formKey;
+
+  @override
+  CreateItemPageState createState() {
+    return CreateItemPageState();
+  }
+}
+
+class CreateItemPageState extends State<CreateItemPage> {
   final TextEditingController nameController = TextEditingController();
-  int priority = 3;
-  DateTime date = DateTime(3000, 01, 01); // The year should be first
+  int priority = 3; // Set a default priority value
+  DateTime date = DateTime(3000, 01, 01);
   bool done = false;
 
   @override
-  void initState() {
-    super.initState();
-    backend = widget.backend;
-    client = widget.client;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // Now that variables are moved outside build, don't redefine them here
-
     final nameField = TextFormField(
       key: const Key("name"),
       controller: nameController,
@@ -43,19 +45,10 @@ class CreateItemPageState extends State<CreateItemPage> {
     );
 
     var deadlineField = DatePickerExample(
+      restorationId: 'deadline',
       onDateSelected: (selectedDate) {
-        setState(() {
-          date = selectedDate;
-        });
-      },
-    );
-
-    var doneField = Checkbox(
-      value: done,
-      onChanged: (bool? value) {
-        setState(() {
-          done = value ?? done;
-        });
+        // Do something with the selectedDate, e.g., assign it to yourVar
+        date = selectedDate;
       },
     );
 
@@ -67,10 +60,10 @@ class CreateItemPageState extends State<CreateItemPage> {
       ),
       onChanged: (int? newValue) {
         setState(() {
-          priority = newValue ?? priority;
+          priority = newValue ?? 3; // Set a default value if null
         });
       },
-      items: [1, 2, 3, 4].map((int value) {
+      items: [1, 2, 3].map((int value) {
         return DropdownMenuItem(
           value: value,
           child: Text(value.toString()),
@@ -79,29 +72,41 @@ class CreateItemPageState extends State<CreateItemPage> {
     );
 
     final saveButton = ElevatedButton(
-      onPressed: () {
-        if (_formKey.currentState!.validate()) {
-          // Perform saving action
-          backend
-              .createItem(client, nameController.text, date.toIso8601String(),
-                  priority, done)
-              .then((value) => Navigator.pop(context));
+      onPressed: () async {
+        if (widget.formKey.currentState!.validate()) {
+          try {
+            // Perform saving action
+            await widget.backend.createItem(
+              widget.client,
+              nameController.text,
+              date.toIso8601String(),
+              priority,
+              done,
+              "once",
+            );
+            Navigator.pop(context);
+          } catch (error) {
+            // Handle error (e.g., display a Snackbar)
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error: $error'),
+              ),
+            );
+          }
         }
       },
       child: const Text('Save'),
     );
 
-    // Use Form with the global key
     return Form(
-      key: _formKey,
+      key: widget.formKey,
       child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         children: [
           nameField,
-          saveButton,
           deadlineField,
           priorityField,
-          doneField,
+          saveButton,
         ],
       ),
     );
