@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
-// import 'package:organisation_app/model/item.dart';
+// import 'package:organisation_app/model/task.dart';
 // import 'package:organisation_app/services/backend.dart';
 //
 // // widget class to create stateful new item page

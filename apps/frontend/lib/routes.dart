@@ -13,7 +13,7 @@ import 'package:organisation_app/pages/todos/todos_page.dart';
 var appRoutes = {
   '/': (context) => const InitializationPage(),
   '/home': (context) => HomePage(),
-  '/login': (context) => const LoginPage(),
+  '/login': (context) => LoginPage(),
   '/courses': (context) => const CoursesPage(),
   '/calendar': (context) => const CalendarPage(),
   '/todos': (context) => TodosPage(),

@@ -3,9 +3,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:organisation_app/model/module.dart';
+import 'package:organisation_app/model/task.dart';
 import 'package:organisation_app/settings/environment.dart';
-
-String BASE_URL = "http://";
 
 class Backend {
   static final Backend _singleton = Backend._internal();
@@ -18,11 +17,50 @@ class Backend {
     // init things inside this
   }
 
-  // use IP 10.0.2.2 to access localhost from windows client
+  // Access the backend API
   static final _backend = "${Environment.apiUrl}/";
 
+  // get item list from backend
+  Future<List<Task>> fetchItemList(http.Client client) async {
+    // access REST interface with get request
+    final response = await client.get(Uri.parse('${_backend}tasks'));
+
+    // check response from backend
+    if (response.statusCode == 200) {
+      return List<Task>.from(json
+          .decode(utf8.decode(response.bodyBytes))
+          .map((x) => Task.fromJson(x)));
+    } else {
+      throw Exception('Failed to load Itemlist');
+    }
+  }
+
+  // save new item on backend
+  Future<Task> createTask(http.Client client, String name, String deadline,
+      int priority, bool done, String frequency) async {
+    Map data = {
+      'task_name': name,
+      'priority': priority,
+      'is_done': done,
+      'frequency': frequency,
+      'deadline': deadline,
+    };
+
+    // access REST interface with post request
+    var response = await client.post(Uri.parse('${_backend}tasks/task'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: json.encode(data));
+
+    // check response from backend
+    if (response.statusCode == 200) {
+      return Task.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+    } else {
+      throw Exception('Failed to create item');
+    }
+  }
+
   // Update item on backend
-  Future<void> updateItem(http.Client client, int id, String name,
+  Future<void> updateTask(http.Client client, int id, String name,
       String deadline, int priority) async {
     Map data = {
       'id': id,
@@ -43,11 +81,11 @@ class Backend {
   }
 
   // delete item on backend
-  Future<void> deleteItem(http.Client client, int id) async {
+  Future<void> deleteTask(http.Client client, int id) async {
     Map data = {
       'id': id,
     };
-    print('delete item with id: $id');
+
     // access REST interface with delete request
     var response = await client.delete(
         Uri.parse('${_backend}tasks/task/{{id}}'),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 typedef OnDateSelectedCallback = void Function(DateTime selectedDate);
 
 /// RestorationProperty objects can be used because of RestorationMixin.
-class DatePickerExample extends StatefulWidget {
-  const DatePickerExample({
+class DatePickerTask extends StatefulWidget {
+  const DatePickerTask({
     Key? key,
     this.restorationId,
     this.onDateSelected,
@@ -14,16 +14,16 @@ class DatePickerExample extends StatefulWidget {
   final OnDateSelectedCallback? onDateSelected;
 
   @override
-  State<DatePickerExample> createState() => _DatePickerExampleState();
+  State<DatePickerTask> createState() => _DatePickerTaskState();
 }
 
-class _DatePickerExampleState extends State<DatePickerExample>
+class _DatePickerTaskState extends State<DatePickerTask>
     with RestorationMixin {
   final RestorableDateTime _selectedDate = RestorableDateTime(
     DateTime.now(),
   );
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
-      RestorableRouteFuture<DateTime?>(
+  RestorableRouteFuture<DateTime?>(
     onComplete: _selectDate,
     onPresent: (NavigatorState navigator, Object? arguments) {
       return navigator.restorablePush(
@@ -36,10 +36,8 @@ class _DatePickerExampleState extends State<DatePickerExample>
   static const int _minYear = 2000;
   static const int _maxYear = 3000;
 
-  static Route<DateTime> _datePickerRoute(
-    BuildContext context,
-    Object? arguments,
-  ) {
+  static Route<DateTime> _datePickerRoute(BuildContext context,
+      Object? arguments,) {
     return DialogRoute<DateTime>(
       context: context,
       builder: (BuildContext context) {
@@ -68,7 +66,8 @@ class _DatePickerExampleState extends State<DatePickerExample>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                'Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+                'Selected: ${_selectedDate.value.day}/${_selectedDate.value
+                    .month}/${_selectedDate.value.year}'),
           ),
         );
       });

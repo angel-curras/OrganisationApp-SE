@@ -3,19 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:organisation_app/services/login_service.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
 
-  const LoginPage({Key? key, logInService, this.backend, this.client})
-      : super(key: key);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   final TextEditingController _nameController = TextEditingController();
-
-  get logInService => LoginPage.loginService;
 
   @override
   Widget build(BuildContext context) {
@@ -47,35 +37,38 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   }
                 },
-                color: Colors.deepPurple,
+                color: Colors.red,
               ),
             ),
-            SizedBox(height: 20), // Add some spacing
+            const SizedBox(height: 20), // Add some spacing
 
             // New text field for the name
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Enter your name',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20), // Add some spacing
+            const SizedBox(height: 20), // Add some spacing
 
             // New login button for custom login
             LoginButton(
-              icon: FontAwesomeIcons.signInAlt,
+              icon: FontAwesomeIcons.rightToBracket,
               text: 'Login',
               loginMethod: () async {
+                BuildContext initialContext = context;
+
                 // Get the name from the text field
                 String name = _nameController.text;
-                // Call the login method from the LogInService
-                if (await logInService.authentication(name)) {
-                  Navigator.pushNamed(context, '/');
+                bool result = await LoginService().login(name);
+                if (!context.mounted) return;
+                if (result) {
+                  Navigator.pushReplacementNamed(initialContext, '/home');
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  ScaffoldMessenger.of(initialContext).showSnackBar(
                     const SnackBar(
-                      content: Text('Invalid name'),
+                      content: Text('Invalid username!'),
                     ),
                   );
                 }
@@ -86,14 +79,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
-}
+  } // end of build()
+} // end of class LoginPage
 
 class LoginButton extends StatelessWidget {
   final Color color;

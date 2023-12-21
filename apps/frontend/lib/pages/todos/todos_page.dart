@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:organisation_app/model/item.dart';
+import 'package:organisation_app/model/task.dart';
 import 'package:organisation_app/services/backend.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
 import 'package:organisation_app/shared/user_drawer.dart';
 
-import 'create_page.dart';
-import 'update_page.dart';
+import 'create_todo_dialog.dart';
+import 'edit_todo_dialog.dart';
 
 class TodosPage extends StatefulWidget {
   // Fields.
-  final String title = "Organisation App";
+  final String title = "ToDos";
   final Backend backend = Backend();
   final http.Client client = http.Client();
 
@@ -44,36 +44,36 @@ class _TodosPageState extends State<TodosPage> {
           child: Text('ToDo List'),
         ),
       ),
-      body: FutureBuilder<List<Item>>(
+      body: FutureBuilder<List<Task>>(
         future: _backend.fetchItemList(_client),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
               itemCount: snapshot.data?.length,
               itemBuilder: (_, int position) {
-                final item = snapshot.data?[position];
+                final task = snapshot.data?[position];
                 return Card(
                   child: ListTile(
                     leading: Checkbox(
                       key: Key("doneCheckbox_$position"),
-                      value: item!.done ?? false,
+                      value: task!.done ?? false,
                       onChanged: (bool? value) {
                         setState(() {
-                          item.done = value!;
+                          task.done = value!;
                           // Update the backend with the 'done' attribute.
                           _backend.updateItemDoneStatus(
-                              _client, item.id, value);
+                              _client, task.id, value);
                         });
                       },
                     ),
-                    title: Text(item.name),
+                    title: Text(task.name),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Frequence: ${item.frequency}"),
+                        Text("Frequency: ${task.frequency}"),
                         Text(
-                            "deadline: ${item.deadline.day}/${item.deadline.month}/${item.deadline.year}"),
-                        Text("Priority: ${item.priority}"),
+                            "deadline: ${task.deadline.day}/${task.deadline.month}/${task.deadline.year}"),
+                        Text("Priority: ${task.priority}"),
                       ],
                     ),
                     trailing: Row(
@@ -87,7 +87,7 @@ class _TodosPageState extends State<TodosPage> {
                             showDialog<bool>(
                               context: context,
                               builder: (BuildContext context) => Dialog(
-                                child: UpdateItemPage(_backend, _client, item),
+                                child: UpdateItemPage(_backend, _client, task),
                               ),
                             ).then((result) {
                               print("Item was edited!");
@@ -102,7 +102,7 @@ class _TodosPageState extends State<TodosPage> {
                           onPressed: () {
                             print("Delete Item");
                             setState(() {
-                              _backend.deleteItem(_client, item.id);
+                              _backend.deleteTask(_client, task.id);
                             });
                           },
                         )

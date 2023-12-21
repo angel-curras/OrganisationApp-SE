@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/backend.dart';
 
-import 'DatePickerExample.dart';
+import 'date_picker.dart';
 
 class CreateItemPage extends StatefulWidget {
   final Backend _backend;
@@ -44,7 +44,7 @@ class CreateItemPageState extends State<CreateItemPage> {
       },
     );
 
-    var deadlineField = DatePickerExample(
+    var deadlineField = DatePickerTask(
       restorationId: 'deadline',
       onDateSelected: (selectedDate) {
         // Do something with the selectedDate, e.g., assign it to yourVar
@@ -76,7 +76,7 @@ class CreateItemPageState extends State<CreateItemPage> {
         if (widget.formKey.currentState!.validate()) {
           try {
             // Perform saving action
-            await widget.backend.createItem(
+            await widget.backend.createTask(
               widget.client,
               nameController.text,
               date.toIso8601String(),
