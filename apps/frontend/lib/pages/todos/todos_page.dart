@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:organisation_app/model/task.dart';
 import 'package:organisation_app/services/backend.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
-import 'package:organisation_app/shared/user_drawer.dart';
 
 import 'create_todo_dialog.dart';
 import 'edit_todo_dialog.dart';
@@ -72,7 +71,8 @@ class _TodosPageState extends State<TodosPage> {
                       children: <Widget>[
                         Text("Frequency: ${task.frequency}"),
                         Text(
-                            "deadline: ${task.deadline.day}/${task.deadline.month}/${task.deadline.year}"),
+                            "deadline: ${task.deadline.day}/${task.deadline
+                                .month}/${task.deadline.year}"),
                         Text("Priority: ${task.priority}"),
                       ],
                     ),
@@ -86,9 +86,11 @@ class _TodosPageState extends State<TodosPage> {
                           onPressed: () {
                             showDialog<bool>(
                               context: context,
-                              builder: (BuildContext context) => Dialog(
-                                child: UpdateItemPage(_backend, _client, task),
-                              ),
+                              builder: (BuildContext context) =>
+                                  Dialog(
+                                    child: UpdateItemPage(
+                                        _backend, _client, task),
+                                  ),
                             ).then((result) {
                               print("Item was edited!");
                               setState(() {});
@@ -123,18 +125,18 @@ class _TodosPageState extends State<TodosPage> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'New',
-        onPressed: () => showDialog<bool>(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-              child: CreateItemPage(_backend, _client),
-            );
-          },
-        ).then((_) => setState(() {})),
+        onPressed: () =>
+            showDialog<bool>(
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  child: CreateItemPage(_backend, _client),
+                );
+              },
+            ).then((_) => setState(() {})),
         child: const Icon(Icons.add),
       ),
       drawer: const MenuDrawer(),
-      endDrawer: const UserDrawer(),
     );
   }
 }

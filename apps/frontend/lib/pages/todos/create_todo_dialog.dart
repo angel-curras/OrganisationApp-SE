@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/backend.dart';
 
-import 'date_picker.dart';
+import '../../shared/date_picker.dart';
 
 class CreateItemPage extends StatefulWidget {
   final Backend _backend;
