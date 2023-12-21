@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -21,12 +22,13 @@ class Backend {
   static final _backend = "${Environment.apiUrl}/";
 
   // Update item on backend
-  Future<void> updateItem(
-      http.Client client, int id, String name, String description) async {
+  Future<void> updateItem(http.Client client, int id, String name,
+      String deadline, int priority) async {
     Map data = {
       'id': id,
       'name': name,
-      'description': description,
+      'deadline': deadline,
+      'priority': priority,
     };
 
     // access REST interface with put request
@@ -45,9 +47,10 @@ class Backend {
     Map data = {
       'id': id,
     };
-
+    print('delete item with id: $id');
     // access REST interface with delete request
-    var response = await client.delete(Uri.parse('${_backend}item'),
+    var response = await client.delete(
+        Uri.parse('${_backend}tasks/task/{{id}}'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
@@ -133,6 +136,39 @@ class Backend {
       return Module.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to fetch Module');
+    }
+  }
+
+  // set done value of item on backend
+  Future<void> updateItemDoneStatus(
+      http.Client client, int id, bool? done) async {
+    Map data = {
+      'id': id,
+      'done': done,
+    };
+
+    // access REST interface with put request
+    var response = await client.put(Uri.parse('${_backend}item/done'),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: json.encode(data));
+
+    // check response from backend
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update item');
+    }
+  }
+
+  // create a Get request for the backend
+  Future<List<String>> getRequest(http.Client client, String url) async {
+    // access REST interface with get request
+    final response = await client.get(Uri.parse('$_backend$url'));
+
+    // check response from backend
+    if (response.statusCode == 200) {
+      return List<String>.from(
+          json.decode(utf8.decode(response.bodyBytes)).map((x) => x));
+    } else {
+      throw Exception('Failed to load $url');
     }
   }
 }

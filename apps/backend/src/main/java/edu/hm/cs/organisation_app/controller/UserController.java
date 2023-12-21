@@ -36,6 +36,12 @@ public class UserController {
     return service.getAllUsers();
   }
 
+    @GetMapping("/usernames")
+    @ResponseStatus(HttpStatus.OK)
+    public List<String> getUsernames() {
+        return service.getAllUsernames();
+    }
+
   @GetMapping("/{username}")
   @ResponseStatus(HttpStatus.OK)
   public AppUser getUser(@PathVariable String username) {
