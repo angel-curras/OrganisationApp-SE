@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2023-12-21" filename="environment.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="3" lines-valid="3" package="settings" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/foundation.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:flutter_dotenv/flutter_dotenv.dart';</code>
+        </line>
+        <line number="3">
+            <code/>
+        </line>
+        <line number="4">
+            <code>class Environment {</code>
+        </line>
+        <line hits="2" number="5">
+            <code>  static String get fileName {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="6">
+            <code>    if (kReleaseMode) {</code>
+        </line>
+        <line number="7">
+            <code>      return 'environments/.env.prod';</code>
+        </line>
+        <line number="8">
+            <code>    }</code>
+        </line>
+        <line number="9">
+            <code/>
+        </line>
+        <line number="10">
+            <code>    return 'environments/.env.dev';</code>
+        </line>
+        <line number="11">
+            <code>  }</code>
+        </line>
+        <line number="12">
+            <code/>
+        </line>
+        <line hits="1" number="13">
+            <code>  static String get apiUrl {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="14">
+            <code>    return dotenv.get('API_URL', fallback: 'http://localhost:8080');</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="15">
+            <code>  }</code>
+        </line>
+        <line number="16">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../"/>
+    <base href="../"/>
+</coverage>

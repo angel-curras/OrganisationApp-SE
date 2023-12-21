@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2023-12-21" filename="module_search_delegate.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="30" lines-valid="30" package="pages/courses" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:organisation_app/model/module.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/services/backend.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/pages/courses/module_details_page.dart';</code>
+        </line>
+        <line number="6">
+            <code/>
+        </line>
+        <line number="7">
+            <code>class ModuleSearchDelegate extends SearchDelegate {</code>
+        </line>
+        <line number="8">
+            <code>  final http.Client client;</code>
+        </line>
+        <line number="9">
+            <code>  final Backend _backend;</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line hits="1" number="11">
+            <code>  ModuleSearchDelegate(this.client, this._backend);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="12">
+            <code/>
+        </line>
+        <line hits="1" number="13">
+            <code>  @override</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="14">
+            <code>  List&lt;Widget&gt; buildActions(BuildContext context) {</code>
+        </line>
+        <line hits="1" number="15">
+            <code>    return [</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="16">
+            <code>      IconButton(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="17">
+            <code>        icon: const Icon(Icons.clear),</code>
+        </line>
+        <line hits="2" number="18">
+            <code>        onPressed: () =&gt; query = '',</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code>      ),</code>
+        </line>
+        <line number="20">
+            <code>    ];</code>
+        </line>
+        <line number="21">
+            <code>  }</code>
+        </line>
+        <line number="22">
+            <code/>
+        </line>
+        <line hits="1" number="23">
+            <code>  @override</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code>  Widget buildLeading(BuildContext context) {</code>
+        </line>
+        <line hits="1" number="25">
+            <code>    return IconButton(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="26">
+            <code>      icon: const Icon(Icons.arrow_back),</code>
+        </line>
+        <line hits="2" number="27">
+            <code>      onPressed: () =&gt; close(context, null),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="28">
+            <code>    );</code>
+        </line>
+        <line number="29">
+            <code>  }</code>
+        </line>
+        <line number="30">
+            <code/>
+        </line>
+        <line hits="1" number="31">
+            <code>  @override</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="32">
+            <code>  Widget buildResults(BuildContext context) {</code>
+        </line>
+        <line hits="1" number="33">
+            <code>    return FutureBuilder&lt;List&lt;Module&gt;&gt;(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="34">
+            <code>      future: _backend.fetchModuleListWithPaginationAndSorting(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="35">
+            <code>        client,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="36">
+            <code>        searchQuery: query,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="37">
+            <code>      ),</code>
+        </line>
+        <line hits="1" number="38">
+            <code>      builder: (context, snapshot) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="39">
+            <code>        if (snapshot.connectionState == ConnectionState.waiting) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="40">
+            <code>          return const Center(child: CircularProgressIndicator());</code>
+        </line>
+        <line hits="1" number="41">
+            <code>        } else if (snapshot.hasError) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="42">
+            <code>          return Center(child: Text('Error: ${snapshot.error}'));</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="43">
+            <code>        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="44">
+            <code>          return const Center(child: Text('No matching courses found'));</code>
+        </line>
+        <line number="45">
+            <code>        } else {</code>
+        </line>
+        <line hits="1" number="46">
+            <code>          return ListView.builder(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="47">
+            <code>            itemCount: snapshot.data!.length,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="48">
+            <code>            itemBuilder: (context, index) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="49">
+            <code>              Module module = snapshot.data![index];</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="50">
+            <code>              return ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="51">
+            <code>                title: Text(module.name),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="52">
+            <code>                subtitle: Text(module.verantwortlich),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="53">
+            <code>                onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="54">
+            <code>                  Navigator.of(context).push(MaterialPageRoute(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="55">
+            <code>                    builder: (context) =&gt; ModuleDetailsPage(module: module),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="56">
+            <code>                  ));</code>
+        </line>
+        <line number="57">
+            <code>                },</code>
+        </line>
+        <line number="58">
+            <code>              );</code>
+        </line>
+        <line number="59">
+            <code>            },</code>
+        </line>
+        <line number="60">
+            <code>          );</code>
+        </line>
+        <line number="61">
+            <code>        }</code>
+        </line>
+        <line number="62">
+            <code>      },</code>
+        </line>
+        <line number="63">
+            <code>    );</code>
+        </line>
+        <line number="64">
+            <code>  }</code>
+        </line>
+        <line number="65">
+            <code/>
+        </line>
+        <line hits="1" number="66">
+            <code>  @override</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="67">
+            <code>  Widget buildSuggestions(BuildContext context) {</code>
+        </line>
+        <line hits="1" number="68">
+            <code>    return buildResults(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="69">
+            <code>  }</code>
+        </line>
+        <line number="70">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

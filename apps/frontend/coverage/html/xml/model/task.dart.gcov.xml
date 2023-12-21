@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2023-12-21" filename="task.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="0.0" lines-covered="0" lines-valid="16" package="model" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>class Task {</code>
+        </line>
+        <line number="2">
+            <code>  int id;</code>
+        </line>
+        <line number="3">
+            <code>  String name;</code>
+        </line>
+        <line number="4">
+            <code>  DateTime deadline;</code>
+        </line>
+        <line number="5">
+            <code>  int priority;</code>
+        </line>
+        <line number="6">
+            <code>  bool done = false;</code>
+        </line>
+        <line number="7">
+            <code>  String frequency;</code>
+        </line>
+        <line number="8">
+            <code/>
+        </line>
+        <line hits="0" number="9">
+            <code>  Task({</code>
+        </line>
+        <line number="10">
+            <code>    required this.id,</code>
+        </line>
+        <line number="11">
+            <code>    required this.name,</code>
+        </line>
+        <line number="12">
+            <code>    required this.priority,</code>
+        </line>
+        <line number="13">
+            <code>    required this.deadline,</code>
+        </line>
+        <line number="14">
+            <code>    required this.done,</code>
+        </line>
+        <line number="15">
+            <code>    required this.frequency,</code>
+        </line>
+        <line number="16">
+            <code>  });</code>
+        </line>
+        <line number="17">
+            <code/>
+        </line>
+        <line number="18">
+            <code>  // parse Item from JSON-data</code>
+        </line>
+        <line hits="0" number="19">
+            <code>  factory Task.fromJson(Map&lt;String, dynamic&gt; json) =&gt; Task(</code>
+        </line>
+        <line hits="0" number="20">
+            <code>        id: json["id"],</code>
+        </line>
+        <line hits="0" number="21">
+            <code>        name: json["name"],</code>
+        </line>
+        <line hits="0" number="22">
+            <code>        deadline: json["deadline"],</code>
+        </line>
+        <line hits="0" number="23">
+            <code>        priority: json["priority"],</code>
+        </line>
+        <line hits="0" number="24">
+            <code>        done: json["done"],</code>
+        </line>
+        <line hits="0" number="25">
+            <code>        frequency: json["frequency"],</code>
+        </line>
+        <line number="26">
+            <code>      );</code>
+        </line>
+        <line number="27">
+            <code/>
+        </line>
+        <line hits="0" number="28">
+            <code>  get deadlineDate =&gt; deadline;</code>
+        </line>
+        <line number="29">
+            <code/>
+        </line>
+        <line number="30">
+            <code>  // map item to JSON-data (so far not used in app)</code>
+        </line>
+        <line hits="0" number="31">
+            <code>  Map&lt;String, dynamic&gt; toJson() =&gt; {</code>
+        </line>
+        <line hits="0" number="32">
+            <code>        "id": id,</code>
+        </line>
+        <line hits="0" number="33">
+            <code>        "name": name,</code>
+        </line>
+        <line hits="0" number="34">
+            <code>        "deadline": deadline,</code>
+        </line>
+        <line hits="0" number="35">
+            <code>        "priority": priority,</code>
+        </line>
+        <line hits="0" number="36">
+            <code>        "done": done,</code>
+        </line>
+        <line hits="0" number="37">
+            <code>        "frequency": frequency,</code>
+        </line>
+        <line number="38">
+            <code>      };</code>
+        </line>
+        <line number="39">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../"/>
+    <base href="../"/>
+</coverage>
