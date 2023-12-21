@@ -56,7 +56,7 @@ class _CoursesPageState extends State<CoursesPage> {
   void _showSearch() {
     showSearch(
       context: context,
-      delegate: ModuleSearchDelegate(client),
+      delegate: ModuleSearchDelegate(client, _backend),
     );
   }
 
@@ -91,7 +91,7 @@ class _CoursesPageState extends State<CoursesPage> {
                     setState(() {
                       _sortDir = value ? 'asc' : 'desc';
                     });
-                    _updateSorting(); // Call a new method to handle the sorting update
+                    _updateSorting();
                     Navigator.pop(context);
                   },
                 ),
@@ -136,7 +136,7 @@ class _CoursesPageState extends State<CoursesPage> {
       ),
       body: ListView.builder(
         controller: _scrollController,
-        itemCount: modules.length + 1, // Add one for the load more button
+        itemCount: modules.length + 1,
         itemBuilder: (context, index) {
           if (index < modules.length) {
             Module module = modules[index];
@@ -145,15 +145,13 @@ class _CoursesPageState extends State<CoursesPage> {
                 children: [
                   ListTile(
                     title: Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 8.0, top: 8.0), // Add padding below this text
+                      padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
                       child: Text(
                         module.name,
                         style: const TextStyle(
-                          fontSize: 16.0, // Decrease the font size
-                          fontWeight: FontWeight.bold, // Keep the text bold
-                          color: Colors
-                              .white, // Change the color to black for better contrast
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -161,26 +159,22 @@ class _CoursesPageState extends State<CoursesPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0), // Add padding below this text
+                          padding: const EdgeInsets.only(bottom: 8.0),
                           child: Text(
                             module.verantwortlich,
                             style: TextStyle(
-                              fontSize: 14.0, // Decrease the font size
-                              color: Colors.grey[
-                                  100], // Change the color to a lighter grey
+                              fontSize: 14.0,
+                              color: Colors.grey[100],
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0), // Add padding below this text
+                          padding: const EdgeInsets.only(bottom: 8.0),
                           child: Text(
                             module.lehrform,
                             style: TextStyle(
                               fontSize: 14.0,
-                              color: Colors.grey[
-                                  300], // You can adjust the color if needed
+                              color: Colors.grey[300],
                             ),
                           ),
                         ),
@@ -201,10 +195,9 @@ class _CoursesPageState extends State<CoursesPage> {
                     child: Text(
                       module.ects.toString(),
                       style: const TextStyle(
-                        fontSize: 16.0, // Adjust font size as needed
-                        fontWeight: FontWeight.bold, // Keep the text bold
-                        color: Colors
-                            .white, // Adjust the color for better visibility
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ),

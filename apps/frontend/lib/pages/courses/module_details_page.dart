@@ -47,12 +47,12 @@ class ModuleDetailsPage extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
-        padding: const EdgeInsets.all(8.0), // Add padding here
+        padding: const EdgeInsets.all(8.0),
         child: ListTile(
           leading: Text(emoji,
               style: const TextStyle(
                 fontSize: 24,
-              )), // Display emoji as leading icon
+              )),
           title: Text(
             title,
             style: const TextStyle(

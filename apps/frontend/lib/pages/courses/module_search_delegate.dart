@@ -6,8 +6,9 @@ import 'package:organisation_app/pages/courses/module_details_page.dart';
 
 class ModuleSearchDelegate extends SearchDelegate {
   final http.Client client;
+  final Backend _backend;
 
-  ModuleSearchDelegate(this.client);
+  ModuleSearchDelegate(this.client, this._backend);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -30,9 +31,9 @@ class ModuleSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return FutureBuilder<List<Module>>(
-      future: Backend().fetchModuleListWithPaginationAndSorting(
+      future: _backend.fetchModuleListWithPaginationAndSorting(
         client,
-        searchQuery: query, // Use the current query
+        searchQuery: query,
       ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,7 +49,7 @@ class ModuleSearchDelegate extends SearchDelegate {
               Module module = snapshot.data![index];
               return ListTile(
                 title: Text(module.name),
-                // Other module details
+                subtitle: Text(module.verantwortlich),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ModuleDetailsPage(module: module),
@@ -64,7 +65,6 @@ class ModuleSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // You can show suggestions here, similar to buildResults
     return buildResults(context);
   }
 }
