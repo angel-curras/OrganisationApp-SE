@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:organisation_app/model/module.dart';
-import 'package:organisation_app/model/task.dart';
 import 'package:organisation_app/services/backend.dart';
+import 'package:organisation_app/settings/environment.dart';
 
 class MockClient extends Mock implements http.Client {
   bool contentSetToNull = false;
@@ -137,6 +138,11 @@ class MockClient extends Mock implements http.Client {
 }
 
 void main() {
+  setUp(() async {
+    // Load the .env file
+    await dotenv.load(fileName: Environment.fileName);
+  });
+
   group('Backend Tests', () {
     MockClient mockClient;
     Backend backend;

@@ -14,11 +14,6 @@ Future<void> setUpEnvironment() async {
 Future<void> main() async {
   // Load the environment variables.
   await setUpEnvironment();
-  // WidgetsFlutterBinding.ensureInitialized();
-  //
-  // AppSettings appSettings = AppSettings();
-  // await appSettings.initialize();
-
   runApp(const OrganisationApp());
 }
 
