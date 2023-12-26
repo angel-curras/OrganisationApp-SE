@@ -59,7 +59,7 @@ public class Course {
   public Course() {
   } // end of constructor
 
-  public Course(Module module, AppUser owner, LocalDate startDate, LocalDate endDate) {
+  public Course(Module module, LocalDate startDate, LocalDate endDate, AppUser owner) {
     this.module = module;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -299,6 +299,11 @@ public class Course {
    */
   @JsonProperty("progress")
   public int getProgress() {
+
+    if (this.tasks == null || this.tasks.isEmpty()) {
+      return 0;
+    } // end of if
+    
     int doneTasks = 0;
     for (Task task : this.tasks) {
       if (task.isDone()) {
