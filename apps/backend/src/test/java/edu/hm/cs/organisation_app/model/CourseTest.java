@@ -40,12 +40,12 @@ public class CourseTest {
     Assertions.assertNull(course.getEndDate());
     Assertions.assertNull(course.getOwner());
     Assertions.assertNull(course.getTasks());
-    Assertions.assertEquals(DayOfWeek.MONDAY, course.getLectureWeekday());
-    Assertions.assertEquals(LocalTime.of(0, 0), course.getLectureStartTime());
-    Assertions.assertEquals(LocalTime.of(0, 0), course.getLectureEndTime());
-    Assertions.assertEquals(DayOfWeek.MONDAY, course.getLabWeekday());
-    Assertions.assertEquals(LocalTime.of(0, 0), course.getLabStartTime());
-    Assertions.assertEquals(LocalTime.of(0, 0), course.getLabEndTime());
+    Assertions.assertNull(course.getLectureWeekday());
+    Assertions.assertNull(course.getLectureStartTime());
+    Assertions.assertNull(course.getLectureEndTime());
+    Assertions.assertNull(course.getLabWeekday());
+    Assertions.assertNull(course.getLabStartTime());
+    Assertions.assertNull(course.getLabEndTime());
 
   } // end of testDefaultConstructor
 
@@ -61,13 +61,6 @@ public class CourseTest {
     LocalDate endDate = LocalDate.of(2023, 2, 1);
     AppUser owner = new AppUser();
 
-    DayOfWeek lectureWeekday = DayOfWeek.MONDAY;
-    LocalTime lectureStartTime = LocalTime.of(0, 0);
-    LocalTime lectureEndTime = LocalTime.of(0, 0);
-    DayOfWeek labWeekday = DayOfWeek.MONDAY;
-    LocalTime labStartTime = LocalTime.of(0, 0);
-    LocalTime labEndTime = LocalTime.of(0, 0);
-
     // Act.
     course = new Course(module, owner, startDate, endDate);
 
@@ -78,12 +71,12 @@ public class CourseTest {
     Assertions.assertEquals(endDate, course.getEndDate());
     Assertions.assertSame(owner, course.getOwner());
     Assertions.assertNull(course.getTasks());
-    Assertions.assertEquals(lectureWeekday, course.getLectureWeekday());
-    Assertions.assertEquals(lectureStartTime, course.getLectureStartTime());
-    Assertions.assertEquals(lectureEndTime, course.getLectureEndTime());
-    Assertions.assertEquals(labWeekday, course.getLabWeekday());
-    Assertions.assertEquals(labStartTime, course.getLabStartTime());
-    Assertions.assertEquals(labEndTime, course.getLabEndTime());
+    Assertions.assertNull(course.getLectureWeekday());
+    Assertions.assertNull(course.getLectureStartTime());
+    Assertions.assertNull(course.getLectureEndTime());
+    Assertions.assertNull(course.getLabWeekday());
+    Assertions.assertNull(course.getLabStartTime());
+    Assertions.assertNull(course.getLabEndTime());
   } // end of testCustomConstructor
 
   @Test
