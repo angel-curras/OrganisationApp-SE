@@ -1,10 +1,7 @@
 package edu.hm.cs.organisation_app.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -34,7 +31,8 @@ public class AppUser {
   @NotNull(message = "The user type is mandatory")
   @JsonProperty("user_type")
   @Column(name = "USER_TYPE")
-  private String userType;
+  @Enumerated(EnumType.STRING)
+  private UserType userType;
 
   @OneToMany(mappedBy = "owner")
   private List<Course> courses;
@@ -57,7 +55,7 @@ public class AppUser {
    * @param fullName The full name.
    * @param userType The user type.
    */
-  public AppUser(String userName, String fullName, String userType) {
+  public AppUser(String userName, String fullName, UserType userType) {
     this.userName = userName;
     this.fullName = fullName;
     this.userType = userType;
@@ -104,7 +102,7 @@ public class AppUser {
    *
    * @return Gets the value of userType and returns userType.
    */
-  public String getUserType() {
+  public UserType getUserType() {
     return this.userType;
   } // end of getUserType()
 
@@ -112,7 +110,7 @@ public class AppUser {
    * Sets the userType.
    * You can use getUserType() to get the value of userType.
    */
-  public void setUserType(String userType) {
+  public void setUserType(UserType userType) {
     this.userType = userType;
   }
 
@@ -169,5 +167,5 @@ public class AppUser {
             ", userType='" + userType + '\'' +
             '}';
   } // end of toString
-  
+
 } // end of class User

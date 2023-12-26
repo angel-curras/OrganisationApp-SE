@@ -46,7 +46,7 @@ public class AppUserTest {
     // Arrange.
     String userName = "user1";
     String fullName = "User 1";
-    String userType = "user";
+    UserType userType = UserType.GUEST;
 
     // Act.
     user = new AppUser(userName, fullName, userType);
@@ -65,7 +65,7 @@ public class AppUserTest {
     // Arrange.
     String userName = "user1";
     String fullName = "User 1";
-    String userType = "user";
+    UserType userType = UserType.GUEST;
     List<Task> tasks = new ArrayList<>();
     List<Course> courses = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class AppUserTest {
     // Arrange.
     String userName = "user1";
     String fullName = "User 1";
-    String userType = "user";
+    UserType userType = UserType.GUEST;
     List<Task> tasks = new ArrayList<>();
     List<Course> courses = new ArrayList<>();
 
@@ -117,8 +117,9 @@ public class AppUserTest {
    */
   @Test
   void testToString() {
-    user = new AppUser("user1", "User 1", "user");
-    Assertions.assertEquals("AppUser{userName='user1', fullName='User 1', userType='user'}", user.toString());
+    user = new AppUser("user1", "User 1", UserType.GUEST);
+    Assertions.assertEquals("AppUser{userName='user1', fullName='User 1', userType='GUEST'}",
+            user.toString());
   } // end of testToString
 
 } // end of class AppUserTest
