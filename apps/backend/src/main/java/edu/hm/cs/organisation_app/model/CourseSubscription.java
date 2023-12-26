@@ -18,7 +18,13 @@ public class CourseSubscription {
 
 
   /* Constructors */
+  public CourseSubscription() {
+  } // end of constructor
 
+  public CourseSubscription(Long moduleId, String userName) {
+    this.moduleId = moduleId;
+    this.userName = userName;
+  } // end of constructor
 
   /* Getters and Setters */
 
