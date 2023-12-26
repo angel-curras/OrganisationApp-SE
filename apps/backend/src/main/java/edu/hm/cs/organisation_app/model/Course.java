@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class Course {
   @JsonIgnore
   private AppUser owner;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "course_id")
   @JsonIgnore
   private List<Task> tasks;
@@ -350,4 +351,75 @@ public class Course {
 
   /* Methods */
 
+  public void updateTasks() {
+    this.tasks.clear();
+
+    // Generate the tasks for the lecture.
+    this.tasks.addAll(generateTasksForEventName("Vorlesung: " + this.getName(), this.lectureWeekday,
+            this.lectureStartTime, this.lectureEndTime));
+
+    // Generate the tasks for the lab.
+    this.tasks.addAll(generateTasksForEventName("Praktikum: " + this.getName(), this.labWeekday,
+            this.labStartTime,
+            this.labEndTime));
+
+  } // end of generateTasks()
+
+  public List<Task> generateTasksForEventName(String eventName,
+                                              DayOfWeek weekday, LocalTime startTime, LocalTime endTime) {
+
+    List<Task> tasks = new ArrayList<>();
+
+    if (this.startDate == null || this.endDate == null || startTime == null || endTime == null) {
+      return tasks;
+    } // end of if
+
+    LocalDate date = getStartDateFromWeekday(this.startDate, weekday);
+    while (date.isBefore(this.endDate)) {
+      String name = eventName + " [" + date + "]";
+      Task task = new Task(name);
+      CalendarEvent event = new CalendarEvent(name, date, startTime, endTime, task);
+      task.setCalendarEvent(event);
+      task.setFrequency(FrequencyType.WEEKLY);
+      tasks.add(task);
+      date = date.plusWeeks(1);
+    } // end of while
+
+    return tasks;
+  } // end of generateTasksForEventName()
+
+
+  public LocalDate getStartDateFromWeekday(LocalDate startDate, DayOfWeek weekday) {
+    LocalDate date = startDate;
+    while (date.getDayOfWeek() != weekday) {
+      date = date.plusDays(1);
+    } // end of while
+    return date;
+  } // end of getStartDateFromWeekday()
+
+
+  @Override
+  public String toString() {
+
+    String moduleString = "null";
+    if (module != null) {
+      moduleString = "Module{id=" + module.getId() + ", name='" + module.getName() + "', " +
+              "verantwortlich='" + module.getVerantwortlich() + "'}";
+
+    } // end of if
+
+    return "Course{" +
+            "id=" + id +
+            ", module=" + moduleString +
+            ", startDate=" + startDate +
+            ", endDate=" + endDate +
+            ", owner=" + owner +
+            ", lectureWeekday=" + lectureWeekday +
+            ", lectureStartTime=" + lectureStartTime +
+            ", lectureEndTime=" + lectureEndTime +
+            ", labWeekday=" + labWeekday +
+            ", labStartTime=" + labStartTime +
+            ", labEndTime=" + labEndTime +
+            '}';
+  }
 } // end of class Course

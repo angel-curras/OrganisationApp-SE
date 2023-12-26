@@ -29,21 +29,21 @@ public class TaskController {
   }
 
   @PostMapping("task")
-    public Task createTask(@RequestBody Task newTask) {
-        return this.service.createTask(newTask);
-    }
+  public Task createTask(@RequestBody Task newTask) {
+    return this.service.createTask(newTask);
+  }
 
-    //update task
-    @PutMapping("task/{id}")
-    public Task updateTask(@RequestBody Task newTask, @PathVariable long id) {
-        return this.service.updateTask(newTask, id);
-    }
+  //update task
+  @PutMapping("task/{id}")
+  public Task updateTask(@RequestBody Task newTask, @PathVariable long id) {
+    return this.service.updateTask(newTask, id);
+  }
 
-    //delete task
-    @DeleteMapping("task/{id}")
-    public void deleteTask(@PathVariable long id) {
-        this.service.deleteTask(id);
-    }
+  //delete task
+  @DeleteMapping("task/{id}")
+  public void deleteTask(@PathVariable long id) {
+    this.service.deleteTask(id);
+  }
   /* Getters and Setters */
 
 

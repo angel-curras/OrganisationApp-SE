@@ -34,7 +34,7 @@ public class Task {
   @Enumerated(EnumType.STRING)
   private FrequencyType frequency = FrequencyType.ONCE;
 
-  @OneToOne
+  @OneToOne(mappedBy = "task", cascade = CascadeType.ALL)
   private CalendarEvent calendarEvent;
 
   @JsonProperty("deadline")

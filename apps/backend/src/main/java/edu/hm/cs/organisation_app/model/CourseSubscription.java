@@ -48,5 +48,11 @@ public class CourseSubscription {
 
   /* Methods */
 
-
+  @Override
+  public String toString() {
+    return "CourseSubscription{" +
+            "moduleId=" + moduleId +
+            ", userName='" + userName + '\'' +
+            '}';
+  }
 } // end of class CourseSubscription

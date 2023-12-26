@@ -49,7 +49,7 @@ public class CalendarEvent {
   } // end of constructor
 
   /* Getters and Setters */
-  
+
   /**
    * Getter for id.
    *
