@@ -69,7 +69,7 @@ public class CourseTest {
     LocalTime labEndTime = LocalTime.of(0, 0);
 
     // Act.
-    course = new Course(module, startDate, endDate, owner);
+    course = new Course(module, owner, startDate, endDate);
 
     // Assert.
     Assertions.assertEquals(id, course.getId());

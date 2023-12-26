@@ -2,6 +2,7 @@ package edu.hm.cs.organisation_app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
@@ -17,6 +18,9 @@ import java.util.List;
  */
 @Entity
 @Valid
+@JsonPropertyOrder({"course_id", "course_name", "responsible", "progress", "start_date",
+        "end_date", "lecture_weekday", "lecture_start_time", "lecture_end_time", "lab_weekday",
+        "lab_start_time", "lab_end_time"})
 public class Course {
 
   /* Fields */
@@ -47,23 +51,37 @@ public class Course {
   @JsonIgnore
   private List<Task> tasks;
 
-  private DayOfWeek lectureWeekday = DayOfWeek.MONDAY;
-  private LocalTime lectureStartTime = LocalTime.of(0, 0);
-  private LocalTime lectureEndTime = LocalTime.of(0, 0);
+  @JsonProperty("lecture_weekday")
+  private DayOfWeek lectureWeekday;
 
-  private DayOfWeek labWeekday = DayOfWeek.MONDAY;
-  private LocalTime labStartTime = LocalTime.of(0, 0);
-  private LocalTime labEndTime = LocalTime.of(0, 0);
+  @JsonProperty("lecture_start_time")
+  private LocalTime lectureStartTime;
+
+  @JsonProperty("lecture_end_time")
+  private LocalTime lectureEndTime;
+
+  @JsonProperty("lab_weekday")
+  private DayOfWeek labWeekday;
+
+  @JsonProperty("lab_start_time")
+  private LocalTime labStartTime;
+
+  @JsonProperty("lab_end_time")
+  private LocalTime labEndTime;
 
   /* Constructors */
   public Course() {
   } // end of constructor
 
-  public Course(Module module, LocalDate startDate, LocalDate endDate, AppUser owner) {
+  public Course(Module module, AppUser owner) {
     this.module = module;
+    this.owner = owner;
+  } // end of constructor
+
+  public Course(Module module, AppUser owner, LocalDate startDate, LocalDate endDate) {
+    this(module, owner);
     this.startDate = startDate;
     this.endDate = endDate;
-    this.owner = owner;
   } // end of constructor
 
 
@@ -72,6 +90,7 @@ public class Course {
    *
    * @return Gets the value of startDate and returns startDate.
    */
+  @JsonIgnore
   public LocalDate getStartDate() {
     return this.startDate;
   } // end of getStartDate()
@@ -89,6 +108,7 @@ public class Course {
    *
    * @return Gets the value of endDate and returns endDate.
    */
+  @JsonIgnore
   public LocalDate getEndDate() {
     return this.endDate;
   } // end of getEndDate()
@@ -106,6 +126,7 @@ public class Course {
    *
    * @return Gets the value of id and returns id.
    */
+  @JsonIgnore
   public long getId() {
     return this.id;
   } // end of getId()
@@ -123,6 +144,7 @@ public class Course {
    *
    * @return Gets the value of module and returns module.
    */
+  @JsonIgnore
   public Module getModule() {
     return this.module;
   } // end of getModule()
@@ -140,6 +162,7 @@ public class Course {
    *
    * @return Gets the value of owner and returns owner.
    */
+  @JsonIgnore
   public AppUser getOwner() {
     return this.owner;
   } // end of getOwner()
@@ -157,6 +180,7 @@ public class Course {
    *
    * @return Gets the value of tasks and returns tasks.
    */
+  @JsonIgnore
   public List<Task> getTasks() {
     return this.tasks;
   } // end of getTasks()
@@ -174,6 +198,7 @@ public class Course {
    *
    * @return Gets the value of lectureWeekday and returns lectureWeekday.
    */
+  @JsonIgnore
   public DayOfWeek getLectureWeekday() {
     return this.lectureWeekday;
   } // end of getLectureWeekday()
@@ -191,6 +216,7 @@ public class Course {
    *
    * @return Gets the value of lectureStartTime and returns lectureStartTime.
    */
+  @JsonIgnore
   public LocalTime getLectureStartTime() {
     return this.lectureStartTime;
   } // end of getLectureStartTime()
@@ -208,6 +234,7 @@ public class Course {
    *
    * @return Gets the value of lectureEndTime and returns lectureEndTime.
    */
+  @JsonIgnore
   public LocalTime getLectureEndTime() {
     return this.lectureEndTime;
   } // end of getLectureEndTime()
@@ -225,6 +252,7 @@ public class Course {
    *
    * @return Gets the value of labWeekday and returns labWeekday.
    */
+  @JsonIgnore
   public DayOfWeek getLabWeekday() {
     return this.labWeekday;
   } // end of getLabWeekday()
@@ -242,6 +270,7 @@ public class Course {
    *
    * @return Gets the value of labStartTime and returns labStartTime.
    */
+  @JsonIgnore
   public LocalTime getLabStartTime() {
     return this.labStartTime;
   } // end of getLabStartTime()
@@ -259,6 +288,7 @@ public class Course {
    *
    * @return Gets the value of labEndTime and returns labEndTime.
    */
+  @JsonIgnore
   public LocalTime getLabEndTime() {
     return this.labEndTime;
   } // end of getLabEndTime()
@@ -303,7 +333,7 @@ public class Course {
     if (this.tasks == null || this.tasks.isEmpty()) {
       return 0;
     } // end of if
-    
+
     int doneTasks = 0;
     for (Task task : this.tasks) {
       if (task.isDone()) {
@@ -312,6 +342,11 @@ public class Course {
     } // end of for
     return (int) ((doneTasks / (double) this.tasks.size()) * 100);
   } // end of getProgress()
+
+  @JsonProperty("responsible")
+  public String getResponsible() {
+    return this.module.getVerantwortlich();
+  } // end of getResponsible()
 
   /* Methods */
 

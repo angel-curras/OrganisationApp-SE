@@ -61,7 +61,7 @@ public class CourseService {
 
     // Create the course and save it to the database
     LocalDate today = LocalDate.now();
-    Course course = new Course(module, today, today.plusMonths(6), user);
+    Course course = new Course(module, user, today, today.plusMonths(6));
     user.addCourse(course);
     return courseRepository.save(course);
   }
