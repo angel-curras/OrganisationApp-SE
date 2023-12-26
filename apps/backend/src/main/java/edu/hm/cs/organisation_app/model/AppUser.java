@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Valid
 public class AppUser {
-
+  
   @OneToMany(mappedBy = "owner")
   private List<Course> courses;
   /* Fields */

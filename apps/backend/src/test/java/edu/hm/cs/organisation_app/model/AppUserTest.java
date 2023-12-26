@@ -8,13 +8,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 /**
- * Represents a UserTest.
+ * Represents a AppUserTest.
  *
  * @author Angel Curras Sanchez
  */
 @SpringBootTest
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
-public class UserTest {
+public class AppUserTest {
 
   private AppUser user = new AppUser();
 
@@ -72,4 +72,4 @@ public class UserTest {
   }
 
 
-} // end of class UserTest
+} // end of class AppUserTest
