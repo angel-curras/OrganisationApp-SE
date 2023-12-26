@@ -18,6 +18,7 @@ public class Task {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "task_id")
+  @JsonProperty("task_id")
   private long id;
 
   @JsonProperty("task_name")
@@ -184,6 +185,14 @@ public class Task {
   }
 
   /* Methods */
+  @JsonProperty("date")
+  public String getDate() {
+
+    if (this.calendarEvent == null) {
+      return null;
+    }
+    return this.calendarEvent.getDate().toString();
+  }
 
 
 } // end of class Task

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,10 +35,10 @@ public class AppUser {
   @Enumerated(EnumType.STRING)
   private UserType userType;
 
-  @OneToMany(mappedBy = "owner")
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Course> courses;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Task> tasks;
 
   /* Constructors */
@@ -167,5 +168,21 @@ public class AppUser {
             ", userType='" + userType + '\'' +
             '}';
   } // end of toString
+
+  /**
+   * Returns all the tasks of the user.
+   * The personal and the ones from the courses.
+   *
+   * @return The list of tasks.
+   */
+  public List<Task> getAllTasks() {
+
+    List<Task> tasks = new ArrayList<>(this.tasks);
+    for (Course course : this.courses) {
+      tasks.addAll(course.getTasks());
+    }
+
+    return tasks;
+  }
 
 } // end of class User

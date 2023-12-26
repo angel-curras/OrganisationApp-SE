@@ -3,8 +3,8 @@ POST {{base_url}}/courses
 Content-Type: application/json
 
 {
-  "module_id": 3,
-  "user_name": "mathemann"
+  "module_id": 28,
+  "user_name": "test"
 }
 
 > {%
