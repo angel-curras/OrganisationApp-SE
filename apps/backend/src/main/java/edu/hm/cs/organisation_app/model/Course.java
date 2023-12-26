@@ -48,12 +48,12 @@ public class Course {
   private List<Task> tasks;
 
   private DayOfWeek lectureWeekday = DayOfWeek.MONDAY;
-  private LocalTime lectureStartTime = LocalTime.of(8, 15);
-  private LocalTime lectureEndTime = LocalTime.of(9, 45);
+  private LocalTime lectureStartTime = LocalTime.of(0, 0);
+  private LocalTime lectureEndTime = LocalTime.of(0, 0);
 
   private DayOfWeek labWeekday = DayOfWeek.MONDAY;
-  private LocalTime labStartTime = LocalTime.of(10, 15);
-  private LocalTime labEndTime = LocalTime.of(11, 45);
+  private LocalTime labStartTime = LocalTime.of(0, 0);
+  private LocalTime labEndTime = LocalTime.of(0, 0);
 
   /* Constructors */
   public Course() {
