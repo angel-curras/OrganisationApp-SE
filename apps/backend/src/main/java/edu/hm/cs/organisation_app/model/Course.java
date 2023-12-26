@@ -19,26 +19,39 @@ public class Course {
 
   @JsonProperty("start_date")
   LocalDate startDate;
+
   @JsonProperty("end_date")
   LocalDate endDate;
+
   /* Fields */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "course_id")
   @JsonProperty("course_id")
   private long id;
+
   @ManyToOne
   @JoinColumn(name = "module_id")
   @JsonIgnore
   private Module module;
+
   @ManyToOne
   @JoinColumn(name = "user_name", referencedColumnName = "user_name", nullable = false)
   @JsonIgnore
   private AppUser owner;
+
   @OneToMany
   @JoinColumn(name = "course_id")
   @JsonIgnore
   private List<Task> tasks;
+
+  @OneToOne
+  @JsonProperty("lecture")
+  private UniversityEvent lecture;
+  
+  @OneToOne
+  @JsonProperty("lab")
+  private UniversityEvent lab;
 
   /* Constructors */
   public Course() {

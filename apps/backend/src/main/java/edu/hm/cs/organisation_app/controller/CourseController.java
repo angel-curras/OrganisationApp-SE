@@ -53,7 +53,7 @@ public class CourseController {
   }
 
   @DeleteMapping("/{courseId}")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ResponseStatus(HttpStatus.OK)
   public void deleteCourse(@PathVariable Long courseId) {
     service.deleteCourseById(courseId);
   }

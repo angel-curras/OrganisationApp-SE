@@ -31,7 +31,7 @@ public class Task {
 
   @JsonProperty("frequency")
   private String frequency;
-  
+
   @OneToOne
   private CalendarEvent calendarEvent;
 
@@ -45,7 +45,7 @@ public class Task {
 
   public Task(String name) {
     this.name = name;
-    this.priority = 5;
+    this.priority = 3;
     this.done = false;
   } // end of constructor
 
@@ -54,10 +54,9 @@ public class Task {
     this.calendarEvent = calendarEvent;
   } // end of constructor
 
-  public void setCalendarEvent(CalendarEvent calendarEvent) {
-    this.calendarEvent = calendarEvent;
+  public long getId() {
+    return id;
   }
-
 
   /* Getters and Setters */
 
@@ -65,48 +64,44 @@ public class Task {
     this.id = id;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setPriority(int priority) {
-    this.priority = priority;
-  }
-
-  public void setDone(boolean done) {
-    this.done = done;
-  }
-
-  public void setFrequency(String frequency) {
-    this.frequency = frequency;
-  }
-
-  public void setDeadline(Date deadline) {
-    this.deadline = deadline;
-  }
-
-  public long getId() {
-    return id;
-  }
-
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public int getPriority() {
     return priority;
   }
 
+  public void setPriority(int priority) {
+    this.priority = priority;
+  }
+
   public String getFrequency() {
     return frequency;
+  }
+
+  public void setFrequency(String frequency) {
+    this.frequency = frequency;
   }
 
   public CalendarEvent getCalendarEvent() {
     return calendarEvent;
   }
 
+  public void setCalendarEvent(CalendarEvent calendarEvent) {
+    this.calendarEvent = calendarEvent;
+  }
+
   public Date getDeadline() {
     return deadline;
+  }
+
+  public void setDeadline(Date deadline) {
+    this.deadline = deadline;
   }
 
   /**
@@ -119,6 +114,10 @@ public class Task {
   public boolean isDone() {
     return this.done;
   } // end of getDone()
+
+  public void setDone(boolean done) {
+    this.done = done;
+  }
   /* Methods */
 
 
