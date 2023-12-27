@@ -21,6 +21,8 @@ class ModuleDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // add a button to edit the module
+            const SubscribeButton(),
             _buildModuleDetailCard('Name', module.name, '📜'),
             _buildModuleDetailCard('ECTS', module.ects.toString(), '🎓'),
             _buildModuleDetailCard('SWS', module.sws.toString(), '🕒'),
@@ -64,6 +66,30 @@ class ModuleDetailsPage extends StatelessWidget {
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(content),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SubscribeButton extends StatelessWidget {
+  const SubscribeButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ElevatedButton(
+        onPressed: () {},
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.red,
+        ),
+        child: const Text(
+          'Subscribe',
+          style: TextStyle(
+            color: Colors.white,
           ),
         ),
       ),
