@@ -126,7 +126,7 @@ class _CoursesPageState extends State<CoursesPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 3, 134, 204),
-        title: const Text('Courses'),
+        title: const Text('Modules'),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
