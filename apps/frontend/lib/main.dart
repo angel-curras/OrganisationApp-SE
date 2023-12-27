@@ -30,6 +30,7 @@ class OrganisationApp extends StatelessWidget {
         title: 'Organisation App',
         theme: appTheme,
         routes: appRoutes,
+        debugShowCheckedModeBanner: false,
       ),
     );
   } // end of build()
