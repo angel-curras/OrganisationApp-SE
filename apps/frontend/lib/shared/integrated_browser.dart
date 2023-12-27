@@ -43,10 +43,9 @@ class _IntegratedBrowserState extends State<IntegratedBrowser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 3, 134, 204),
-        title: Center(
-          child: Text(widget.title),
-        ),
+        title: Text(widget.title),
       ),
       drawer: const MenuDrawer(),
       body: WebViewWidget(controller: _controller),
