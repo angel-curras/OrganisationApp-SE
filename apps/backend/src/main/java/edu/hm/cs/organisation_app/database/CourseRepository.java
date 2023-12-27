@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Angel Curras Sanchez
  */
-public interface CourseRepository extends JpaRepository<Course, String> {
-  
+public interface CourseRepository extends JpaRepository<Course, Long> {
+
 } // end of interface CourseRepository

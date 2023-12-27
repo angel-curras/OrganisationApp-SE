@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "module_id": 21,
-  "user_name": "test"
+  "user_name": "{{user_name}}"
 }
 
 > {%
@@ -70,5 +70,29 @@ GET {{base_url}}/courses/{{course_id}}/tasks
     client.test("Tasks array exists", function () {
         let tasks = response.body;
         client.assert(Array.isArray(tasks), "Tasks is not an array");
+    });
+%}
+
+
+### Delete course by id
+DELETE {{base_url}}/courses/{{course_id}}
+
+> {%
+    client.test("DELETE /courses/{id} (known) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Get all courses for a user
+GET {{base_url}}/courses/user/{{user_name}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let courses = response.body;
+    client.test("Courses array exists", function () {
+        client.assert(Array.isArray(courses), "Courses is not an array");
     });
 %}

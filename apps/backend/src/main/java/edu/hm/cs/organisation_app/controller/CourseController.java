@@ -96,5 +96,9 @@ public class CourseController {
     return tasks;
   }
 
+  public void deleteAllCourses() {
+    service.deleteAll();
+  }
+
 
 } // end of class CourseController
