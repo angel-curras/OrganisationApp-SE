@@ -1,0 +1,12 @@
+### Get user by id (unknown user)
+< {%
+    client.global.set("user_name", "test")
+%}
+GET {{base_url}}/tasks/{{user_name}}
+
+> {%
+    client.test("GET /tasks (test) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+

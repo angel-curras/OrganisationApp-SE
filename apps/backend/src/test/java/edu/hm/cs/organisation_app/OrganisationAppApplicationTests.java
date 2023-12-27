@@ -6,8 +6,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class OrganisationAppApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+  /**
+   * Tests if the context loads.
+   */
+  @Test
+  void contextLoads() {
+    // Do nothing.
 
-}
+  } // end of testContextLoads()
+
+  /**
+   * Tests if the main application runs.
+   */
+  @Test
+  void testMainApplication() {
+    OrganisationApplication.main(new String[]{});
+  } // end of testMainApplication()
+
+} // end of class OrganisationAppApplicationTests

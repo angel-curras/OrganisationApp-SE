@@ -1,0 +1,98 @@
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 21,
+  "user_name": "{{user_name}}"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+    client.global.set("course_id", course.course_id);
+%}
+
+
+### Update course by id
+< {%
+    client.global.set("start_date", "2023-10-01")
+    client.global.set("end_date", "2024-01-02")
+    client.global.set("lecture_weekday", "WEDNESDAY")
+    client.global.set("lecture_start_time", "12:00:00")
+    client.global.set("lecture_end_time", "14:00:00")
+    client.global.set("lab_weekday", "FRIDAY")
+    client.global.set("lab_start_time", "12:00:00")
+    client.global.set("lab_end_time", "14:00:00")
+%}
+PUT {{base_url}}/courses/{{course_id}}
+Content-Type: application/json
+
+{
+  "start_date": "{{start_date}}",
+  "end_date": "{{end_date}}",
+  "lecture_weekday": "{{lecture_weekday}}",
+  "lecture_start_time": "{{lecture_start_time}}",
+  "lecture_end_time": "{{lecture_end_time}}",
+  "lab_weekday": "{{lab_weekday}}",
+  "lab_start_time": "{{lab_start_time}}",
+  "lab_end_time": "{{lab_end_time}}"
+}
+
+> {%
+    client.test("PUT /courses/{id} (known) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Course object exists", function () {
+        let course = response.body;
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+%}
+
+
+### Get tasks for a course
+GET {{base_url}}/courses/{{course_id}}/tasks
+
+> {%
+    client.test("GET /courses/{id}/tasks (known) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Tasks array exists", function () {
+        let tasks = response.body;
+        client.assert(Array.isArray(tasks), "Tasks is not an array");
+    });
+%}
+
+
+### Delete course by id
+DELETE {{base_url}}/courses/{{course_id}}
+
+> {%
+    client.test("DELETE /courses/{id} (known) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Get all courses for a user
+GET {{base_url}}/courses/user/{{user_name}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let courses = response.body;
+    client.test("Courses array exists", function () {
+        client.assert(Array.isArray(courses), "Courses is not an array");
+    });
+%}
