@@ -86,7 +86,9 @@ public class CourseTest {
     long id = 1L;
     Module module = new Module();
     String moduleName = "TestModule";
+    String moduleResponsible = "TestResponsible";
     module.setName(moduleName);
+    module.setVerantwortlich(moduleResponsible);
     LocalDate startDate = LocalDate.of(2023, 1, 1);
     LocalDate endDate = LocalDate.of(2023, 2, 1);
     AppUser owner = new AppUser();
@@ -120,6 +122,7 @@ public class CourseTest {
     Assertions.assertEquals(endDate, course.getEndDate());
     Assertions.assertSame(owner, course.getOwner());
     Assertions.assertSame(tasks, course.getTasks());
+    Assertions.assertEquals(moduleResponsible, course.getResponsible());
     Assertions.assertEquals(lectureWeekday, course.getLectureWeekday());
     Assertions.assertEquals(lectureStartTime, course.getLectureStartTime());
     Assertions.assertEquals(lectureEndTime, course.getLectureEndTime());
@@ -307,5 +310,112 @@ public class CourseTest {
             ", labEndTime=" + labEndTime +
             '}', course.toString());
   } // end of testToString
+
+
+  /**
+   * Tests the starting date from a weekday
+   */
+  @Test
+  void testGetStartingDateFromWeekday() {
+    // Arrange.
+    course = new Course();
+    LocalDate startDate = LocalDate.of(2023, 12, 25);
+
+    // Act.
+    LocalDate startingDate1 = course.getStartDateFromWeekday(startDate, DayOfWeek.MONDAY);
+    LocalDate startingDate2 = course.getStartDateFromWeekday(startDate, DayOfWeek.TUESDAY);
+    LocalDate startingDate3 = course.getStartDateFromWeekday(startDate, DayOfWeek.WEDNESDAY);
+    LocalDate startingDate4 = course.getStartDateFromWeekday(startDate, DayOfWeek.THURSDAY);
+    LocalDate startingDate5 = course.getStartDateFromWeekday(startDate, DayOfWeek.FRIDAY);
+    LocalDate startingDate6 = course.getStartDateFromWeekday(startDate, DayOfWeek.SATURDAY);
+    LocalDate startingDate7 = course.getStartDateFromWeekday(startDate, DayOfWeek.SUNDAY);
+
+    // Assert.
+    Assertions.assertEquals(LocalDate.of(2023, 12, 25), startingDate1);
+    Assertions.assertEquals(LocalDate.of(2023, 12, 26), startingDate2);
+    Assertions.assertEquals(LocalDate.of(2023, 12, 27), startingDate3);
+    Assertions.assertEquals(LocalDate.of(2023, 12, 28), startingDate4);
+    Assertions.assertEquals(LocalDate.of(2023, 12, 29), startingDate5);
+    Assertions.assertEquals(LocalDate.of(2023, 12, 30), startingDate6);
+    Assertions.assertEquals(LocalDate.of(2023, 12, 31), startingDate7);
+
+  } // end of testGetStartingDateFromWeekday
+
+
+  /**
+   * Tests the generation of tasks from null dates.
+   */
+  @Test
+  void testGenerateTaskNullDates() {
+
+    // Arrange.
+    course = new Course();
+    course.setStartDate(LocalDate.of(2023, 12, 5));
+    course.setEndDate(LocalDate.of(2023, 12, 20));
+    List<Task> tasks;
+
+    // Act.
+    tasks = course.generateTasksForEventName("Name", DayOfWeek.WEDNESDAY,
+            LocalTime.now(), null);
+    // Assert.
+    Assertions.assertEquals(0, tasks.size());
+
+    // Act.
+    tasks = course.generateTasksForEventName("Name", DayOfWeek.WEDNESDAY,
+            null, null);
+    // Assert.
+    Assertions.assertEquals(0, tasks.size());
+
+    // Act.
+    tasks = course.generateTasksForEventName("Name", null,
+            null, null);
+    // Assert.
+    Assertions.assertEquals(0, tasks.size());
+
+    // Act.
+    course.setEndDate(null);
+    tasks = course.generateTasksForEventName("Name", null,
+            null, null);
+    // Assert.
+    Assertions.assertEquals(0, tasks.size());
+
+    // Act.
+    course.setStartDate(null);
+    tasks = course.generateTasksForEventName("Name", null,
+            null, null);
+    // Assert.
+    Assertions.assertEquals(0, tasks.size());
+
+  } // end of testGenerateTaskNullDates
+
+
+  /**
+   * Tests the generation of tasks.
+   */
+  @Test
+  void testGenerateTask() {
+
+    // Arrange.
+    course = new Course();
+    course.setStartDate(LocalDate.of(2023, 12, 5));
+    course.setEndDate(LocalDate.of(2023, 12, 20));
+
+    // Act.
+    List<Task> tasks = course.generateTasksForEventName("Name", DayOfWeek.WEDNESDAY,
+            LocalTime.of(1, 2), LocalTime.of(3, 4));
+
+    // Assert.
+    Assertions.assertEquals(2, tasks.size());
+    Assertions.assertEquals("Name [2023-12-06]", tasks.get(0).getName());
+    Assertions.assertEquals(DayOfWeek.WEDNESDAY, tasks.get(0).getCalendarEvent().getDate().getDayOfWeek());
+    Assertions.assertEquals(LocalTime.of(1, 2), tasks.get(0).getCalendarEvent().getStartTime());
+    Assertions.assertEquals(LocalTime.of(3, 4), tasks.get(0).getCalendarEvent().getEndTime());
+    Assertions.assertEquals("Name [2023-12-13]", tasks.get(1).getName());
+    Assertions.assertEquals(DayOfWeek.WEDNESDAY, tasks.get(1).getCalendarEvent().getDate().getDayOfWeek());
+    Assertions.assertEquals(LocalTime.of(1, 2), tasks.get(1).getCalendarEvent().getStartTime());
+    Assertions.assertEquals(LocalTime.of(3, 4), tasks.get(1).getCalendarEvent().getEndTime());
+
+  } // end of testGenerateTask
+
 
 } // end of class CourseTest

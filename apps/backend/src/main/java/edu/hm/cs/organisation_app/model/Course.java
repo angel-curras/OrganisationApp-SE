@@ -37,10 +37,10 @@ public class Course {
   private Module module;
 
   @JsonProperty("start_date")
-  LocalDate startDate;
+  private LocalDate startDate;
 
   @JsonProperty("end_date")
-  LocalDate endDate;
+  private LocalDate endDate;
 
   @ManyToOne
   @JoinColumn(name = "user_name", referencedColumnName = "user_name", nullable = false)
