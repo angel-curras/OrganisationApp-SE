@@ -47,17 +47,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             title: const Text('Modules'),
             onTap: () {
-              Navigator.pushNamed(context, '/courses');
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.calendar, // replace with your own icon
-              size: 25,
-            ),
-            title: const Text('Calendar'),
-            onTap: () {
-              Navigator.pushNamed(context, '/calendar');
+              Navigator.pushReplacementNamed(context, '/courses');
             },
           ),
           ListTile(
@@ -67,7 +57,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             title: const Text('ToDos'),
             onTap: () {
-              Navigator.pushNamed(context, '/todos');
+              Navigator.pushReplacementNamed(context, '/todos');
             },
           ),
           const Divider(),
@@ -78,7 +68,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             title: const Text('Moodle'),
             onTap: () {
-              Navigator.pushNamed(context, '/moodle');
+              Navigator.pushReplacementNamed(context, '/moodle');
             },
           ),
           ListTile(
@@ -88,7 +78,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             title: const Text('Primuss'),
             onTap: () {
-              Navigator.pushNamed(context, '/primuss');
+              Navigator.pushReplacementNamed(context, '/primuss');
             },
           ),
           ListTile(
@@ -98,17 +88,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             title: const Text('ChatGPT'),
             onTap: () {
-              Navigator.pushNamed(context, '/chatgpt');
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.question, // replace with your own icon
-              size: 25,
-            ),
-            title: const Text('About'),
-            onTap: () {
-              Navigator.pushNamed(context, '/about');
+              Navigator.pushReplacementNamed(context, '/chatgpt');
             },
           ),
           const Divider(),

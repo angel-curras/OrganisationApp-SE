@@ -10,9 +10,11 @@ import 'package:organisation_app/pages/primuss/primuss_page.dart';
 import 'package:organisation_app/pages/progress/progress_page.dart';
 import 'package:organisation_app/pages/todos/todos_page.dart';
 
+import 'package:http/http.dart' as http;
+
 var appRoutes = {
   '/': (context) => const InitializationPage(),
-  '/home': (context) => HomePage(),
+  '/home': (context) => MyCoursesPage(client: http.Client()),
   '/login': (context) => LoginPage(),
   '/courses': (context) => const CoursesPage(),
   '/calendar': (context) => const CalendarPage(),
