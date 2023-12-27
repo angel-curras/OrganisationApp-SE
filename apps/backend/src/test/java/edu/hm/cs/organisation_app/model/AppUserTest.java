@@ -122,4 +122,84 @@ public class AppUserTest {
             user.toString());
   } // end of testToString
 
+  /**
+   * Tests that all the tasks are returned properly (empty).
+   * .
+   */
+  @Test
+  void testGetAllTasksEmpty() {
+    // Arrange.
+    String userName = "user1";
+    String fullName = "User 1";
+    UserType userType = UserType.GUEST;
+    List<Task> tasks = new ArrayList<>();
+    List<Course> courses = new ArrayList<>();
+
+    user = new AppUser();
+    user.setUserName(userName);
+    user.setFullName(fullName);
+    user.setUserType(userType);
+    user.setTasks(tasks);
+    user.setCourses(courses);
+
+    // Act.
+    List<Task> result = user.getAllTasks();
+
+    // Assert.
+    Assertions.assertEquals(0, result.size());
+
+  } // end of testGetAllTasksEmpty
+
+
+  /**
+   * Tests that all the tasks are returned properly (empty).
+   * .
+   */
+  @Test
+  void testGetAllTasks() {
+    // Arrange.
+    String userName = "user1";
+    String fullName = "User 1";
+    UserType userType = UserType.GUEST;
+    List<Task> tasks = new ArrayList<>();
+    List<Course> courses = new ArrayList<>();
+
+    // Add a task for the user.
+    Task task = new Task("Task User");
+    tasks.add(task);
+
+    // Add a task for the course 1.
+    Course course1 = new Course();
+    Task task1 = new Task("Task Course 1");
+    List<Task> course1Tasks = new ArrayList<>();
+    course1Tasks.add(task1);
+    course1.setTasks(course1Tasks);
+    courses.add(course1);
+
+    // Add a task for the course 2.
+    Course course2 = new Course();
+    Task task2 = new Task("Task Course 2");
+    List<Task> course2Tasks = new ArrayList<>();
+    course2Tasks.add(task2);
+    course2.setTasks(course2Tasks);
+    courses.add(course2);
+
+    user = new AppUser();
+    user.setUserName(userName);
+    user.setFullName(fullName);
+    user.setUserType(userType);
+    user.setTasks(tasks);
+    user.setCourses(courses);
+
+    // Act.
+    List<Task> result = user.getAllTasks();
+
+    // Assert.
+    Assertions.assertEquals(3, result.size());
+    Assertions.assertEquals(task, result.get(0));
+    Assertions.assertEquals(task1, result.get(1));
+    Assertions.assertEquals(task2, result.get(2));
+
+  } // end of testGetAllTasksEmpty
+
 } // end of class AppUserTest
