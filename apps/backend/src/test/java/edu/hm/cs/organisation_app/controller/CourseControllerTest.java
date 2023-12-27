@@ -37,10 +37,6 @@ public class CourseControllerTest {
     courseController.deleteAllCourses();
   } // end of clearDB()
 
-  private void initDB() {
-
-  } // end of initDB()
-
   @Test
   public void testGetAllCoursesEmpty() {
     // Arrange.
@@ -64,9 +60,7 @@ public class CourseControllerTest {
     CourseSubscription courseSubscription = new CourseSubscription(1L, "unknown");
 
     // Act & Assert.
-    Throwable exception = Assertions.assertThrows(Exception.class, () -> {
-      courseController.createCourse(courseSubscription);
-    });
+    Throwable exception = Assertions.assertThrows(Exception.class, () -> courseController.createCourse(courseSubscription));
     Assertions.assertInstanceOf(ResponseStatusException.class, exception);
     Assertions.assertEquals(HttpStatus.UNAUTHORIZED, ((ResponseStatusException) exception).getStatusCode());
 
@@ -83,9 +77,7 @@ public class CourseControllerTest {
     CourseSubscription courseSubscription = new CourseSubscription(0L, "test");
 
     // Act & Assert.
-    Throwable exception = Assertions.assertThrows(Exception.class, () -> {
-      courseController.createCourse(courseSubscription);
-    });
+    Throwable exception = Assertions.assertThrows(Exception.class, () -> courseController.createCourse(courseSubscription));
     Assertions.assertInstanceOf(ResponseStatusException.class, exception);
     Assertions.assertEquals(HttpStatus.NOT_FOUND, ((ResponseStatusException) exception).getStatusCode());
 
@@ -103,12 +95,10 @@ public class CourseControllerTest {
 
     // Act.
     // First subscription.
-    Course firstCourse = courseController.createCourse(courseSubscription);
+    courseController.createCourse(courseSubscription);
 
     // Second subscription.
-    Throwable exception = Assertions.assertThrows(Exception.class, () -> {
-      courseController.createCourse(courseSubscription);
-    });
+    Throwable exception = Assertions.assertThrows(Exception.class, () -> courseController.createCourse(courseSubscription));
 
     // Assert.
     Assertions.assertInstanceOf(ResponseStatusException.class, exception);
@@ -179,9 +169,7 @@ public class CourseControllerTest {
     courseController.deleteCourse(course.getId());
 
     // Assert.
-    Throwable exception = Assertions.assertThrows(Exception.class, () -> {
-      courseController.getCourseById(course.getId());
-    });
+    Throwable exception = Assertions.assertThrows(Exception.class, () -> courseController.getCourseById(course.getId()));
     Assertions.assertInstanceOf(ResponseStatusException.class, exception);
     Assertions.assertEquals(HttpStatus.NOT_FOUND, ((ResponseStatusException) exception).getStatusCode());
   } // end of testDeleteCourseById()
@@ -214,6 +202,23 @@ public class CourseControllerTest {
     Assertions.assertEquals(course3.getId(), courses.get(2).getId());
   } // end of testGetAllCoursesForUser()
 
+
+  /**
+   * Get all courses for an unknown user.
+   */
+  @Test
+  @Transactional // Otherwise LazyInitializationException
+  public void testGetAllCoursesForUserUnknown() {
+
+    // Arrange.
+    this.clearDB();
+
+    // Act & Assert.
+    Throwable exception = Assertions.assertThrows(Exception.class, () -> courseController.getAllCoursesForUser("unknown"));
+    Assertions.assertInstanceOf(ResponseStatusException.class, exception);
+    Assertions.assertEquals(HttpStatus.UNAUTHORIZED, ((ResponseStatusException) exception).getStatusCode());
+
+  } // end of testGetAllCoursesForUserUnknown()
 
   /**
    * Tests that updating a course by id works.
