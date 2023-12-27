@@ -11,10 +11,10 @@ class CoursesPage extends StatefulWidget {
   const CoursesPage({Key? key}) : super(key: key);
 
   @override
-  _CoursesPageState createState() => _CoursesPageState();
+  CoursesPageState createState() => CoursesPageState();
 }
 
-class _CoursesPageState extends State<CoursesPage> {
+class CoursesPageState extends State<CoursesPage> {
   late Future<List<Module>> modulesFuture;
   late Backend _backend;
   late http.Client client;
