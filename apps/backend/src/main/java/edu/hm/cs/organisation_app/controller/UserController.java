@@ -35,13 +35,7 @@ public class UserController {
   public List<AppUser> getUsers() {
     return service.getAllUsers();
   }
-
-    @GetMapping("/usernames")
-    @ResponseStatus(HttpStatus.OK)
-    public List<String> getUsernames() {
-        return service.getAllUsernames();
-    }
-
+  
   @GetMapping("/{username}")
   @ResponseStatus(HttpStatus.OK)
   public AppUser getUser(@PathVariable String username) {

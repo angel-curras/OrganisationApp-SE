@@ -201,4 +201,111 @@ public class CourseTest {
 
   } // end of testProgress50Percent
 
+
+  /**
+   * Tests the toString method.
+   */
+  @Test
+  void testToString() {
+    // Arrange.
+    long id = 1L;
+    Module module = new Module();
+    String moduleName = "TestModule";
+    module.setName(moduleName);
+    LocalDate startDate = LocalDate.of(2023, 1, 1);
+    LocalDate endDate = LocalDate.of(2023, 2, 1);
+    AppUser owner = new AppUser();
+    List<Task> tasks = new ArrayList<>();
+    DayOfWeek lectureWeekday = DayOfWeek.TUESDAY;
+    LocalTime lectureStartTime = LocalTime.of(1, 1);
+    LocalTime lectureEndTime = LocalTime.of(2, 2);
+    DayOfWeek labWeekday = DayOfWeek.WEDNESDAY;
+    LocalTime labStartTime = LocalTime.of(3, 3);
+    LocalTime labEndTime = LocalTime.of(4, 4);
+
+    // Act.
+    course = new Course();
+    course.setId(id);
+    course.setModule(module);
+    course.setStartDate(startDate);
+    course.setEndDate(endDate);
+    course.setOwner(owner);
+    course.setTasks(tasks);
+    course.setLectureWeekday(lectureWeekday);
+    course.setLectureStartTime(lectureStartTime);
+    course.setLectureEndTime(lectureEndTime);
+    course.setLabWeekday(labWeekday);
+    course.setLabStartTime(labStartTime);
+    course.setLabEndTime(labEndTime);
+
+
+    // Assert.
+    String expectedModule = "Module{id=" + module.getId() + ", name='" + moduleName + "', " +
+            "verantwortlich='" + module.getVerantwortlich() + "'}";
+
+    Assertions.assertEquals("Course{" +
+            "id=" + id +
+            ", module=" + expectedModule +
+            ", startDate=" + startDate +
+            ", endDate=" + endDate +
+            ", owner=" + owner +
+            ", lectureWeekday=" + lectureWeekday +
+            ", lectureStartTime=" + lectureStartTime +
+            ", lectureEndTime=" + lectureEndTime +
+            ", labWeekday=" + labWeekday +
+            ", labStartTime=" + labStartTime +
+            ", labEndTime=" + labEndTime +
+            '}', course.toString());
+  } // end of testToString
+
+
+  /**
+   * Tests the toString method with module null.
+   */
+  @Test
+  void testToStringModuleNull() {
+    // Arrange.
+    long id = 1L;
+    LocalDate startDate = LocalDate.of(2023, 1, 1);
+    LocalDate endDate = LocalDate.of(2023, 2, 1);
+    AppUser owner = new AppUser();
+    List<Task> tasks = new ArrayList<>();
+    DayOfWeek lectureWeekday = DayOfWeek.TUESDAY;
+    LocalTime lectureStartTime = LocalTime.of(1, 1);
+    LocalTime lectureEndTime = LocalTime.of(2, 2);
+    DayOfWeek labWeekday = DayOfWeek.WEDNESDAY;
+    LocalTime labStartTime = LocalTime.of(3, 3);
+    LocalTime labEndTime = LocalTime.of(4, 4);
+
+    // Act.
+    course = new Course();
+    course.setId(id);
+    course.setStartDate(startDate);
+    course.setEndDate(endDate);
+    course.setOwner(owner);
+    course.setTasks(tasks);
+    course.setLectureWeekday(lectureWeekday);
+    course.setLectureStartTime(lectureStartTime);
+    course.setLectureEndTime(lectureEndTime);
+    course.setLabWeekday(labWeekday);
+    course.setLabStartTime(labStartTime);
+    course.setLabEndTime(labEndTime);
+
+
+    // Assert.
+    Assertions.assertEquals("Course{" +
+            "id=" + id +
+            ", module=null" +
+            ", startDate=" + startDate +
+            ", endDate=" + endDate +
+            ", owner=" + owner +
+            ", lectureWeekday=" + lectureWeekday +
+            ", lectureStartTime=" + lectureStartTime +
+            ", lectureEndTime=" + lectureEndTime +
+            ", labWeekday=" + labWeekday +
+            ", labStartTime=" + labStartTime +
+            ", labEndTime=" + labEndTime +
+            '}', course.toString());
+  } // end of testToString
+
 } // end of class CourseTest

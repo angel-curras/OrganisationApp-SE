@@ -2,13 +2,13 @@ package edu.hm.cs.organisation_app.service;
 
 import edu.hm.cs.organisation_app.database.CourseRepository;
 import edu.hm.cs.organisation_app.database.ModuleRepository;
-import edu.hm.cs.organisation_app.database.TaskRepository;
 import edu.hm.cs.organisation_app.database.UserRepository;
 import edu.hm.cs.organisation_app.model.Module;
 import edu.hm.cs.organisation_app.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -26,24 +26,24 @@ public class CourseService {
   private final CourseRepository courseRepository;
   private final ModuleRepository moduleRepository;
   private final UserRepository userRepository;
-  private final TaskRepository taskRepository;
 
 
   /* Constructors */
   @Autowired
   public CourseService(CourseRepository courseRepository, ModuleRepository moduleRepository,
-                       UserRepository userRepository, TaskRepository taskRepository) {
+                       UserRepository userRepository) {
     this.courseRepository = courseRepository;
     this.moduleRepository = moduleRepository;
     this.userRepository = userRepository;
-    this.taskRepository = taskRepository;
   }
 
   /* Methods */
+  @Transactional
   public List<Course> getAllCourses() {
     return courseRepository.findAll();
   }
 
+  @Transactional
   public Course createCourse(CourseSubscription courseSubscription) {
 
     // Get the module and user from the database
@@ -77,16 +77,19 @@ public class CourseService {
     return courseRepository.save(course);
   }
 
+  @Transactional
   public Course getCourseById(Long courseId) {
-    return courseRepository.findById(String.valueOf(courseId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found."));
+    return courseRepository.findById(courseId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found."));
   }
 
+  @Transactional
   public void deleteCourseById(Long courseId) {
-    courseRepository.deleteById(String.valueOf(courseId));
+    courseRepository.deleteById(courseId);
   }
 
+  @Transactional
   public Course updateCourseById(Long courseId, Course newCourse) {
-    Course course = courseRepository.findById(String.valueOf(courseId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found."));
+    Course course = courseRepository.findById(courseId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found."));
 
     // Update the course.
     course.setStartDate(newCourse.getStartDate());
@@ -104,6 +107,7 @@ public class CourseService {
   }
 
 
+  @Transactional
   public List<Course> getAllCoursesForUser(String userName) {
 
     // Check if the user is authorized to create a course.
@@ -116,7 +120,14 @@ public class CourseService {
     return user.getCourses();
   }
 
+  @Transactional
   public List<Task> getAllTasksForCourse(Long courseId) {
-    return courseRepository.findById(String.valueOf(courseId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found.")).getTasks();
+    return courseRepository.findById(courseId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found.")).getTasks();
   }
+
+  @Transactional
+  public void deleteAll() {
+    courseRepository.deleteAll();
+  }
+
 } // end of class CourseService
