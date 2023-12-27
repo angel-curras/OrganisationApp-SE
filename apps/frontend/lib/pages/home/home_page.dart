@@ -109,13 +109,13 @@ class CourseCard extends StatelessWidget {
         subtitle: Text(course!.responsible),
         trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
           IconButton(
-              key: Key("edit"),
-              icon: Icon(Icons.edit),
+              key: const Key("edit"),
+              icon: const Icon(Icons.edit),
               tooltip: 'Edit Item',
               onPressed: () {}),
           IconButton(
-            key: Key("delete"),
-            icon: Icon(Icons.delete),
+            key: const Key("delete"),
+            icon: const Icon(Icons.delete),
             tooltip: 'Delete Item',
             onPressed: () {},
           )

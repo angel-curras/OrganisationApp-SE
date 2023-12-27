@@ -30,7 +30,6 @@ dev_dependencies:
   test: ^1.24.3
   mockito: ^5.4.2
   build_runner: ^2.4.6
-  flutter_dotenv: ^5.1.0
 
 # Packages from: https://dart.dev/tools/pub/pubspec
 

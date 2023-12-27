@@ -80,17 +80,15 @@ class SubscribeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(
-        onPressed: () {},
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
-        ),
-        child: const Text(
-          'Subscribe',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+    return ElevatedButton(
+      onPressed: () {},
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.red,
+      ),
+      child: const Text(
+        'Subscribe',
+        style: TextStyle(
+          color: Colors.white,
         ),
       ),
     );

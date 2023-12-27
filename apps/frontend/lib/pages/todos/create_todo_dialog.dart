@@ -84,9 +84,14 @@ class CreateItemPageState extends State<CreateItemPage> {
               done,
               "once",
             );
+
+            if (!context.mounted) {
+              return;
+            }
             Navigator.pop(context);
           } catch (error) {
             // Handle error (e.g., display a Snackbar)
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Error: $error'),
