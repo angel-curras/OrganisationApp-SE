@@ -21,8 +21,8 @@ class MenuDrawer extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(context.read<AppSettings>().user.fullName),
-            accountEmail: Text(context.read<AppSettings>().user.userName),
-            currentAccountPicture: CircleAvatar(
+            accountEmail: Text("@${context.read<AppSettings>().user.userName}"),
+            currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
                 Icons.person,
