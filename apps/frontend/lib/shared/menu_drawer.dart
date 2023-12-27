@@ -35,9 +35,9 @@ class MenuDrawer extends StatelessWidget {
               FontAwesomeIcons.house, // replace with your own icon
               size: 25,
             ),
-            title: const Text('My Semester'),
+            title: const Text('My Courses'),
             onTap: () {
-              Navigator.pushNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/');
             },
           ),
           ListTile(
