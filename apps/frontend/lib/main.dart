@@ -7,16 +7,6 @@ import 'package:provider/provider.dart';
 
 import 'theme.dart';
 
-Future<void> setUpEnvironment() async {
-  await dotenv.load(fileName: Environment.fileName);
-}
-
-Future<void> main() async {
-  // Load the environment variables.
-  await setUpEnvironment();
-  runApp(const OrganisationApp());
-}
-
 class OrganisationApp extends StatelessWidget {
   const OrganisationApp({super.key});
 
@@ -35,3 +25,13 @@ class OrganisationApp extends StatelessWidget {
     );
   } // end of build()
 } // end of class OrganisationApp
+
+Future<void> setUpApp() async {
+  await dotenv.load(fileName: Environment.fileName);
+}
+
+Future<void> main() async {
+  // Load the environment variables.
+  await setUpApp();
+  runApp(const OrganisationApp());
+}

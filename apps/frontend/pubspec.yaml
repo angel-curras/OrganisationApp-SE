@@ -19,6 +19,8 @@ dependencies:
   flutter_dotenv: ^5.1.0
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
+  logger: ^2.0.2+1
+  universal_html: ^2.2.4
 
 
 dev_dependencies:
