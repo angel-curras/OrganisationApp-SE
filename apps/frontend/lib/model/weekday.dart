@@ -1,4 +1,4 @@
-enum WeekdayEnum {
+enum Weekday {
   monday,
   tuesday,
   wednesday,
@@ -8,44 +8,44 @@ enum WeekdayEnum {
   sunday,
 }
 
-extension Weekday on WeekdayEnum {
+extension WeekdayExtension on Weekday {
   String toJSON() {
     switch (this) {
-      case WeekdayEnum.monday:
+      case Weekday.monday:
         return 'MONDAY';
-      case WeekdayEnum.tuesday:
+      case Weekday.tuesday:
         return 'TUESDAY';
-      case WeekdayEnum.wednesday:
+      case Weekday.wednesday:
         return 'WEDNESDAY';
-      case WeekdayEnum.thursday:
+      case Weekday.thursday:
         return 'THURSDAY';
-      case WeekdayEnum.friday:
+      case Weekday.friday:
         return 'FRIDAY';
-      case WeekdayEnum.saturday:
+      case Weekday.saturday:
         return 'SATURDAY';
-      case WeekdayEnum.sunday:
+      case Weekday.sunday:
         return 'SUNDAY';
     }
   }
 
-  WeekdayEnum fromJSON(String weekday) {
+  static Weekday fromJSON(String weekday) {
     switch (weekday) {
       case 'MONDAY':
-        return WeekdayEnum.monday;
+        return Weekday.monday;
       case 'TUESDAY':
-        return WeekdayEnum.tuesday;
+        return Weekday.tuesday;
       case 'WEDNESDAY':
-        return WeekdayEnum.wednesday;
+        return Weekday.wednesday;
       case 'THURSDAY':
-        return WeekdayEnum.thursday;
+        return Weekday.thursday;
       case 'FRIDAY':
-        return WeekdayEnum.friday;
+        return Weekday.friday;
       case 'SATURDAY':
-        return WeekdayEnum.saturday;
+        return Weekday.saturday;
       case 'SUNDAY':
-        return WeekdayEnum.sunday;
+        return Weekday.sunday;
       default:
-        return WeekdayEnum.monday;
+        return Weekday.monday;
     }
   }
 }

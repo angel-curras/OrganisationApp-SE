@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
@@ -59,7 +61,9 @@ void main() {
         id: 1,
         name: 'Test Course',
       );
-      String responseBody = expectedCourse.toJsonString();
+
+      // Encode the expected course as JSON.
+      String responseBody = json.encode([expectedCourse.toJsonMap()]);
       when(httpClient.get(Uri.parse(requestUrl)))
           .thenAnswer((_) async => http.Response(responseBody, 200));
 
