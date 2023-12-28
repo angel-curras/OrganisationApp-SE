@@ -29,7 +29,7 @@ extension WeekdayExtension on Weekday {
   }
 
   static Weekday fromJSON(String weekday) {
-    switch (weekday) {
+    switch (weekday.toUpperCase()) {
       case 'MONDAY':
         return Weekday.monday;
       case 'TUESDAY':
