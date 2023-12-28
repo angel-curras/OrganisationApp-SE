@@ -98,6 +98,8 @@ class _TodosPageState extends State<TodosPage> {
                           icon: const Icon(Icons.delete),
                           tooltip: 'Delete Item',
                           onPressed: () {
+                            print("Delete Item");
+                            print(task.id);
                             setState(() {
                               _backend.deleteTask(_client, task.id);
                             });
