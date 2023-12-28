@@ -31,6 +31,7 @@ class MenuDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            key: const Key('homeTile'),
             leading: const Icon(
               FontAwesomeIcons.house, // replace with your own icon
               size: 25,
@@ -41,6 +42,7 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key('modulesTile'),
             leading: const Icon(
               FontAwesomeIcons.book, // replace with your own icon
               size: 25,
@@ -51,6 +53,7 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key('todosTile'),
             leading: const Icon(
               FontAwesomeIcons.listCheck, // replace with your own icon
               size: 25,
@@ -62,6 +65,7 @@ class MenuDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            key: const Key('moodleTile'),
             leading: const Icon(
               FontAwesomeIcons.m, // replace with your own icon
               size: 25,
@@ -72,6 +76,7 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key('primussTile'),
             leading: const Icon(
               FontAwesomeIcons.idCard, // replace with your own icon
               size: 25,
@@ -82,6 +87,7 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key('chatgptTile'),
             leading: const Icon(
               FontAwesomeIcons.comments, // replace with your own icon
               size: 25,
@@ -93,6 +99,7 @@ class MenuDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            key: const Key('logoutTile'),
             leading: const Icon(
               FontAwesomeIcons.arrowRightFromBracket,
               // replace with your own icon
