@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:organisation_app/main.dart';
+import 'package:organisation_app/app/app.dart';
 
 void main() {
   testWidgets('tap on the login as guest button', (tester) async {
