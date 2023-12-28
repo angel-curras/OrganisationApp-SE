@@ -37,7 +37,7 @@ class MenuDrawer extends StatelessWidget {
             ),
             title: const Text('My Courses'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/home');
             },
           ),
           ListTile(
