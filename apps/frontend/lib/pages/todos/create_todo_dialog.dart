@@ -82,7 +82,7 @@ class CreateItemPageState extends State<CreateItemPage> {
               date.toIso8601String(),
               priority,
               done,
-              "once",
+              "ONCE",
             );
             Navigator.pop(context);
           } catch (error) {

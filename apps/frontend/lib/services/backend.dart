@@ -41,13 +41,13 @@ class Backend {
     Map data = {
       'task_name': name,
       'priority': priority,
+      'deadline': deadline,
       'is_done': done,
       'frequency': frequency,
-      'deadline': deadline,
     };
 
     // access REST interface with post request
-    var response = await client.post(Uri.parse('${_backend}tasks/task'),
+    var response = await client.post(Uri.parse('${_backend}tasks'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
@@ -82,15 +82,11 @@ class Backend {
 
   // delete item on backend
   Future<void> deleteTask(http.Client client, int id) async {
-    Map data = {
-      'id': id,
-    };
-
     // access REST interface with delete request
     var response = await client.delete(
-        Uri.parse('${_backend}tasks/task/{{id}}'),
-        headers: <String, String>{'Content-Type': 'application/json'},
-        body: json.encode(data));
+      Uri.parse('${_backend}tasks/$id'),
+      headers: <String, String>{'Content-Type': 'application/json'},
+    );
 
     // check response from backend
     if (response.statusCode != 200) {
