@@ -8,9 +8,6 @@ class LoginPage extends StatelessWidget {
   // text editing controllers
   final usernameController = TextEditingController();
 
-  // sign user in method
-  void signUserIn() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

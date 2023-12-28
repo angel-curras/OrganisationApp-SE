@@ -20,7 +20,7 @@ void main() {
 
     // Iterate over test parameters and create individual tests
     for (final testCase in testCases) {
-      test('Test case ${testCases.indexOf(testCase) + 1}', () {
+      test('Testing route: ${testCases.indexOf(testCase) + 1}', () {
         // Extract input and expected values
         final routeName = testCase['route_name'] as String;
         final String? expectedWidgetType = testCase['widget_class'];
