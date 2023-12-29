@@ -19,10 +19,10 @@ class Task {
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       id: json['task_id'] ?? 0,
-      name: json['name'] ?? '',
+      name: json['task_name'] ?? '',
       priority: json['priority'] ?? 3,
       deadline: DateTime.parse(json['deadline']),
-      done: json['done'] ?? false,
+      done: json['is_done'] ?? false,
       frequency: json['frequency'] ?? 'once',
     );
   }
@@ -32,10 +32,10 @@ class Task {
   // map item to JSON-data (so far not used in app)
   Map<String, dynamic> toJson() => {
         "task_id": id,
-        "name": name,
+        "task_name": name,
         "deadline": deadline.toIso8601String(),
         "priority": priority,
-        "done": done,
+        "is_done": done,
         "frequency": frequency,
       };
 }
