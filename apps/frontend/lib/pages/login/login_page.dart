@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/login_service.dart';
+import 'package:provider/provider.dart';
+
+import '../../settings/app_settings.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  final http.Client _client;
 
-  final TextEditingController _nameController = TextEditingController();
+  LoginPage({super.key, required http.Client client}) : _client = client;
+
+  // text editing controllers
+  final usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.only(top: 200.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Column(
+      backgroundColor: Colors.black54,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: 70),
+
                 SizedBox(
-                  height: 150,
+                  height: 120,
                   child: Image.asset(
                     'assets/images/logo.png',
-                    width: 250,
-                    height: 250,
+                    width: 200,
+                    height: 200,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -32,74 +40,100 @@ class LoginPage extends StatelessWidget {
                   width: 150,
                   height: 150,
                 ),
-              ],
-            ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(30),
-                child: LoginButton(
-                  icon: FontAwesomeIcons.userNinja,
-                  text: 'Continue as Guest',
+
+                // welcome back, you've been missed!
+                const Text(
+                  'Welcome back you\'ve been missed!',
+                  style: TextStyle(
+                    color: Colors.white60,
+                    fontSize: 16,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // username text field
+                TextField(
+                  controller: usernameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter your name',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+
+                // Login button
+                LoginButton(
+                  key: const Key('loginButton'),
+                  icon: FontAwesomeIcons.rightToBracket,
+                  text: 'Login',
                   loginMethod: () async {
                     BuildContext initialContext = context;
-                    bool result = await LoginService().login('guest');
+                    AppSettings appSettings =
+                        Provider.of<AppSettings>(context, listen: false);
+
+                    // Get the name from the text field
+                    String name = usernameController.text;
+
+                    bool result = await LoginService(
+                            appSettings: appSettings, client: _client)
+                        .login(name);
                     if (!context.mounted) return;
                     if (result) {
-                      Navigator.pushReplacementNamed(initialContext, '/home');
+                      Navigator.pushReplacementNamed(
+                          initialContext, '/my_courses');
                     } else {
                       ScaffoldMessenger.of(initialContext).showSnackBar(
                         const SnackBar(
-                          content: Text('Login failed'),
+                          content: Text('Invalid username!'),
                         ),
                       );
                     }
                   },
-                  color: const Color(0xffbf0000),
+                  color: Colors.blue,
                 ),
-              ),
-            ),
-            const SizedBox(height: 20), // Add some spacing
 
-            // New text field for the name
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Enter your name',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20), // Add some spacing
+                const SizedBox(height: 20),
 
-            // New login button for custom login
-            LoginButton(
-              icon: FontAwesomeIcons.rightToBracket,
-              text: 'Login',
-              loginMethod: () async {
-                BuildContext initialContext = context;
+                // continue as guest
 
-                // Get the name from the text field
-                String name = _nameController.text;
-                bool result = await LoginService().login(name);
-                if (!context.mounted) return;
-                if (result) {
-                  Navigator.pushReplacementNamed(initialContext, '/home');
-                } else {
-                  ScaffoldMessenger.of(initialContext).showSnackBar(
-                    const SnackBar(
-                      content: Text('Invalid username!'),
-                    ),
-                  );
-                }
-              },
-              color: Colors.blue,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LoginButton(
+                    key: const Key('guestLoginButton'),
+                    icon: FontAwesomeIcons.userNinja,
+                    text: 'Continue as Guest',
+                    loginMethod: () async {
+                      BuildContext initialContext = context;
+                      AppSettings appSettings =
+                          Provider.of<AppSettings>(context, listen: false);
+                      bool result = await LoginService(
+                              appSettings: appSettings, client: _client)
+                          .login('guest');
+                      if (!context.mounted) return;
+                      if (result) {
+                        Navigator.pushReplacementNamed(
+                            initialContext, '/my_courses');
+                      } else {
+                        ScaffoldMessenger.of(initialContext).showSnackBar(
+                          const SnackBar(
+                            content: Text('Login failed'),
+                          ),
+                        );
+                      }
+                    },
+                    color: const Color(0xffbf0000),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
-  } // end of build()
-} // end of class LoginPage
+  }
+}
 
+// calls for the login button
 class LoginButton extends StatelessWidget {
   final Color color;
   final IconData icon;

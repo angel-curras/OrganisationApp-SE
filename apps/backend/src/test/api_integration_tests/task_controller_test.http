@@ -1,0 +1,117 @@
+### Get user by id (unknown user)
+< {%
+    client.global.set("user_name", "test")
+%}
+GET {{base_url}}/tasks/{{user_name}}
+
+> {%
+    client.test("GET /tasks (test) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+### Create Task
+POST {{base_url}}/tasks
+Content-Type: application/json
+
+{
+  "task_name": "Plan team meeting",
+  "priority": 2,
+  "is_done": false,
+  "frequency": "WEEKLY",
+  "deadline": "2023-12-31"
+}
+
+> {%
+    client.test("POST /tasks creates a new task with status 200", function () {
+        client.assert(response.status === 200, "Response status is not ");
+    });
+
+    let task = response.body;
+
+    client.test("Task object is created", function () {
+        client.assert(typeof task === "object", "Task is not an object");
+        client.assert(task.task_name === "Plan team meeting", "Incorrect task_name");
+        client.assert(task.priority === 2, "Incorrect priority");
+        client.assert(task.is_done === false, "Incorrect is_done");
+        client.assert(task.frequency === "WEEKLY", "Incorrect frequency");
+        client.assert(task.deadline === "2023-12-31", "Incorrect deadline");
+    });
+
+    client.global.set("task_id", task.task_id);
+%}
+
+
+### Update Task by id
+PUT {{base_url}}/tasks/{{task_id}}
+Content-Type: application/json
+
+{
+  "task_name": "Complete meeting agenda",
+  "priority": 1,
+  "is_done": true,
+  "frequency": "ONCE",
+  "deadline": "2023-10-01"
+}
+
+> {%
+    client.test("PUT /tasks/{id} returns 200 on task update", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let updatedTask = response.body;
+
+    client.test("Task object is updated", function () {
+        client.assert(typeof updatedTask === "object", "Task is not an object");
+        client.assert(updatedTask.task_name === "Complete meeting agenda", "task_name not updated");
+        client.assert(updatedTask.priority === 1, "Priority not updated");
+        client.assert(updatedTask.is_done === true, "is_done not updated");
+        client.assert(updatedTask.frequency === "ONCE", "Frequency not updated");
+        client.assert(updatedTask.deadline === "2023-10-01", "Deadline not updated");
+    });
+%}
+
+
+### Get All Tasks for User
+@username = test
+GET {{base_url}}/tasks/{{username}}
+
+> {%
+    client.test("GET /tasks/{username} returns 200 and tasks for user", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let tasksForUser = response.body;
+
+    client.test("Tasks array is retrieved for user", function () {
+        client.assert(Array.isArray(tasksForUser), "Tasks is not an array");
+        client.assert(tasksForUser.every(task => typeof task === "object"), "Not all items in tasks array are task objects");
+    });
+%}
+
+
+### Delete Task by id
+DELETE {{base_url}}/tasks/{{task_id}}
+
+> {%
+    client.test("DELETE /tasks/{id} returns 200 on successful deletion", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+
+### Get All Tasks
+GET {{base_url}}/tasks
+
+> {%
+    client.test("GET /tasks returns 200 and all tasks", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    let allTasks = response.body;
+
+    client.test("Tasks array exists", function () {
+        client.assert(Array.isArray(allTasks), "Tasks is not an array");
+        client.assert(allTasks.every(task => typeof task === "object"), "Not all items in tasks array are task objects");
+    });
+%}

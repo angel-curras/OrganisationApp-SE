@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,24 +26,34 @@ public class TaskController {
   /* Constructors */
   @Autowired
   public TaskController(TaskService service) {
+    log.info("Creating the task controller...");
     this.service = service;
   }
 
-  @PostMapping("task")
-    public Task createTask(@RequestBody Task newTask) {
-        return this.service.createTask(newTask);
-    }
+  @PostMapping("")
+  public Task createTask(@RequestBody Task newTask) {
+    log.info("Creating a new task: " + newTask);
+    Task createdTask = this.service.createTask(newTask);
+    log.info("Task created: " + createdTask);
+    return createdTask;
+  }
 
-    //update task
-    @PutMapping("task/{id}")
-    public Task updateTask(@RequestBody Task newTask, @PathVariable long id) {
-        return this.service.updateTask(newTask, id);
-    }
+  //update task
+  @PutMapping("/{id}")
+  public Task updateTask(@RequestBody Task newTask, @PathVariable long id) {
+    return this.service.updateTask(newTask, id);
+  }
 
-    //delete task
-    @DeleteMapping("task/{id}")
-    public void deleteTask(@PathVariable long id) {
-        this.service.deleteTask(id);
+  //delete task
+  @DeleteMapping("/{id}")
+  public void deleteTask(@PathVariable long id) {
+    this.service.deleteTask(id);
+  }
+
+  // delete all tasks
+    @DeleteMapping("/deleteAll")
+    public void deleteAllTasks() {
+        this.service.deleteAllTasks();
     }
   /* Getters and Setters */
 
@@ -50,7 +61,15 @@ public class TaskController {
   /* Methods */
   @GetMapping("")
   public List<Task> getAllTasks() {
+    if (this.service.getAllTasks().isEmpty()){
+      return new ArrayList<>();
+    }
     return this.service.getAllTasks();
+  }
+
+  @GetMapping("/{username}")
+  public List<Task> getAllTasksForUser(@PathVariable String username) {
+    return this.service.getAllTasksForUser(username);
   }
 
 

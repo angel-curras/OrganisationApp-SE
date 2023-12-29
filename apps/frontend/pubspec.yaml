@@ -19,6 +19,8 @@ dependencies:
   flutter_dotenv: ^5.1.0
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
+  logger: ^2.0.2+1
+  universal_html: ^2.2.4
 
 
 dev_dependencies:
@@ -30,7 +32,6 @@ dev_dependencies:
   test: ^1.24.3
   mockito: ^5.4.2
   build_runner: ^2.4.6
-  flutter_dotenv: ^5.1.0
 
 # Packages from: https://dart.dev/tools/pub/pubspec
 

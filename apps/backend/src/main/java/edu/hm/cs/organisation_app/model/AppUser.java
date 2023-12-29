@@ -1,11 +1,7 @@
 package edu.hm.cs.organisation_app.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a User.
+ * Represents an AppUser.
  *
  * @author Angel Curras Sanchez
  */
@@ -21,30 +17,34 @@ import java.util.List;
 @Valid
 public class AppUser {
 
-  @OneToMany(mappedBy = "owner")
-  private List<Course> courses;
   /* Fields */
   @Id
   @NotNull(message = "Username is mandatory")
   @JsonProperty("user_name")
   @Column(name = "USER_NAME")
   private String userName;
+
   @NotNull(message = "The full name is mandatory")
   @JsonProperty("full_name")
   @Column(name = "FULL_NAME")
   private String fullName;
+
   @NotNull(message = "The user type is mandatory")
   @JsonProperty("user_type")
   @Column(name = "USER_TYPE")
-  private String userType;
+  @Enumerated(EnumType.STRING)
+  private UserType userType;
 
-  @OneToMany
+  @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Course> courses;
+
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Task> tasks;
 
   /* Constructors */
 
   /**
-   * Constructor for User.
+   * Constructor for AppUser.
    */
   public AppUser() {
   } // end of constructor
@@ -56,31 +56,29 @@ public class AppUser {
    * @param fullName The full name.
    * @param userType The user type.
    */
-  public AppUser(String userName, String fullName, String userType) {
+  public AppUser(String userName, String fullName, UserType userType) {
     this.userName = userName;
     this.fullName = fullName;
     this.userType = userType;
-    this.courses = new ArrayList<>();
   } // end of constructor
 
   /* Getters and Setters */
 
   /**
-   * Getter for username.
+   * Getter for userName.
    *
-   * @return Gets the value of username and returns username.
+   * @return Gets the value of userName and returns userName.
    */
   public String getUserName() {
     return this.userName;
-  } // end of getUsername()
+  } // end of getUserName()
 
   /**
-   * Sets the username.
-   * You can use getUsername() to get the value of username.
+   * Sets the userName.
+   * You can use getUserName() to get the value of userName.
    */
-  @Transactional
-  public void setUserName(String username) {
-    this.userName = username;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
   /**
@@ -96,7 +94,6 @@ public class AppUser {
    * Sets the fullName.
    * You can use getFullName() to get the value of fullName.
    */
-  @Transactional
   public void setFullName(String fullName) {
     this.fullName = fullName;
   }
@@ -106,7 +103,7 @@ public class AppUser {
    *
    * @return Gets the value of userType and returns userType.
    */
-  public String getUserType() {
+  public UserType getUserType() {
     return this.userType;
   } // end of getUserType()
 
@@ -114,19 +111,54 @@ public class AppUser {
    * Sets the userType.
    * You can use getUserType() to get the value of userType.
    */
-  @Transactional
-  public void setUserType(String userType) {
+  public void setUserType(UserType userType) {
     this.userType = userType;
   }
 
-  /* Methods */
-  public void addCourse(Course course) {
-    this.courses.add(course);
-  }
-
+  /**
+   * Getter for courses.
+   *
+   * @return Gets the value of courses and returns courses.
+   */
   public List<Course> getCourses() {
     return this.courses;
+  } // end of getCourses()
+
+  /**
+   * Sets the courses.
+   * You can use getCourses() to get the value of courses.
+   */
+  public void setCourses(List<Course> courses) {
+    this.courses = courses;
   }
+
+  /**
+   * Getter for tasks.
+   *
+   * @return Gets the value of tasks and returns tasks.
+   */
+  public List<Task> getTasks() {
+    return this.tasks;
+  } // end of getTasks()
+
+  /**
+   * Sets the tasks.
+   * You can use getTasks() to get the value of tasks.
+   */
+  public void setTasks(List<Task> tasks) {
+    this.tasks = tasks;
+  }
+
+  /* Methods */
+
+  /**
+   * Adds a course to the list of courses.
+   *
+   * @param course The course to be added.
+   */
+  public void addCourse(Course course) {
+    this.courses.add(course);
+  } // end of addCourse
 
   @Override
   public String toString() {
@@ -135,5 +167,22 @@ public class AppUser {
             ", fullName='" + fullName + '\'' +
             ", userType='" + userType + '\'' +
             '}';
+  } // end of toString
+
+  /**
+   * Returns all the tasks of the user.
+   * The personal and the ones from the courses.
+   *
+   * @return The list of tasks.
+   */
+  public List<Task> getAllTasks() {
+
+    List<Task> tasks = new ArrayList<>(this.tasks);
+    for (Course course : this.courses) {
+      tasks.addAll(course.getTasks());
+    }
+
+    return tasks;
   }
+
 } // end of class User

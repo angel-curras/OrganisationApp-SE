@@ -19,8 +19,19 @@ Content-Type: application/json
 
 {
   "module_id": 2,
-  "user_name": "acurrass"
+  "user_name": "test"
 }
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+%}
 
 ### Subscribe to a course
 POST {{base_url}}/courses
@@ -28,8 +39,19 @@ Content-Type: application/json
 
 {
   "module_id": 3,
-  "user_name": "acurrass"
+  "user_name": "test"
 }
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+%}
 
 
 ### Subscribe to the same course
@@ -37,9 +59,15 @@ POST {{base_url}}/courses
 Content-Type: application/json
 
 {
-  "module_id": 2,
-  "user_name": "admin"
+  "module_id": 3,
+  "user_name": "test"
 }
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 409, "Response status is not 409");
+    });
+%}
 
 
 ### Unknown user
@@ -51,6 +79,12 @@ Content-Type: application/json
   "user_name": "unknown"
 }
 
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 401, "Response status is not 401");
+    });
+%}
+
 
 ### Unknown module
 POST {{base_url}}/courses
@@ -60,3 +94,58 @@ Content-Type: application/json
   "module_id": 0,
   "user_name": "test"
 }
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+%}
+
+
+### Get all courses subscribed by a known user
+< {%
+    client.global.set("user_name", "test")
+%}
+GET {{base_url}}/courses/user/{{user_name}}
+
+> {%
+    client.test("GET /courses/{username} (known) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Courses array exists", function () {
+        let courses = response.body;
+        client.assert(Array.isArray(courses), "Courses is not an array");
+    });
+%}
+
+
+### Get all courses subscribed by an unknown user
+< {%
+    client.global.set("user_name", "unknown")
+%}
+GET {{base_url}}/courses/user/{{user_name}}
+
+> {%
+    client.test("GET /courses/{username} (unknown) returns 401", function () {
+        client.assert(response.status === 401, "Response status is not 401");
+    });
+%}
+
+
+### Get course by id
+< {%
+    client.global.set("course_id", "1")
+%}
+GET {{base_url}}/courses/{{course_id}}
+
+> {%
+    client.test("GET /courses/{id} (known) returns 200", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Course object exists", function () {
+        let course = response.body;
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+%}

@@ -1,0 +1,135 @@
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 1,
+  "user_name": "{{user_name}}"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+    client.global.set("course_id", course.course_id);
+%}
+
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 2,
+  "user_name": "{{user_name}}"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+    client.global.set("course_id", course.course_id);
+%}
+
+
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 3,
+  "user_name": "{{user_name}}"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+    client.global.set("course_id", course.course_id);
+%}
+
+
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 4,
+  "user_name": "{{user_name}}"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+    client.global.set("course_id", course.course_id);
+%}
+
+
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 5,
+  "user_name": "{{user_name}}"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+    client.global.set("course_id", course.course_id);
+%}
+
+
+### Subscribe to a course
+POST {{base_url}}/courses
+Content-Type: application/json
+
+{
+  "module_id": 6,
+  "user_name": "{{user_name}}"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    let course = response.body;
+    client.test("Course object exists", function () {
+        client.assert(typeof course === "object", "Course is not an object");
+    });
+
+    client.global.set("course_id", course.course_id);
+%}

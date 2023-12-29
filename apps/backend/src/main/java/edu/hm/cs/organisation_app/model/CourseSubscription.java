@@ -18,7 +18,13 @@ public class CourseSubscription {
 
 
   /* Constructors */
+  public CourseSubscription() {
+  } // end of constructor
 
+  public CourseSubscription(Long moduleId, String userName) {
+    this.moduleId = moduleId;
+    this.userName = userName;
+  } // end of constructor
 
   /* Getters and Setters */
 
@@ -42,5 +48,11 @@ public class CourseSubscription {
 
   /* Methods */
 
-
+  @Override
+  public String toString() {
+    return "CourseSubscription{" +
+            "moduleId=" + moduleId +
+            ", userName='" + userName + '\'' +
+            '}';
+  }
 } // end of class CourseSubscription
