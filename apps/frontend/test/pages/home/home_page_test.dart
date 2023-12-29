@@ -8,19 +8,27 @@ import 'package:organisation_app/pages/home/home_page.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/settings/environment.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page_test.mocks.dart';
 
 class MainTestAppHomePage extends StatelessWidget {
-  final http.Client httpClient;
+  final http.Client _client;
+  final SharedPreferences _preferences;
 
-  const MainTestAppHomePage({super.key, required this.httpClient});
+  const MainTestAppHomePage(
+      {super.key,
+      required http.Client httpClient,
+      required SharedPreferences preferences})
+      : _client = httpClient,
+        _preferences = preferences;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => AppSettings()),
+          ChangeNotifierProvider(
+              create: (context) => AppSettings(_preferences)),
         ],
         child: MaterialApp(
           theme: ThemeData(
@@ -28,7 +36,7 @@ class MainTestAppHomePage extends StatelessWidget {
           ),
           home: Scaffold(
             body: MyCoursesPage(
-              client: httpClient,
+              client: _client,
             ),
           ),
         ));
@@ -38,10 +46,13 @@ class MainTestAppHomePage extends StatelessWidget {
 @GenerateMocks([http.Client])
 void main() {
   setUp(() async {
-    await setUpApp();
+    await setUpEnvironment();
   }); // end of setUp()
 
   testWidgets('Test: Laden von zwei Items', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
     // Define the API URL and the username.
     final String apiUrl = Environment.apiUrl;
     const String username = "test";
@@ -56,6 +67,7 @@ void main() {
 
     await tester.pumpWidget(MainTestAppHomePage(
       httpClient: mockHttpClient,
+      preferences: testPreferences,
     ));
     expect(find.byType(MyCoursesPage), findsOneWidget);
     await tester.pump(const Duration(milliseconds: 200));

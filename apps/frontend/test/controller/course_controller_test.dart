@@ -14,7 +14,7 @@ import 'course_controller_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() {
   setUp(() async {
-    await setUpApp();
+    await setUpEnvironment();
   }); // end of setUp()
 
   group('Get all courses: ', () {
@@ -24,7 +24,7 @@ void main() {
       final httpClient = MockClient();
 
       // Create the course controller to be tested.
-      CourseController courseController = CourseController(httpClient);
+      CourseController courseController = CourseController(client: httpClient);
 
       // Define the API URL and the username.
       final String apiUrl = Environment.apiUrl;
@@ -49,7 +49,7 @@ void main() {
       final httpClient = MockClient();
 
       // Create the course controller to be tested.
-      CourseController courseController = CourseController(httpClient);
+      CourseController courseController = CourseController(client: httpClient);
 
       // Define the API URL and the username.
       final String apiUrl = Environment.apiUrl;

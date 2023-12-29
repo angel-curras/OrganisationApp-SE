@@ -11,7 +11,8 @@ class CourseController {
   static final _apiUrl = Environment.apiUrl;
   final http.Client _httpClient;
 
-  CourseController(this._httpClient);
+  CourseController({http.Client? client})
+      : _httpClient = client ?? http.Client();
 
   Future<List<Course>> getAllCoursesForUser(String username) async {
     // Get the courses for the user from the REST API.

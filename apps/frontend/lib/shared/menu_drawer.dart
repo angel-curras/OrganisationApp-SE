@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/login_service.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:provider/provider.dart';
@@ -111,7 +112,11 @@ class MenuDrawer extends StatelessWidget {
             ),
             onTap: () async {
               BuildContext initialContext = context;
-              await LoginService().logout();
+              AppSettings appSettings =
+                  Provider.of<AppSettings>(context, listen: false);
+              await LoginService(
+                      appSettings: appSettings, client: http.Client())
+                  .logout();
               if (!initialContext.mounted) return;
               Navigator.of(initialContext)
                   .pushNamedAndRemoveUntil('/login', (route) => false);

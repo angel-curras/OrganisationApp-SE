@@ -6,17 +6,10 @@ import 'package:organisation_app/settings/environment.dart';
 import '../model/app_user.dart';
 
 class UserController {
-  static final UserController _singleton = UserController._internal();
   static final _apiUrl = Environment.apiUrl;
-  static final http.Client _client = http.Client();
+  final http.Client _client;
 
-  factory UserController() {
-    return _singleton;
-  }
-
-  UserController._internal() {
-    // init things inside this
-  }
+  UserController({required http.Client client}) : _client = client;
 
   Future<List<AppUser>> getAllUsers() async {
     // access REST interface with get request

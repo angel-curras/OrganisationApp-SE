@@ -1,9 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:organisation_app/app/app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   testWidgets('Tap on the login as guest button', (tester) async {
-    await tester.pumpWidget(const OrganisationApp());
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+    await tester.pumpWidget(OrganisationApp(
+      preferences: testPreferences,
+    ));
 
     await tester.pumpAndSettle();
 

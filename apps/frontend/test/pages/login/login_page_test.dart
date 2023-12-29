@@ -4,15 +4,20 @@ import 'package:organisation_app/main.dart';
 import 'package:organisation_app/pages/login/login_page.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainTestAppLoginPage extends StatelessWidget {
-  const MainTestAppLoginPage({super.key});
+  final SharedPreferences _preferences;
+
+  const MainTestAppLoginPage(
+      {super.key, required SharedPreferences preferences})
+      : _preferences = preferences;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => AppSettings()),
+          ChangeNotifierProvider(create: (context) => AppSettings(_preferences))
         ],
         child: MaterialApp(
             theme: ThemeData(
@@ -24,13 +29,16 @@ class MainTestAppLoginPage extends StatelessWidget {
 
 void main() {
   setUp(() async {
-    await setUpApp();
+    await setUpEnvironment();
   }); // end of setUp()
 
   testWidgets('Test: Initialize widgets', (tester) async {
     // Create a mock HTTP client.
-
-    await tester.pumpWidget(const MainTestAppLoginPage());
+    SharedPreferences.setMockInitialValues({});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+    await tester.pumpWidget(MainTestAppLoginPage(
+      preferences: testPreferences,
+    ));
     expect(find.byType(LoginPage), findsOneWidget);
     expect(find.byType(SafeArea), findsOneWidget);
     expect(find.byType(SingleChildScrollView), findsOneWidget);

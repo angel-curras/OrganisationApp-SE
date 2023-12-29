@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/login_service.dart';
+import 'package:provider/provider.dart';
+
+import '../../settings/app_settings.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  final http.Client _client;
+
+  LoginPage({super.key, http.Client? client})
+      : _client = client ?? http.Client();
 
   // text editing controllers
   final usernameController = TextEditingController();
@@ -61,10 +68,15 @@ class LoginPage extends StatelessWidget {
                   text: 'Login',
                   loginMethod: () async {
                     BuildContext initialContext = context;
+                    AppSettings appSettings =
+                        Provider.of<AppSettings>(context, listen: false);
 
                     // Get the name from the text field
                     String name = usernameController.text;
-                    bool result = await LoginService().login(name);
+
+                    bool result = await LoginService(
+                            appSettings: appSettings, client: _client)
+                        .login(name);
                     if (!context.mounted) return;
                     if (result) {
                       Navigator.pushReplacementNamed(initialContext, '/home');
@@ -90,7 +102,11 @@ class LoginPage extends StatelessWidget {
                     text: 'Continue as Guest',
                     loginMethod: () async {
                       BuildContext initialContext = context;
-                      bool result = await LoginService().login('guest');
+                      AppSettings appSettings =
+                          Provider.of<AppSettings>(context, listen: false);
+                      bool result = await LoginService(
+                              appSettings: appSettings, client: _client)
+                          .login('guest');
                       if (!context.mounted) return;
                       if (result) {
                         Navigator.pushReplacementNamed(initialContext, '/home');

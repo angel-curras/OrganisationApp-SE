@@ -1,53 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:organisation_app/pages/home/home_page.dart';
+import 'package:organisation_app/pages/login/login_page.dart';
 import 'package:organisation_app/settings/app_settings.dart';
+import 'package:provider/provider.dart';
 
-class InitializationPage extends StatefulWidget {
-  // Constructor.
-  const InitializationPage({super.key});
+class InitializationPage extends StatelessWidget {
+  final http.Client _client;
 
-  @override
-  State<InitializationPage> createState() => _InitializationPageState();
-}
-
-class _InitializationPageState extends State<InitializationPage> {
-  bool _isLoggedIn = false; // Replace with your authentication logic
-
-  @override
-  void initState() {
-    super.initState();
-    _checkLoginStatus();
-  }
-
-  Future<void> _checkLoginStatus() async {
-    AppSettings appSettings = AppSettings();
-
-    // Get the login status from the shared preferences
-    bool result = await appSettings.hasUser();
-
-    // Update the state to reflect the login status
-    setState(() {
-      _isLoggedIn = result; // Set to true if the user is logged in
-    });
-
-    // Navigate to the appropriate screen based on the login status
-    _navigateToScreen();
-  }
-
-  void _navigateToScreen() {
-    if (_isLoggedIn) {
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      Navigator.pushReplacementNamed(context, '/login');
-    }
-  }
+  InitializationPage({Key? key, http.Client? client})
+      : _client = client ?? http.Client(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child:
-            CircularProgressIndicator(), // You can display a loading indicator here
-      ),
-    );
+    AppSettings appSettings = Provider.of<AppSettings>(context);
+
+    if (appSettings.hasValidUser()) {
+      return MyCoursesPage(client: _client);
+    }
+
+    return LoginPage(client: _client);
   }
 }

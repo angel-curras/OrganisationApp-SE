@@ -13,8 +13,8 @@ class MyCoursesPage extends StatefulWidget {
   late final CourseController _courseController;
 
   // Constructor.
-  MyCoursesPage({super.key, required http.Client client}) {
-    _courseController = CourseController(client);
+  MyCoursesPage({super.key, http.Client? client}) {
+    _courseController = CourseController(client: client ?? http.Client());
   }
 
   // Methods.

@@ -2,56 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:organisation_app/model/app_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// App preferences as a provider
 class AppSettings with ChangeNotifier {
-  // Singleton
-  static final AppSettings _instance = AppSettings._internal();
+  /* Fields */
+  AppUser _user;
+  final SharedPreferences _prefs;
 
-  // Settings.
-  AppUser _user = AppUser();
+  /* Constructor */
+  AppSettings(SharedPreferences prefs)
+      : _prefs = prefs,
+        _user = AppUser.fromJsonString(prefs.getString('user') ?? '{}');
 
-  // Getters
+  /* Getters */
   AppUser get user => _user;
 
-  // Setters
-  set user(AppUser user) {
+  /* Setters */
+  Future<void> saveUser(AppUser user) async {
     _user = user;
+    await _prefs.setString('user', user.toJsonString());
     notifyListeners();
-  } // end of user setter
+  } // end of saveUser()
 
-  // Singleton constructor
-  factory AppSettings() {
-    return _instance;
-  } // factory AppSettings
+  /* Methods */
+  bool hasValidUser() {
+    return _user.userName.isNotEmpty;
+  } // end of hasValidUser()
 
-  // Instance constructor
-  AppSettings._internal(); // AppSettings._internal
+  Future<void> clearUser() async {
+    await saveUser(AppUser());
+  } // end of clearUser()
 
-  // Getters
-  Future<bool> hasUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    AppUser user = AppUser.fromJsonString(prefs.getString('user') ?? '{}');
-    this.user = user;
-    notifyListeners();
-    return user.userName.isNotEmpty;
-  } // end of isUserLoggedIn()
-
-  Future<void> rememberUser(AppUser user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', user.toJsonString());
-    this.user = user;
-    saveAllSettings();
-  } // end of rememberUser()
-
-  Future<void> forgetUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user', '{}');
-    _user = AppUser();
-    saveAllSettings();
-  } // end of forgetUser()
-
-  Future<void> saveAllSettings() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user', _user.toJsonString());
-    notifyListeners();
-  } // end of saveAllSettings()
-} // class AppSettings
+  static Future<SharedPreferences> getPreferences() async {
+    return await SharedPreferences.getInstance();
+  } // end of getPreferences()
+} // end of class Preferences
