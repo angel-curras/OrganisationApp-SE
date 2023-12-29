@@ -29,6 +29,17 @@ public class TaskControllerTest {
         taskController.deleteAllTasks();
     }
 
+    // Test that tasks have the correct IDs
+    @Test
+    void testInitDB(){
+        this.clearDB();
+        this.initDB();
+        List<Task> tasks = taskController.getAllTasks();
+        Assertions.assertEquals(1, tasks.getFirst().getId());
+        Assertions.assertEquals(2, tasks.getLast().getId());
+    }
+
+    // Test that the database is empty
     @Test
     void testGetAllTasksEmpty() {
         this.clearDB();
@@ -36,6 +47,7 @@ public class TaskControllerTest {
         Assertions.assertEquals(0, tasks.size());
     }
 
+    // Test if the database contains all tasks
     @Test
     void testGetAllTasksAdded() {
         this.clearDB();
@@ -44,6 +56,7 @@ public class TaskControllerTest {
         Assertions.assertEquals(2, tasks.size());
     }
 
+    // Test task is saved correctly
     @Test
     void testNewTaskDBEmpty() {
         this.clearDB();
@@ -65,6 +78,7 @@ public class TaskControllerTest {
         Assertions.assertNotNull(createdTask);
     } // end of testNewTaskDBEmpty()
 
+    // Test if task is updated correctly
     @Test
     void testUpdateTask() {
         this.clearDB();
@@ -79,9 +93,15 @@ public class TaskControllerTest {
         // Verify the updated details
          Assertions.assertEquals(1, updatedTask.getPriority());
 
-        Assertions.assertNotNull(updatedTask); // Assuming success means a non-null task was created
+        Assertions.assertNotNull(updatedTask);
+
+        // test saving if the id is not found
+        Task updatedTask2 = taskController.updateTask(existingTask, 5);
+        List<Task> tasks2 = taskController.getAllTasks();
+        Assertions.assertEquals(3, tasks2.size());
     } // end of testUpdateTask()
 
+    // Test if task is deleted correctly
     @Test
     void testDeleteTask() {
         this.clearDB();
