@@ -9,13 +9,8 @@ Future<void> setUpEnvironment() async {
   await dotenv.load(fileName: Environment.fileName);
 }
 
-Future<SharedPreferences> setUpSharedPreferences() async {
-  return await SharedPreferences.getInstance();
-}
-
 Future<void> main() async {
-  // Load the environment variables.
   await setUpEnvironment();
-  SharedPreferences prefs = await setUpSharedPreferences();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(OrganisationApp(preferences: prefs));
-}
+} // end of main()
