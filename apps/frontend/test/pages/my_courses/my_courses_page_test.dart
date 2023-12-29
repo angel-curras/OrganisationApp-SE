@@ -10,7 +10,7 @@ import 'package:organisation_app/settings/environment.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home_page_test.mocks.dart';
+import 'my_courses_page_test.mocks.dart';
 
 class MainTestAppHomePage extends StatelessWidget {
   final http.Client _client;
