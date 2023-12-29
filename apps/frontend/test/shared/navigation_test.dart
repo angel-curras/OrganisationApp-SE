@@ -34,7 +34,7 @@ class MainTestAppNavigation extends StatelessWidget {
             useMaterial3: true,
           ),
           routes: appRoutes,
-          initialRoute: '/home',
+          initialRoute: '/my_courses',
         ));
   }
 }

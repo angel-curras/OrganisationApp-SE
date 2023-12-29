@@ -12,11 +12,11 @@ http.Client client = http.Client();
 
 var appRoutes = {
   '/init': (context) => InitializationPage(),
-  '/home': (context) => MyCoursesPage(),
+  '/my_courses': (context) => MyCoursesPage(),
   '/login': (context) => LoginPage(
         client: client,
       ),
-  '/courses': (context) => const CoursesPage(),
+  '/modules': (context) => const CoursesPage(),
   '/todos': (context) => TodosPage(
         client: client,
       ),

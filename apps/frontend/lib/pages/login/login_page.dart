@@ -9,8 +9,7 @@ import '../../settings/app_settings.dart';
 class LoginPage extends StatelessWidget {
   final http.Client _client;
 
-  LoginPage({super.key, required http.Client client})
-      : _client = client;
+  LoginPage({super.key, required http.Client client}) : _client = client;
 
   // text editing controllers
   final usernameController = TextEditingController();
@@ -70,17 +69,18 @@ class LoginPage extends StatelessWidget {
                   loginMethod: () async {
                     BuildContext initialContext = context;
                     AppSettings appSettings =
-                    Provider.of<AppSettings>(context, listen: false);
+                        Provider.of<AppSettings>(context, listen: false);
 
                     // Get the name from the text field
                     String name = usernameController.text;
 
                     bool result = await LoginService(
-                        appSettings: appSettings, client: _client)
+                            appSettings: appSettings, client: _client)
                         .login(name);
                     if (!context.mounted) return;
                     if (result) {
-                      Navigator.pushReplacementNamed(initialContext, '/home');
+                      Navigator.pushReplacementNamed(
+                          initialContext, '/my_courses');
                     } else {
                       ScaffoldMessenger.of(initialContext).showSnackBar(
                         const SnackBar(
@@ -105,13 +105,14 @@ class LoginPage extends StatelessWidget {
                     loginMethod: () async {
                       BuildContext initialContext = context;
                       AppSettings appSettings =
-                      Provider.of<AppSettings>(context, listen: false);
+                          Provider.of<AppSettings>(context, listen: false);
                       bool result = await LoginService(
-                          appSettings: appSettings, client: _client)
+                              appSettings: appSettings, client: _client)
                           .login('guest');
                       if (!context.mounted) return;
                       if (result) {
-                        Navigator.pushReplacementNamed(initialContext, '/home');
+                        Navigator.pushReplacementNamed(
+                            initialContext, '/my_courses');
                       } else {
                         ScaffoldMessenger.of(initialContext).showSnackBar(
                           const SnackBar(

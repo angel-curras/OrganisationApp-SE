@@ -45,7 +45,7 @@ class _MyCoursesPageState extends State<MyCoursesPage> {
       floatingActionButton: FloatingActionButton(
         tooltip: 'New',
         onPressed: () {
-          Navigator.pushNamed(context, '/courses');
+          Navigator.pushNamed(context, '/modules');
         },
         child: const Icon(Icons.add),
       ),
