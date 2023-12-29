@@ -1,8 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:organisation_app/app/routes.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+import '../shared/mock_web_view_plattform.dart';
 
 void main() {
+  setUp(() {
+    WebViewPlatform.instance = MockWebViewPlatform();
+  }); // end of setUp()
   group('Routes tests', () {
     // Define the test parameters
     final testCases = [

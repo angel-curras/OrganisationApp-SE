@@ -13,7 +13,7 @@ var appRoutes = {
   '/login': (context) => LoginPage(),
   '/courses': (context) => const CoursesPage(),
   '/todos': (context) => TodosPage(),
-  '/moodle': (context) => const MoodlePage(),
-  '/chatgpt': (context) => const ChatGptPage(),
-  '/primuss': (context) => const PrimussPage(),
+  '/moodle': (context) => MoodlePage(),
+  '/chatgpt': (context) => ChatGptPage(),
+  '/primuss': (context) => PrimussPage(),
 };

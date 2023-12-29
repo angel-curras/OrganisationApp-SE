@@ -31,8 +31,4 @@ class AppSettings with ChangeNotifier {
   Future<void> clearUser() async {
     await saveUser(AppUser());
   } // end of clearUser()
-
-  static Future<SharedPreferences> getPreferences() async {
-    return await SharedPreferences.getInstance();
-  } // end of getPreferences()
 } // end of class Preferences

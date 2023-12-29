@@ -2,53 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class IntegratedBrowser extends StatefulWidget {
-  final String title;
-  final String startUrl;
+class IntegratedBrowser extends StatelessWidget {
+  final String _title;
+  final String _startUrl;
+  final WebViewController _webViewController;
 
   const IntegratedBrowser(
-      {super.key, required this.title, required this.startUrl});
-
-  @override
-  State<IntegratedBrowser> createState() => _IntegratedBrowserState();
-}
-
-class _IntegratedBrowserState extends State<IntegratedBrowser> {
-  final _controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setNavigationDelegate(
-      NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-        onWebResourceError: (WebResourceError error) {},
-        onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('https://www.youtube.com/')) {
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-      ),
-    );
-
-  @override
-  void initState() {
-    super.initState();
-    _controller.loadRequest(Uri.parse(widget.startUrl));
-  }
+      {super.key,
+      required String title,
+      required String startUrl,
+      required WebViewController webViewController})
+      : _startUrl = startUrl,
+        _title = title,
+        _webViewController = webViewController;
 
   @override
   Widget build(BuildContext context) {
+    _webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);
+    _webViewController.loadRequest(Uri.parse(_startUrl));
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 3, 134, 204),
-        title: Text(widget.title),
+        title: Text(_title),
       ),
       drawer: const MenuDrawer(),
-      body: WebViewWidget(controller: _controller),
+      body: WebViewWidget(controller: _webViewController),
     );
   }
 }

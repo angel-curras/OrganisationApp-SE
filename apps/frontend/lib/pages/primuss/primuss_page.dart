@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:organisation_app/shared/integrated_browser.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class PrimussPage extends StatefulWidget {
-  const PrimussPage({super.key});
+class PrimussPage extends StatelessWidget {
+  PrimussPage({super.key, WebViewController? webViewController})
+      : _webViewController = webViewController ?? WebViewController();
+  final WebViewController _webViewController;
 
-  @override
-  State<PrimussPage> createState() => _PrimussPageState();
-}
-
-class _PrimussPageState extends State<PrimussPage> {
   @override
   Widget build(BuildContext context) {
-    return const IntegratedBrowser(
-        title: "Primuss", startUrl: 'https://www.primuss.de/portal-fhm');
+    return IntegratedBrowser(
+        title: "Primuss",
+        startUrl: 'https://www.primuss.de/portal-fhm',
+        webViewController: _webViewController);
   }
 }
