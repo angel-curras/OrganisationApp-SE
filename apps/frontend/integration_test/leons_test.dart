@@ -1,13 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:organisation_app/main.dart';
+import 'package:organisation_app/app/app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  testWidgets('tap on the login as guest button', (tester) async {
-    await tester.pumpWidget(const OrganisationApp());
+  // end of setUp()
 
-    await tester.pumpAndSettle();
+  group("Login button", () {
+    setUp(() async {});
 
-    // Find a button with the text "Continue as Guest"
-    expect(find.text('Continue as Guest'), findsOneWidget);
+    testWidgets('tap on the login as guest button', (tester) async {
+      SharedPreferences testPreferences = await SharedPreferences.getInstance();
+      await tester.pumpWidget(OrganisationApp(
+        preferences: testPreferences,
+      ));
+
+      await tester.pumpAndSettle();
+
+      // Find a button with the text "Continue as Guest"
+      expect(find.text('Continue as Guest'), findsOneWidget);
+    });
   });
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:organisation_app/controller/task_controller.dart';
 import 'package:organisation_app/model/task.dart';
-import 'package:organisation_app/services/backend.dart';
 
 // widget class to create stateful new item page
 class UpdateItemPage extends StatefulWidget {
-  final Backend _backend;
-  final http.Client _client;
+  final TaskController _taskController;
   final Task item;
 
-  const UpdateItemPage(this._backend, this._client, this.item, {super.key});
+  UpdateItemPage(http.Client client, this.item, {super.key})
+      : _taskController = TaskController(client: client);
 
   @override
   UpdateItemPageState createState() {
@@ -22,15 +22,13 @@ class UpdateItemPageState extends State<UpdateItemPage> {
   final _formKey = GlobalKey<FormState>();
 
   // necessary for mocking (unit and widget tests)
-  late Backend _backend; // library with functions to access backend
-  late http.Client _client; // REST client proxy
   late Task item;
+  late TaskController _taskController;
 
   @override
   void initState() {
     super.initState();
-    _backend = widget._backend;
-    _client = widget._client;
+    _taskController = widget._taskController;
     item = widget.item;
   }
 
@@ -55,9 +53,8 @@ class UpdateItemPageState extends State<UpdateItemPage> {
     final saveButton = ElevatedButton(
       onPressed: () {
         if (_formKey.currentState!.validate()) {
-          _backend
-              .updateTask(
-                  _client, item.id, nameController.text, "3", item.priority)
+          _taskController
+              .updateTask(item.id, nameController.text, "3", item.priority)
               .then((value) => Navigator.pop(context));
         }
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:organisation_app/services/login_service.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,8 @@ class MenuDrawer extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(context.read<AppSettings>().user.fullName),
-            accountEmail: Text(context.read<AppSettings>().user.userName),
-            currentAccountPicture: CircleAvatar(
+            accountEmail: Text("@${context.read<AppSettings>().user.userName}"),
+            currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
                 Icons.person,
@@ -31,88 +32,75 @@ class MenuDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            key: const Key('homeTile'),
             leading: const Icon(
               FontAwesomeIcons.house, // replace with your own icon
               size: 25,
             ),
-            title: const Text('My Semester'),
+            title: const Text('My Courses'),
             onTap: () {
-              Navigator.pushNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/my_courses');
             },
           ),
           ListTile(
+            key: const Key('modulesTile'),
             leading: const Icon(
               FontAwesomeIcons.book, // replace with your own icon
               size: 25,
             ),
             title: const Text('Modules'),
             onTap: () {
-              Navigator.pushNamed(context, '/courses');
+              Navigator.pushReplacementNamed(context, '/modules');
             },
           ),
           ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.calendar, // replace with your own icon
-              size: 25,
-            ),
-            title: const Text('Calendar'),
-            onTap: () {
-              Navigator.pushNamed(context, '/calendar');
-            },
-          ),
-          ListTile(
+            key: const Key('todosTile'),
             leading: const Icon(
               FontAwesomeIcons.listCheck, // replace with your own icon
               size: 25,
             ),
             title: const Text('ToDos'),
             onTap: () {
-              Navigator.pushNamed(context, '/todos');
+              Navigator.pushReplacementNamed(context, '/todos');
             },
           ),
           const Divider(),
           ListTile(
+            key: const Key('moodleTile'),
             leading: const Icon(
               FontAwesomeIcons.m, // replace with your own icon
               size: 25,
             ),
             title: const Text('Moodle'),
             onTap: () {
-              Navigator.pushNamed(context, '/moodle');
+              Navigator.pushReplacementNamed(context, '/moodle');
             },
           ),
           ListTile(
+            key: const Key('primussTile'),
             leading: const Icon(
               FontAwesomeIcons.idCard, // replace with your own icon
               size: 25,
             ),
             title: const Text('Primuss'),
             onTap: () {
-              Navigator.pushNamed(context, '/primuss');
+              Navigator.pushReplacementNamed(context, '/primuss');
             },
           ),
           ListTile(
+            key: const Key('chatgptTile'),
             leading: const Icon(
               FontAwesomeIcons.comments, // replace with your own icon
               size: 25,
             ),
             title: const Text('ChatGPT'),
             onTap: () {
-              Navigator.pushNamed(context, '/chatgpt');
-            },
-          ),
-          ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.question, // replace with your own icon
-              size: 25,
-            ),
-            title: const Text('About'),
-            onTap: () {
-              Navigator.pushNamed(context, '/about');
+              Navigator.pushReplacementNamed(context, '/chatgpt');
             },
           ),
           const Divider(),
           ListTile(
+            key: const Key('logoutTile'),
             leading: const Icon(
               FontAwesomeIcons.arrowRightFromBracket,
               // replace with your own icon
@@ -124,7 +112,11 @@ class MenuDrawer extends StatelessWidget {
             ),
             onTap: () async {
               BuildContext initialContext = context;
-              await LoginService().logout();
+              AppSettings appSettings =
+                  Provider.of<AppSettings>(context, listen: false);
+              await LoginService(
+                      appSettings: appSettings, client: http.Client())
+                  .logout();
               if (!initialContext.mounted) return;
               Navigator.of(initialContext)
                   .pushNamedAndRemoveUntil('/login', (route) => false);

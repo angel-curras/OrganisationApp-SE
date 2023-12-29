@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:organisation_app/shared/integrated_browser.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class ChatGptPage extends StatefulWidget {
-  const ChatGptPage({super.key});
+class ChatGptPage extends StatelessWidget {
+  ChatGptPage({super.key, WebViewController? webViewController})
+      : _webViewController = webViewController ?? WebViewController();
+  final WebViewController _webViewController;
 
-  @override
-  State<ChatGptPage> createState() => _ChatGptPageState();
-}
-
-class _ChatGptPageState extends State<ChatGptPage> {
   @override
   Widget build(BuildContext context) {
-    return const IntegratedBrowser(title: "Chat", startUrl: 'https://ai.lab.hm.edu');
+    return IntegratedBrowser(
+        title: "Chat",
+        startUrl: 'https://ai.lab.hm.edu',
+        webViewController: _webViewController);
   }
 }

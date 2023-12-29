@@ -3,7 +3,7 @@ POST {{base_url}}/courses
 Content-Type: application/json
 
 {
-  "module_id": 21,
+  "module_id": 1,
   "user_name": "{{user_name}}"
 }
 
@@ -26,11 +26,11 @@ Content-Type: application/json
     client.global.set("start_date", "2023-10-01")
     client.global.set("end_date", "2024-01-02")
     client.global.set("lecture_weekday", "WEDNESDAY")
-    client.global.set("lecture_start_time", "12:00:00")
-    client.global.set("lecture_end_time", "14:00:00")
+    client.global.set("lecture_start_time", "12:00")
+    client.global.set("lecture_end_time", "14:00")
     client.global.set("lab_weekday", "FRIDAY")
-    client.global.set("lab_start_time", "12:00:00")
-    client.global.set("lab_end_time", "14:00:00")
+    client.global.set("lab_start_time", "12:00")
+    client.global.set("lab_end_time", "14:00")
 %}
 PUT {{base_url}}/courses/{{course_id}}
 Content-Type: application/json

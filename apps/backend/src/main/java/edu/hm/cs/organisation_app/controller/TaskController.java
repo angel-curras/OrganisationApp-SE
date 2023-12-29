@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,12 +49,21 @@ public class TaskController {
   public void deleteTask(@PathVariable long id) {
     this.service.deleteTask(id);
   }
+
+  // delete all tasks
+    @DeleteMapping("/deleteAll")
+    public void deleteAllTasks() {
+        this.service.deleteAllTasks();
+    }
   /* Getters and Setters */
 
 
   /* Methods */
   @GetMapping("")
   public List<Task> getAllTasks() {
+    if (this.service.getAllTasks().isEmpty()){
+      return new ArrayList<>();
+    }
     return this.service.getAllTasks();
   }
 
