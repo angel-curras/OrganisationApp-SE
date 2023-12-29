@@ -11,20 +11,6 @@ class UserController {
 
   UserController({required http.Client client}) : _client = client;
 
-  Future<List<AppUser>> getAllUsers() async {
-    // access REST interface with get request
-    final response = await _client.get(Uri.parse('$_apiUrl/items'));
-
-    // check response from backend
-    if (response.statusCode == 200) {
-      return List<AppUser>.from(json
-          .decode(utf8.decode(response.bodyBytes))
-          .map((element) => AppUser.fromJsonMap(element)));
-    } else {
-      throw Exception('Failed to decode the list of users.');
-    } // end of if
-  } // end of getAllUsers()
-
   Future<AppUser> getUser(String userName) async {
     // access REST interface with get request
     final response = await _client.get(Uri.parse('$_apiUrl/users/$userName'));
