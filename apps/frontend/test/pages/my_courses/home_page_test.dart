@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:organisation_app/main.dart';
-import 'package:organisation_app/pages/home/home_page.dart';
+import 'package:organisation_app/pages/my_courses/my_courses_page.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/settings/environment.dart';
 import 'package:provider/provider.dart';

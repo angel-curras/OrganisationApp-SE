@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:organisation_app/main.dart';
 import 'package:organisation_app/model/app_user.dart';
-import 'package:organisation_app/pages/home/home_page.dart';
+import 'package:organisation_app/pages/my_courses/my_courses_page.dart';
 import 'package:organisation_app/pages/login/initialization_page.dart';
 import 'package:organisation_app/pages/login/login_page.dart';
 import 'package:organisation_app/settings/app_settings.dart';
