@@ -69,9 +69,9 @@ class _TodosPageState extends State<TodosPage> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Frequency: ${task.frequency}"),
-                        Text(
-                            "deadline: ${task.deadline.day}/${task.deadline.month}/${task.deadline.year}"),
+                        if (task.deadline != DateTime(3000, 01, 01))
+                          Text("until: "
+                              "${task.deadline.day}/${task.deadline.month}/${task.deadline.year}"),
                         Text("Priority: ${task.priority}"),
                       ],
                     ),
