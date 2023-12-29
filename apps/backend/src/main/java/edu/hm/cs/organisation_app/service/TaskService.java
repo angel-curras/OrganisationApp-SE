@@ -56,6 +56,10 @@ public class TaskService {
   public void deleteTask(long id) {
     taskRepository.deleteById(id);
   }
+
+    public void deleteAllTasks() {
+        taskRepository.deleteAll();
+    }
   /* Getters and Setters */
 
 

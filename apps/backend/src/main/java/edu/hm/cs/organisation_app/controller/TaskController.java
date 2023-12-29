@@ -48,6 +48,12 @@ public class TaskController {
   public void deleteTask(@PathVariable long id) {
     this.service.deleteTask(id);
   }
+
+  // delete all tasks
+    @DeleteMapping("")
+    public void deleteAllTasks() {
+        this.service.deleteAllTasks();
+    }
   /* Getters and Setters */
 
 
