@@ -50,7 +50,7 @@ public class TaskController {
   }
 
   // delete all tasks
-    @DeleteMapping("")
+    @DeleteMapping("/deleteAll")
     public void deleteAllTasks() {
         this.service.deleteAllTasks();
     }
@@ -60,6 +60,7 @@ public class TaskController {
   /* Methods */
   @GetMapping("")
   public List<Task> getAllTasks() {
+    System.out.println(this.service.getAllTasks().getFirst().getId());
     return this.service.getAllTasks();
   }
 

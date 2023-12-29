@@ -18,7 +18,7 @@ class Task {
   // parse Item from JSON-data
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
-      id: json['id'] ?? 0,
+      id: json['task_id'] ?? 0,
       name: json['name'] ?? '',
       priority: json['priority'] ?? 3,
       deadline: DateTime.parse(json['deadline']),
@@ -31,7 +31,7 @@ class Task {
 
   // map item to JSON-data (so far not used in app)
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "task_id": id,
         "name": name,
         "deadline": deadline.toIso8601String(),
         "priority": priority,

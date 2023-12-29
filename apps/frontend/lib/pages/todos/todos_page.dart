@@ -55,7 +55,7 @@ class _TodosPageState extends State<TodosPage> {
                   child: ListTile(
                     leading: Checkbox(
                       key: Key("doneCheckbox_$position"),
-                      value: task!.done ?? false,
+                      value: task!.done,
                       onChanged: (bool? value) {
                         setState(() {
                           task.done = value!;
@@ -100,7 +100,6 @@ class _TodosPageState extends State<TodosPage> {
                           tooltip: 'Delete Item',
                           onPressed: () {
                             print("Delete Item");
-                            print(task.id);
                             setState(() {
                               _backend.deleteTask(_client, task.id);
                             });
