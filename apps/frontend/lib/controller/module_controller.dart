@@ -2,12 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:organisation_app/model/module.dart';
 import 'package:organisation_app/settings/environment.dart';
 
 class ModuleController {
-  static final Logger _log = Logger();
   static final _apiUrl = "${Environment.apiUrl}/";
 
   // Get modules
@@ -86,20 +84,6 @@ class ModuleController {
       return Module.fromJson(json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to fetch Module');
-    }
-  }
-
-  // create a Get request for the backend
-  Future<List<String>> getRequest(http.Client client, String url) async {
-    // access REST interface with get request
-    final response = await client.get(Uri.parse('$_apiUrl$url'));
-
-    // check response from backend
-    if (response.statusCode == 200) {
-      return List<String>.from(
-          json.decode(utf8.decode(response.bodyBytes)).map((x) => x));
-    } else {
-      throw Exception('Failed to load $url');
     }
   }
 }
