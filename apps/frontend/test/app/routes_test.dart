@@ -14,9 +14,7 @@ void main() {
     final testCases = [
       {'route_name': "/init", 'widget_class': "InitializationPage"},
       {'route_name': "/login", 'widget_class': "LoginPage"},
-      {'route_name': '/init', 'widget_class': "InitializationPage"},
       {'route_name': '/my_courses', 'widget_class': "MyCoursesPage"},
-      {'route_name': '/login', 'widget_class': "LoginPage"},
       {'route_name': '/modules', 'widget_class': "CoursesPage"},
       {'route_name': '/todos', 'widget_class': "TodosPage"},
       {'route_name': '/moodle', 'widget_class': "MoodlePage"},
