@@ -9,8 +9,10 @@ Future<void> setUpEnvironment() async {
   await dotenv.load(fileName: Environment.fileName);
 }
 
+// coverage:ignore-start
 Future<void> main() async {
   await setUpEnvironment();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(OrganisationApp(preferences: prefs));
 } // end of main()
+// coverage:ignore-end
