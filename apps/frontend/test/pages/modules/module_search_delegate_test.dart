@@ -3,14 +3,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:organisation_app/controller/module_controller.dart';
 import 'package:organisation_app/model/module.dart';
-import 'package:organisation_app/pages/courses/module_search_delegate.dart';
-import 'package:organisation_app/services/backend.dart';
+import 'package:organisation_app/pages/modules/module_search_delegate.dart';
 import 'package:organisation_app/settings/environment.dart';
 
 class MockClient extends Mock implements http.Client {}
 
-class MockBackend extends Mock implements Backend {
+class MockModuleController extends Mock implements ModuleController {
   bool shouldThrowError = false;
 
   @override
@@ -86,12 +86,12 @@ void main() {
 
   group('ModuleSearchDelegate Tests', () {
     late MockClient mockClient;
-    late MockBackend mockBackend;
+    late MockModuleController mockBackend;
 
     // Test overall functionality of ModuleSearchDelegate
     setUp(() {
       mockClient = MockClient();
-      mockBackend = MockBackend();
+      mockBackend = MockModuleController();
     });
 
     testWidgets('Test ModuleSearchDelegate creation',

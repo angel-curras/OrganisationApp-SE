@@ -4,8 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
+import 'package:organisation_app/controller/module_controller.dart';
 import 'package:organisation_app/model/module.dart';
-import 'package:organisation_app/services/backend.dart';
 import 'package:organisation_app/settings/environment.dart';
 
 class MockClient extends Mock implements http.Client {
@@ -145,20 +145,20 @@ void main() {
 
   group('Backend Tests', () {
     MockClient mockClient;
-    Backend backend;
+    ModuleController backend;
 
     test(
         'fetchModuleList returns a list of Modules if the http call completes successfully',
         () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       expect(await backend.fetchModuleList(mockClient), isA<List<Module>>());
     });
 
     test('fetchModuleList throws an error if content is null', () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       mockClient.contentSetToNull = true;
 
@@ -169,7 +169,7 @@ void main() {
 
     test('fetchModuleList doesn\'t return a 200', () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       mockClient.return200 = false;
 
@@ -182,7 +182,7 @@ void main() {
         'fetchModuleListWithPaginationAndSorting returns a list of Modules if the http call completes successfully',
         () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       expect(
           await backend.fetchModuleListWithPaginationAndSorting(mockClient,
@@ -194,7 +194,7 @@ void main() {
         'fetchModuleListWithPaginationAndSorting returns a list of Modules if the http call completes successfully',
         () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       expect(
           await backend.fetchModuleListWithPaginationAndSorting(mockClient,
@@ -210,7 +210,7 @@ void main() {
         'fetchModuleListWithPaginationAndSorting throws an error if content is null',
         () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       mockClient.contentSetToNull = true;
 
@@ -224,7 +224,7 @@ void main() {
     test('fetchModuleListWithPaginationAndSorting doesn\'t return a 200',
         () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       mockClient.return200 = false;
 
@@ -238,14 +238,14 @@ void main() {
     test('fetchModule returns a Module if the http call completes successfully',
         () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       expect(await backend.fetchModule(mockClient, 1), isA<Module>());
     });
 
     test('fetchModule doesn\'t return a 200', () async {
       mockClient = MockClient();
-      backend = Backend();
+      backend = ModuleController();
 
       mockClient.return200 = false;
 

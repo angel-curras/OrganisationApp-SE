@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:organisation_app/services/backend.dart';
 
+import '../../controller/task_controller.dart';
 import '../../shared/date_picker.dart';
 
 class CreateItemPage extends StatefulWidget {
-  final Backend _backend;
-  final http.Client _client;
+  final TaskController _taskController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  CreateItemPage(this._backend, this._client, {Key? key}) : super(key: key);
-
-  Backend get backend => _backend;
-
-  http.Client get client => _client;
-
   GlobalKey<FormState> get formKey => _formKey;
+
+  CreateItemPage(http.Client client, {Key? key})
+      : _taskController = TaskController(client: client),
+        super(key: key);
 
   @override
   CreateItemPageState createState() {
@@ -76,8 +73,7 @@ class CreateItemPageState extends State<CreateItemPage> {
         if (widget.formKey.currentState!.validate()) {
           try {
             // Perform saving action
-            await widget.backend.createTask(
-              widget.client,
+            await widget._taskController.createTask(
               nameController.text,
               date.toIso8601String(),
               priority,

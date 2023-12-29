@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:organisation_app/controller/module_controller.dart';
 import 'package:organisation_app/model/module.dart';
-import 'package:organisation_app/pages/courses/module_details_page.dart';
-import 'package:organisation_app/pages/courses/module_search_delegate.dart';
-import 'package:organisation_app/services/backend.dart';
+import 'package:organisation_app/pages/modules/module_details_page.dart';
+import 'package:organisation_app/pages/modules/module_search_delegate.dart';
 
 import '../../shared/menu_drawer.dart';
 
@@ -16,7 +16,7 @@ class CoursesPage extends StatefulWidget {
 
 class CoursesPageState extends State<CoursesPage> {
   late Future<List<Module>> modulesFuture;
-  late Backend _backend;
+  late ModuleController _backend;
   late http.Client client;
 
   int currentPage = 0;
@@ -32,7 +32,7 @@ class CoursesPageState extends State<CoursesPage> {
   @override
   void initState() {
     super.initState();
-    _backend = Backend();
+    _backend = ModuleController();
     client = http.Client();
     fetchModules();
   }

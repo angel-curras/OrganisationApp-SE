@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:organisation_app/controller/task_controller.dart';
 import 'package:organisation_app/model/task.dart';
-import 'package:organisation_app/services/backend.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
 
 import 'create_todo_dialog.dart';
@@ -9,12 +9,12 @@ import 'edit_todo_dialog.dart';
 
 class TodosPage extends StatefulWidget {
   // Fields.
-  final String title = "ToDos";
-  final Backend backend = Backend();
-  final http.Client client = http.Client();
+  final String title = "ToDo List";
+  final TaskController _taskController;
 
   // Constructor.
-  TodosPage({super.key});
+  TodosPage({super.key, required http.Client client})
+      : _taskController = TaskController(client: client);
 
   // Methods.
   @override
@@ -22,15 +22,12 @@ class TodosPage extends StatefulWidget {
 }
 
 class _TodosPageState extends State<TodosPage> {
-  // necessary for mocking (unit and widget tests)
-  late Backend _backend; // library with functions to access backend
-  late http.Client _client; // REST client proxy
+  late TaskController _taskController;
 
   @override
   void initState() {
     super.initState();
-    _backend = widget.backend;
-    _client = widget.client;
+    _taskController = widget._taskController;
   }
 
 // Todos are displayed with a name, deadline date, Priority and three buttons to edit, delete the item and to check it if you have done it.
@@ -44,7 +41,7 @@ class _TodosPageState extends State<TodosPage> {
         ),
       ),
       body: FutureBuilder<List<Task>>(
-        future: _backend.fetchItemList(_client),
+        future: _taskController.fetchItemList(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -60,8 +57,7 @@ class _TodosPageState extends State<TodosPage> {
                         setState(() {
                           task.done = value!;
                           // Update the backend with the 'done' attribute.
-                          _backend.updateItemDoneStatus(
-                              _client, task.id, value);
+                          _taskController.updateItemDoneStatus(task.id, value);
                         });
                       },
                     ),
@@ -86,7 +82,8 @@ class _TodosPageState extends State<TodosPage> {
                             showDialog<bool>(
                               context: context,
                               builder: (BuildContext context) => Dialog(
-                                child: UpdateItemPage(_backend, _client, task),
+                                child: UpdateItemPage(
+                                    _taskController.client, task),
                               ),
                             ).then((result) {
                               setState(() {});
@@ -99,7 +96,7 @@ class _TodosPageState extends State<TodosPage> {
                           tooltip: 'Delete Item',
                           onPressed: () {
                             setState(() {
-                              _backend.deleteTask(_client, task.id);
+                              _taskController.deleteTask(task.id);
                             });
                           },
                         )
@@ -124,7 +121,7 @@ class _TodosPageState extends State<TodosPage> {
           context: context,
           builder: (BuildContext context) {
             return Dialog(
-              child: CreateItemPage(_backend, _client),
+              child: CreateItemPage(_taskController.client),
             );
           },
         ).then((_) => setState(() {})),

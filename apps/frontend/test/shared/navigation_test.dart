@@ -4,6 +4,7 @@ import 'package:organisation_app/app/routes.dart';
 import 'package:organisation_app/main.dart';
 import 'package:organisation_app/pages/chatgpt/chatgpt_page.dart';
 import 'package:organisation_app/pages/home/home_page.dart';
+import 'package:organisation_app/pages/modules/modules_list.dart';
 import 'package:organisation_app/pages/moodle/moodle_page.dart';
 import 'package:organisation_app/pages/primuss/primuss_page.dart';
 import 'package:organisation_app/pages/todos/todos_page.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../shared/mock_web_view_plattform.dart';
+import 'mock_web_view_plattform.dart';
 
 class MainTestAppNavigation extends StatelessWidget {
   final SharedPreferences _preferences;
@@ -85,6 +86,13 @@ void main() {
     await tester.tap(find.byKey(const Key('chatgptTile')));
     await tester.pumpAndSettle();
     expect(find.byType(ChatGptPage), findsOneWidget);
+
+    // Navigate to Modules
+    await tester.tap(find.byIcon(Icons.menu));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('modulesTile')));
+    await tester.pumpAndSettle();
+    expect(find.byType(CoursesPage), findsOneWidget);
 
     // Navigate to Login
     await tester.tap(find.byIcon(Icons.menu));

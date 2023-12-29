@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:organisation_app/model/module.dart';
-import 'package:organisation_app/services/backend.dart';
 import 'package:http/http.dart' as http;
-import 'package:organisation_app/pages/courses/module_details_page.dart';
+import 'package:organisation_app/controller/module_controller.dart';
+import 'package:organisation_app/model/module.dart';
+import 'package:organisation_app/pages/modules/module_details_page.dart';
 
 class ModuleSearchDelegate extends SearchDelegate {
   final http.Client client;
-  final Backend _backend;
+  final ModuleController _backend;
 
   ModuleSearchDelegate(this.client, this._backend);
 
