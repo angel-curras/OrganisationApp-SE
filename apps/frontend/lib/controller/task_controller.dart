@@ -53,17 +53,19 @@ class TaskController {
   }
 
   // Update item on backend
-  Future<void> updateTask(
-      int id, String name, String deadline, int priority) async {
+  Future<void> updateTask(int id, String name, String deadline, int priority,
+      bool done, String frequency) async {
     Map data = {
       'id': id,
-      'name': name,
-      'deadline': deadline,
+      'task_name': name,
       'priority': priority,
+      'deadline': deadline,
+      'is_done': done,
+      'frequency': frequency,
     };
 
     // access REST interface with put request
-    var response = await _client.put(Uri.parse('$_apiUrl/item'),
+    var response = await _client.put(Uri.parse('$_apiUrl/tasks/$id'),
         headers: <String, String>{'Content-Type': 'application/json'},
         body: json.encode(data));
 
