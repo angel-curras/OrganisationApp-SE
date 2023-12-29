@@ -9,8 +9,8 @@ import '../../settings/app_settings.dart';
 class LoginPage extends StatelessWidget {
   final http.Client _client;
 
-  LoginPage({super.key, http.Client? client})
-      : _client = client ?? http.Client();
+  LoginPage({super.key, required http.Client client})
+      : _client = client;
 
   // text editing controllers
   final usernameController = TextEditingController();
@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                // username textfield
+                // username text field
                 TextField(
                   controller: usernameController,
                   decoration: const InputDecoration(
@@ -64,18 +64,19 @@ class LoginPage extends StatelessWidget {
 
                 // Login button
                 LoginButton(
+                  key: const Key('loginButton'),
                   icon: FontAwesomeIcons.rightToBracket,
                   text: 'Login',
                   loginMethod: () async {
                     BuildContext initialContext = context;
                     AppSettings appSettings =
-                        Provider.of<AppSettings>(context, listen: false);
+                    Provider.of<AppSettings>(context, listen: false);
 
                     // Get the name from the text field
                     String name = usernameController.text;
 
                     bool result = await LoginService(
-                            appSettings: appSettings, client: _client)
+                        appSettings: appSettings, client: _client)
                         .login(name);
                     if (!context.mounted) return;
                     if (result) {
@@ -98,14 +99,15 @@ class LoginPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: LoginButton(
+                    key: const Key('guestLoginButton'),
                     icon: FontAwesomeIcons.userNinja,
                     text: 'Continue as Guest',
                     loginMethod: () async {
                       BuildContext initialContext = context;
                       AppSettings appSettings =
-                          Provider.of<AppSettings>(context, listen: false);
+                      Provider.of<AppSettings>(context, listen: false);
                       bool result = await LoginService(
-                              appSettings: appSettings, client: _client)
+                          appSettings: appSettings, client: _client)
                           .login('guest');
                       if (!context.mounted) return;
                       if (result) {
