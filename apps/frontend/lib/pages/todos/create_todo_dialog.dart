@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import '../../controller/task_controller.dart';
 import '../../model/task.dart';
+import '../../settings/app_settings.dart';
 import '../../shared/date_picker.dart';
 
 class CreateItemPage extends StatefulWidget {
@@ -30,6 +32,8 @@ class CreateItemPageState extends State<CreateItemPage> {
 
   @override
   Widget build(BuildContext context) {
+    String userName = Provider.of<AppSettings>(context).user.userName;
+
     if (widget.edit) {
       nameController.text = widget.task!.name;
       priority = widget.task!.priority;
@@ -80,14 +84,14 @@ class CreateItemPageState extends State<CreateItemPage> {
           if (widget.edit) {
             try {
               // Perform saving action
-              await widget._taskController.updateTask(
-                widget.task!.id,
-                nameController.text,
-                date.toIso8601String(),
-                priority,
-                done,
-                "ONCE",
+
+              Task task = Task(
+                id: widget.task!.id,
+                name: nameController.text,
+                priority: priority,
+                deadline: date,
               );
+              await widget._taskController.updateTask(task);
 
               if (!context.mounted) {
                 return;
@@ -106,11 +110,10 @@ class CreateItemPageState extends State<CreateItemPage> {
             try {
               // Perform saving action
               await widget._taskController.createTask(
+                userName,
                 nameController.text,
-                date.toIso8601String(),
+                date,
                 priority,
-                done,
-                "ONCE",
               );
 
               if (!context.mounted) {

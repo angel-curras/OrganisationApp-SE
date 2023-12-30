@@ -38,7 +38,7 @@ public class AppUser {
   @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Course> courses;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Task> tasks;
 
   /* Constructors */
@@ -184,5 +184,17 @@ public class AppUser {
 
     return tasks;
   }
+
+  public void addTask(Task task) {
+    task.setAppUser(this);
+    tasks.add(task);// Update the relationship
+  }
+
+  public void removeTask(Task task) {
+    task.setAppUser(null);
+    tasks.remove(task);
+    // Update the relationship
+  }
+
 
 } // end of class User
