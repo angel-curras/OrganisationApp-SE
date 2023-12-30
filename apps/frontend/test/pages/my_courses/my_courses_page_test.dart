@@ -34,6 +34,9 @@ class MainTestAppHomePage extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
           ),
+          routes: {
+            "/modules": (context) => const Placeholder(),
+          },
           home: Scaffold(
             body: MyCoursesPage(
               client: _client,
@@ -49,7 +52,7 @@ void main() {
     await setUpEnvironment();
   }); // end of setUp()
 
-  testWidgets('Test: Laden von zwei Items', (tester) async {
+  testWidgets('Test: Load empty courses', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -71,5 +74,34 @@ void main() {
     ));
     expect(find.byType(MyCoursesPage), findsOneWidget);
     await tester.pump(const Duration(milliseconds: 200));
+  });
+
+  testWidgets('Test: Navigate to modules', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    // Define the API URL and the username.
+    final String apiUrl = Environment.apiUrl;
+    const String username = "test";
+    final String requestUrl = '$apiUrl/courses/user/$username';
+
+    // Create a mock HTTP client.
+    final mockHttpClient = MockClient();
+
+    // Define the mocked response.
+    when(mockHttpClient.get(Uri.parse(requestUrl)))
+        .thenAnswer((_) async => http.Response('[]', 200));
+
+    await tester.pumpWidget(MainTestAppHomePage(
+      httpClient: mockHttpClient,
+      preferences: testPreferences,
+    ));
+    expect(find.byType(MyCoursesPage), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 200));
+
+    // Navigate to Modules
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+    expect(find.byType(Placeholder), findsOneWidget);
   });
 }

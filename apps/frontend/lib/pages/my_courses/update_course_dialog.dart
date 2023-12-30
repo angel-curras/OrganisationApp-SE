@@ -28,9 +28,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
 
     await widget._courseController.updateCourse(widget._course);
 
-    if (!context.mounted) {
-      return;
-    }
+    if (!context.mounted) return;
     Navigator.of(context).pop();
   }
 
@@ -149,6 +147,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                             flex: 2,
                             child: ElevatedButton(
+                              key: const Key("startDateButton"),
                               onPressed: () async {
                                 DateTime? pickedDate =
                                     await _selectDate(context);
@@ -180,6 +179,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                             flex: 2,
                             child: ElevatedButton(
+                              key: const Key("endDateButton"),
                               onPressed: () async {
                                 DateTime? pickedDate =
                                     await _selectDate(context);
@@ -232,18 +232,17 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                               flex: 2,
                               child: DropdownButtonFormField<Weekday>(
-                                key: const Key("lecture_week_day"),
+                                key: const Key("lectureWeekDayDropdownButton"),
                                 value: widget._course.lectureWeekday,
                                 decoration: const InputDecoration(
                                   hintText: "Please select the lecture day",
                                 ),
                                 onChanged: (Weekday? newValue) {
-                                  if (newValue == null) {
-                                    return;
+                                  if (newValue != null) {
+                                    setState(() {
+                                      widget._course.lectureWeekday = newValue;
+                                    });
                                   }
-                                  setState(() {
-                                    widget._course.lectureWeekday = newValue;
-                                  });
                                 },
                                 items: Weekday.values.map((weekday) {
                                   return DropdownMenuItem<Weekday>(
@@ -269,6 +268,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                             flex: 2,
                             child: ElevatedButton(
+                              key: const Key("lectureStartTimeButton"),
                               onPressed: () async {
                                 TimeOfDay? pickedTime =
                                     await _selectTime(context);
@@ -303,6 +303,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                             flex: 2,
                             child: ElevatedButton(
+                              key: const Key("lectureEndTimeButton"),
                               onPressed: () async {
                                 TimeOfDay? pickedTime =
                                     await _selectTime(context);
@@ -358,7 +359,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                               flex: 2,
                               child: DropdownButtonFormField<Weekday>(
-                                key: const Key("lab_week_day"),
+                                key: const Key("labWeekDayDropdownButton"),
                                 value: widget._course.labWeekday,
                                 decoration: const InputDecoration(
                                   hintText: "Please select the lab day",
@@ -395,6 +396,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                             flex: 2,
                             child: ElevatedButton(
+                              key: const Key("labStartTimeButton"),
                               onPressed: () async {
                                 TimeOfDay? pickedTime =
                                     await _selectTime(context);
@@ -428,6 +430,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                           Expanded(
                             flex: 2,
                             child: ElevatedButton(
+                              key: const Key("labEndTimeButton"),
                               onPressed: () async {
                                 TimeOfDay? pickedTime =
                                     await _selectTime(context);
@@ -457,6 +460,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
+                key: const Key("updateButton"),
                 onPressed: () => _onUpdateClicked(context),
                 child: const Text("Update"),
               ),
