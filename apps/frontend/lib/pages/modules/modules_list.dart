@@ -125,6 +125,7 @@ class CoursesPageState extends State<CoursesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 3, 134, 204),
         title: const Text('Modules'),
         actions: [
@@ -184,7 +185,7 @@ class CoursesPageState extends State<CoursesPage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              ModuleDetailsPage(module: module),
+                              ModuleDetailsPage(module: module, client: client),
                         ),
                       );
                     },
