@@ -85,11 +85,6 @@ class _MyCoursesPageState extends State<MyCoursesPage> {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             IconButton(
-                                key: const Key("edit"),
-                                icon: const Icon(Icons.edit),
-                                tooltip: 'Edit Item',
-                                onPressed: () {}),
-                            IconButton(
                               key: const Key("delete"),
                               icon: const Icon(Icons.delete),
                               tooltip: 'Delete Item',
