@@ -5,7 +5,6 @@ import 'package:organisation_app/model/task.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
 
 import 'create_todo_dialog.dart';
-import 'edit_todo_dialog.dart';
 
 class TodosPage extends StatefulWidget {
   // Fields.
@@ -44,10 +43,12 @@ class _TodosPageState extends State<TodosPage> {
         future: _taskController.fetchItemList(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            List<Task> tasks = snapshot.data!;
+            sortTasksByPriority(tasks);
             return ListView.builder(
-              itemCount: snapshot.data?.length,
+              itemCount: tasks.length,
               itemBuilder: (_, int position) {
-                final task = snapshot.data?[position];
+                final task = tasks[position];
                 return Card(
                   child: ListTile(
                     leading: Checkbox(
@@ -57,7 +58,13 @@ class _TodosPageState extends State<TodosPage> {
                         setState(() {
                           task.done = value!;
                           // Update the backend with the 'done' attribute.
-                          _taskController.updateItemDoneStatus(task.id, value);
+                          _taskController.updateTask(
+                              task.id,
+                              task.name,
+                              task.deadline.toIso8601String(),
+                              task.priority,
+                              task.done,
+                              task.frequency);
                         });
                       },
                     ),
@@ -82,8 +89,9 @@ class _TodosPageState extends State<TodosPage> {
                             showDialog<bool>(
                               context: context,
                               builder: (BuildContext context) => Dialog(
-                                child: UpdateItemPage(
-                                    _taskController.client, task),
+                                child: CreateItemPage(
+                                    _taskController.client, true,
+                                    task: task),
                               ),
                             ).then((result) {
                               setState(() {});
@@ -121,7 +129,7 @@ class _TodosPageState extends State<TodosPage> {
           context: context,
           builder: (BuildContext context) {
             return Dialog(
-              child: CreateItemPage(_taskController.client),
+              child: CreateItemPage(_taskController.client, false),
             );
           },
         ).then((_) => setState(() {})),
@@ -129,5 +137,18 @@ class _TodosPageState extends State<TodosPage> {
       ),
       drawer: const MenuDrawer(),
     );
+  }
+
+  void sortTasksByPriority(List<Task> tasks) {
+    tasks.sort((Task a, Task b) {
+      if (a.done && !b.done) {
+        return 1; // a has lower priority because it's done
+      } else if (!a.done && b.done) {
+        return -1; // a has higher priority because it's not done
+      } else {
+        // if both are done or not done, then sort by priority
+        return a.priority.compareTo(b.priority);
+      }
+    });
   }
 }

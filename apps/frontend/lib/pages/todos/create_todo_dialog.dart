@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../controller/task_controller.dart';
+import '../../model/task.dart';
 import '../../shared/date_picker.dart';
 
 class CreateItemPage extends StatefulWidget {
   final TaskController _taskController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final bool edit;
+  final Task? task;
 
   GlobalKey<FormState> get formKey => _formKey;
 
-  CreateItemPage(http.Client client, {Key? key})
-      : _taskController = TaskController(client: client),
-        super(key: key);
+  CreateItemPage(http.Client client, this.edit, {super.key, this.task})
+      : _taskController = TaskController(client: client);
 
   @override
   CreateItemPageState createState() {
@@ -28,6 +30,10 @@ class CreateItemPageState extends State<CreateItemPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.edit) {
+      nameController.text = widget.task!.name;
+      priority = widget.task!.priority;
+    }
     final nameField = TextFormField(
       key: const Key("name"),
       controller: nameController,
@@ -71,28 +77,55 @@ class CreateItemPageState extends State<CreateItemPage> {
     final saveButton = ElevatedButton(
       onPressed: () async {
         if (widget.formKey.currentState!.validate()) {
-          try {
-            // Perform saving action
-            await widget._taskController.createTask(
-              nameController.text,
-              date.toIso8601String(),
-              priority,
-              done,
-              "ONCE",
-            );
+          if (widget.edit) {
+            try {
+              // Perform saving action
+              await widget._taskController.updateTask(
+                widget.task!.id,
+                nameController.text,
+                date.toIso8601String(),
+                priority,
+                done,
+                "ONCE",
+              );
 
-            if (!context.mounted) {
-              return;
+              if (!context.mounted) {
+                return;
+              }
+              Navigator.pop(context);
+            } catch (error) {
+              // Handle error (e.g., display a Snackbar)
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Error: $error'),
+                ),
+              );
             }
-            Navigator.pop(context);
-          } catch (error) {
-            // Handle error (e.g., display a Snackbar)
+          } else {
+            try {
+              // Perform saving action
+              await widget._taskController.createTask(
+                nameController.text,
+                date.toIso8601String(),
+                priority,
+                done,
+                "ONCE",
+              );
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Error: $error'),
-              ),
-            );
+              if (!context.mounted) {
+                return;
+              }
+              Navigator.pop(context);
+            } catch (error) {
+              // Handle error (e.g., display a Snackbar)
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Error: $error'),
+                ),
+              );
+            }
           }
         }
       },
