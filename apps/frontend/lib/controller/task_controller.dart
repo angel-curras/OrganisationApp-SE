@@ -56,7 +56,7 @@ class TaskController {
   Future<void> updateTask(int id, String name, String deadline, int priority,
       bool done, String frequency) async {
     Map data = {
-      'id': id,
+      'task_id': id,
       'task_name': name,
       'priority': priority,
       'deadline': deadline,

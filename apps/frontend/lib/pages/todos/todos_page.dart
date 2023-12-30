@@ -43,10 +43,12 @@ class _TodosPageState extends State<TodosPage> {
         future: _taskController.fetchItemList(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            List<Task> tasks = snapshot.data!;
+            sortTasksByPriority(tasks);
             return ListView.builder(
-              itemCount: snapshot.data?.length,
+              itemCount: tasks.length,
               itemBuilder: (_, int position) {
-                final task = snapshot.data?[position];
+                final task = tasks[position];
                 return Card(
                   child: ListTile(
                     leading: Checkbox(
@@ -59,9 +61,9 @@ class _TodosPageState extends State<TodosPage> {
                           _taskController.updateTask(
                               task.id,
                               task.name,
-                              task.deadline.toString(),
+                              task.deadline.toIso8601String(),
                               task.priority,
-                              value,
+                              task.done,
                               task.frequency);
                         });
                       },
@@ -135,5 +137,18 @@ class _TodosPageState extends State<TodosPage> {
       ),
       drawer: const MenuDrawer(),
     );
+  }
+
+  void sortTasksByPriority(List<Task> tasks) {
+    tasks.sort((Task a, Task b) {
+      if (a.done && !b.done) {
+        return 1; // a has lower priority because it's done
+      } else if (!a.done && b.done) {
+        return -1; // a has higher priority because it's not done
+      } else {
+        // if both are done or not done, then sort by priority
+        return a.priority.compareTo(b.priority);
+      }
+    });
   }
 }
