@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:organisation_app/pages/my_courses/update_course_dialog.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/shared/menu_drawer.dart';
@@ -24,7 +23,6 @@ class MyCoursesPage extends StatefulWidget {
 }
 
 class _MyCoursesPageState extends State<MyCoursesPage> {
-  static final Logger _logger = Logger();
   late final CourseController _courseController;
   bool isEditing = false;
 

@@ -11,11 +11,11 @@ import 'package:universal_html/html.dart' show HttpStatus;
 class ModuleDetailsPage extends StatelessWidget {
   static final _logger = Logger();
   final Module module;
-  final http.Client _httpClient;
+  final http.Client _client;
 
   const ModuleDetailsPage(
       {Key? key, required this.module, required http.Client client})
-      : _httpClient = client,
+      : _client = client,
         super(key: key);
 
   @override
@@ -62,8 +62,8 @@ class ModuleDetailsPage extends StatelessWidget {
           _logger.i('Module: ${module.name}');
           _logger.i('Module ID: ${module.id}');
 
-          int statusCode =
-              await CourseController().enroll(user.userName, module.id);
+          int statusCode = await CourseController(client: _client)
+              .enroll(user.userName, module.id);
 
           if (!context.mounted) return;
 

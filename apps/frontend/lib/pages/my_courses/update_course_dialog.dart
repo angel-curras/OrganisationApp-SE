@@ -210,7 +210,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Lecture:',
                         style: TextStyle(
@@ -336,7 +336,7 @@ class _UpdateCourseDialogState extends State<UpdateCourseDialog> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Lab:',
                         style: TextStyle(
