@@ -6,7 +6,10 @@ import 'package:mockito/mockito.dart';
 import 'package:organisation_app/controller/module_controller.dart';
 import 'package:organisation_app/model/module.dart';
 import 'package:organisation_app/pages/modules/module_search_delegate.dart';
+import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/settings/environment.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MockClient extends Mock implements http.Client {}
 
@@ -196,19 +199,27 @@ void main() {
     });
 
     testWidgets('Test tapping ListTile', (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+      SharedPreferences testPreferences = await SharedPreferences.getInstance();
       final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            key: scaffoldKey,
-            body: ElevatedButton(
-              onPressed: () {
-                showSearch(
-                    context: scaffoldKey.currentContext!,
-                    delegate: ModuleSearchDelegate(mockClient, mockBackend));
-              },
-              child: const Text('Open Search'),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+                create: (context) => AppSettings(testPreferences)),
+          ],
+          child: MaterialApp(
+            home: Scaffold(
+              key: scaffoldKey,
+              body: ElevatedButton(
+                onPressed: () {
+                  showSearch(
+                      context: scaffoldKey.currentContext!,
+                      delegate: ModuleSearchDelegate(mockClient, mockBackend));
+                },
+                child: const Text('Open Search'),
+              ),
             ),
           ),
         ),
@@ -228,19 +239,26 @@ void main() {
 
     testWidgets('Test tapping ListTile and going back',
         (WidgetTester tester) async {
+      SharedPreferences.setMockInitialValues({});
+      SharedPreferences testPreferences = await SharedPreferences.getInstance();
       final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
       await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            key: scaffoldKey,
-            body: ElevatedButton(
-              onPressed: () {
-                showSearch(
-                    context: scaffoldKey.currentContext!,
-                    delegate: ModuleSearchDelegate(mockClient, mockBackend));
-              },
-              child: const Text('Open Search'),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+                create: (context) => AppSettings(testPreferences)),
+          ],
+          child: MaterialApp(
+            home: Scaffold(
+              key: scaffoldKey,
+              body: ElevatedButton(
+                onPressed: () {
+                  showSearch(
+                      context: scaffoldKey.currentContext!,
+                      delegate: ModuleSearchDelegate(mockClient, mockBackend));
+                },
+                child: const Text('Open Search'),
+              ),
             ),
           ),
         ),
