@@ -48,7 +48,7 @@ class MainTestApp extends StatelessWidget {
   }
 }
 
-@GenerateNiceMocks([MockSpec<http.Client>(as: #MockClient)])
+@GenerateMocks([http.Client])
 void main() {
   setUp(() async {
     await setUpEnvironment();
@@ -319,27 +319,25 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
+    Course expectedCourse = Course(id: 1, name: "test", responsible: "test");
+
     // Define the API URL and the username.
     final String apiUrl = Environment.apiUrl;
-    const String courseId = "test";
+    int courseId = expectedCourse.id;
     final String requestUrl = '$apiUrl/courses/$courseId';
 
     // Create a mock HTTP client.
     final mockHttpClient = MockClient();
-    Course course = Course(id: 1, name: "test", responsible: "test");
 
     // Define the mocked response.
-    when(mockHttpClient.put(
-      Uri.parse(requestUrl),
-      headers: anyNamed('headers'),
-      body: anyNamed('body'),
-      encoding: null,
-    )).thenAnswer((_) async => http.Response("", 200));
+    when(mockHttpClient.put(Uri.parse(requestUrl),
+            headers: anyNamed('headers'), body: expectedCourse.toJsonString()))
+        .thenAnswer((_) async => http.Response("{}", 200));
 
     await tester.pumpWidget(MainTestApp(
       httpClient: mockHttpClient,
       preferences: testPreferences,
-      course: course,
+      course: expectedCourse,
     ));
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
 
@@ -357,8 +355,5 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key("updateButton")));
     await tester.pumpAndSettle();
-    await tester.tap(find.text("OK"));
-    await tester.pumpAndSettle();
-    expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 }

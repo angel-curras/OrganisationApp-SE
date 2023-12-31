@@ -87,7 +87,7 @@ class CourseController {
       case HttpStatus.created:
         _logger
             .i("HTTP Status 201: Created. User '$userName' enrolled in course "
-            "'$courseId'.");
+                "'$courseId'.");
         break;
       case HttpStatus.conflict:
         _logger.e("HTTP Status 409: Conflict. User '$userName' already "
@@ -102,12 +102,12 @@ class CourseController {
   } // end of enroll()
 
   Future<bool> updateCourse(Course course) async {
-    _logger.i(
-        "Updating course '${course.name}' with course id '${course.id}'.");
+    _logger
+        .i("Updating course '${course.name}' with course id '${course.id}'.");
     http.Response response = await _client
         .put(Uri.parse('$_apiUrl/courses/${course.id}'),
-        headers: <String, String>{'Content-Type': 'application/json'},
-        body: course.toJsonString())
+            headers: <String, String>{'Content-Type': 'application/json'},
+            body: course.toJsonString())
         .timeout(const Duration(seconds: _timeout), onTimeout: () {
       return http.Response('Error: timeout', HttpStatus.requestTimeout);
     });

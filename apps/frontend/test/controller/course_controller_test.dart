@@ -79,7 +79,39 @@ void main() {
     }); // end of test 'Courses are not empty'
   }); // end of group 'Get all courses'
 
-  tearDown(() {
-    // This function is called after each test.
-  }); // end of tearDown()
+  test('Course update', () async {
+    /* Arrange */
+    // Create the mocked http client.
+    final httpClient = MockClient();
+
+    // Create the course controller to be tested.
+    CourseController courseController = CourseController(client: httpClient);
+
+    // Define the API URL and the username.
+    final String apiUrl = Environment.apiUrl;
+    const String username = "test";
+    const String requestUrl = 'http://192.168.1.44:8080/courses/1';
+
+    // Define the mocked response.
+    Course expectedCourse = Course(
+      id: 1,
+      name: 'Test Course',
+    );
+
+    // Encode the expected course as JSON.
+    String responseBody = json.encode([expectedCourse.toJsonMap()]);
+    when(httpClient.put(Uri.parse(requestUrl),
+            headers: anyNamed('headers'), body: expectedCourse.toJsonString()))
+        .thenAnswer((_) async => http.Response(responseBody, 200));
+
+    /* Act */
+    var result = await courseController.updateCourse(expectedCourse);
+
+    /* Assert */
+    // expect(courses, isNotEmpty);
+
+    // expect(courses[0].id, equals(expectedCourse.id));
+    // expect(courses[0].name, equals(expectedCourse.name));
+  }); // end of test 'Courses are not empty'
+// end of group 'Get all courses'
 } // end of main()
