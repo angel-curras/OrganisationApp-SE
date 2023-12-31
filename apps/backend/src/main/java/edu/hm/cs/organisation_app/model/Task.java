@@ -40,7 +40,16 @@ public class Task {
 
   @JsonProperty("deadline")
   private LocalDate deadline;
+  
+  @ManyToOne()
+  @JsonIgnore
+  @JoinColumn(name = "user_id")
+  private AppUser appUser;
 
+  @ManyToOne()
+  @JsonIgnore
+  @JoinColumn(name = "course_id")
+  private Course course;
 
   /* Constructors */
   public Task() {
@@ -194,5 +203,54 @@ public class Task {
     return this.calendarEvent.getDate().toString();
   }
 
+  /**
+   * Getter for appUser.
+   *
+   * @return Gets the value of appUser and returns appUser.
+   */
+  @JsonIgnore
+  public AppUser getAppUser() {
+    return this.appUser;
+  } // end of getAppUser()
 
+  /**
+   * Sets the appUser.
+   * You can use getAppUser() to get the value of appUser.
+   */
+  public void setAppUser(AppUser appUser) {
+    this.appUser = appUser;
+  }
+
+  /**
+   * Getter for course.
+   *
+   * @return Gets the value of course and returns course.
+   */
+  @JsonIgnore
+  public Course getCourse() {
+    return this.course;
+  } // end of getCourse()
+
+  /**
+   * Sets the course.
+   * You can use getCourse() to get the value of course.
+   */
+  public void setCourse(Course course) {
+    this.course = course;
+  }
+
+  @Override
+  public String toString() {
+    return "Task{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", priority=" + priority +
+            ", done=" + done +
+            ", frequency=" + frequency +
+            ", calendarEvent=" + calendarEvent +
+            ", deadline=" + deadline +
+            ", appUser=" + appUser +
+            ", course=" + course +
+            '}';
+  }
 } // end of class Task

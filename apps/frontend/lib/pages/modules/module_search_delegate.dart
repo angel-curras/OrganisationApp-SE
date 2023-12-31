@@ -52,7 +52,8 @@ class ModuleSearchDelegate extends SearchDelegate {
                 subtitle: Text(module.verantwortlich),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ModuleDetailsPage(module: module),
+                    builder: (context) =>
+                        ModuleDetailsPage(module: module, client: client),
                   ));
                 },
               );

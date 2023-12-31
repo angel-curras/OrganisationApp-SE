@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:organisation_app/model/task.dart';
 import 'package:organisation_app/settings/environment.dart';
 
 class TaskController {
+  static final Logger _logger = Logger();
   static final _apiUrl = Environment.apiUrl;
   final http.Client _client;
 
@@ -13,59 +15,50 @@ class TaskController {
 
   TaskController({required http.Client client}) : _client = client;
 
-  // get item list from backend
-  Future<List<Task>> fetchItemList() async {
+  Future<List<Task>> getAllTasksForUser(String username) async {
     // access REST interface with get request
-    final response = await _client.get(Uri.parse('$_apiUrl/tasks'));
+    final response = await _client.get(Uri.parse('$_apiUrl/tasks/$username'));
 
     // check response from backend
     if (response.statusCode == 200) {
       return List<Task>.from(json
           .decode(utf8.decode(response.bodyBytes))
-          .map((x) => Task.fromJson(x)));
+          .map((x) => Task.fromJsonMap(x)));
     } else {
       throw Exception('Failed to load Item list');
     }
   }
 
   // save new item on backend
-  Future<Task> createTask(String name, String deadline, int priority, bool done,
-      String frequency) async {
-    Map data = {
-      'task_name': name,
-      'priority': priority,
-      'deadline': deadline,
-      'is_done': done,
-      'frequency': frequency,
-    };
+  Future<Task> createTask(
+      String userName, String taskName, DateTime deadline, int priority) async {
+    Task task = Task(
+      name: taskName,
+      priority: priority,
+      deadline: deadline,
+    );
+
+    _logger.i("Creating a new task for user '$userName'. Task: '$task'");
 
     // access REST interface with post request
-    var response = await _client.post(Uri.parse('$_apiUrl/tasks'),
+    var response = await _client.post(Uri.parse('$_apiUrl/tasks/$userName'),
         headers: <String, String>{'Content-Type': 'application/json'},
-        body: json.encode(data));
+        body: task.toJsonString());
 
     // check response from backend
     if (response.statusCode == 200) {
-      return Task.fromJson(json.decode(utf8.decode(response.bodyBytes)));
+      return Task.fromJsonMap(json.decode(utf8.decode(response.bodyBytes)));
     } else {
       throw Exception('Failed to create item');
     }
   }
 
   // Update item on backend
-  Future<void> updateTask(
-      int id, String name, String deadline, int priority) async {
-    Map data = {
-      'id': id,
-      'name': name,
-      'deadline': deadline,
-      'priority': priority,
-    };
-
+  Future<void> updateTask(Task task) async {
     // access REST interface with put request
-    var response = await _client.put(Uri.parse('$_apiUrl/item'),
+    var response = await _client.put(Uri.parse('$_apiUrl/tasks/${task.id}'),
         headers: <String, String>{'Content-Type': 'application/json'},
-        body: json.encode(data));
+        body: task.toJsonString());
 
 // check response from backend
     if (response.statusCode != 200) {
@@ -76,10 +69,7 @@ class TaskController {
   // delete item on backend
   Future<void> deleteTask(int id) async {
     // access REST interface with delete request
-    var response = await _client.delete(
-      Uri.parse('$_apiUrl/tasks/$id'),
-      headers: <String, String>{'Content-Type': 'application/json'},
-    );
+    var response = await _client.delete(Uri.parse('$_apiUrl/tasks/$id'));
 
     // check response from backend
     if (response.statusCode != 200) {
@@ -89,15 +79,15 @@ class TaskController {
 
   // set done value of item on backend
   Future<void> updateItemDoneStatus(int id, bool? done) async {
-    Map data = {
-      'id': id,
-      'done': done,
-    };
+    Task task = Task(
+      id: id,
+      done: done ?? false,
+    );
 
     // access REST interface with put request
     var response = await _client.put(Uri.parse('$_apiUrl/item/done'),
         headers: <String, String>{'Content-Type': 'application/json'},
-        body: json.encode(data));
+        body: task.toJsonString());
 
     // check response from backend
     if (response.statusCode != 200) {

@@ -1,5 +1,6 @@
 package edu.hm.cs.organisation_app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -36,9 +37,11 @@ public class AppUser {
   private UserType userType;
 
   @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
   private List<Course> courses;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
   private List<Task> tasks;
 
   /* Constructors */
@@ -69,6 +72,7 @@ public class AppUser {
    *
    * @return Gets the value of userName and returns userName.
    */
+  @JsonIgnore
   public String getUserName() {
     return this.userName;
   } // end of getUserName()
@@ -86,6 +90,7 @@ public class AppUser {
    *
    * @return Gets the value of fullName and returns fullName.
    */
+  @JsonIgnore
   public String getFullName() {
     return this.fullName;
   } // end of getFullName()
@@ -94,6 +99,7 @@ public class AppUser {
    * Sets the fullName.
    * You can use getFullName() to get the value of fullName.
    */
+  @JsonIgnore
   public void setFullName(String fullName) {
     this.fullName = fullName;
   }
@@ -103,6 +109,7 @@ public class AppUser {
    *
    * @return Gets the value of userType and returns userType.
    */
+  @JsonIgnore
   public UserType getUserType() {
     return this.userType;
   } // end of getUserType()
@@ -120,6 +127,7 @@ public class AppUser {
    *
    * @return Gets the value of courses and returns courses.
    */
+  @JsonIgnore
   public List<Course> getCourses() {
     return this.courses;
   } // end of getCourses()
@@ -137,6 +145,7 @@ public class AppUser {
    *
    * @return Gets the value of tasks and returns tasks.
    */
+  @JsonIgnore
   public List<Task> getTasks() {
     return this.tasks;
   } // end of getTasks()
@@ -175,6 +184,7 @@ public class AppUser {
    *
    * @return The list of tasks.
    */
+  @JsonIgnore
   public List<Task> getAllTasks() {
 
     List<Task> tasks = new ArrayList<>(this.tasks);

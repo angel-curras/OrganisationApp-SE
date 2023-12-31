@@ -38,6 +38,15 @@ public class TaskController {
     return createdTask;
   }
 
+
+  @PostMapping("/{username}")
+  public Task createTaskForUser(@RequestBody Task newTask, @PathVariable String username) {
+    log.info("Creating a new task for user: " + username + ", Task:" + newTask);
+    Task createdTask = this.service.createTaskForUser(newTask, username);
+    log.info("Task created: " + createdTask);
+    return createdTask;
+  }
+
   //update task
   @PutMapping("/{id}")
   public Task updateTask(@RequestBody Task newTask, @PathVariable long id) {
@@ -46,22 +55,22 @@ public class TaskController {
 
   //delete task
   @DeleteMapping("/{id}")
-  public void deleteTask(@PathVariable long id) {
+  public void deleteTask(@PathVariable Long id) {
     this.service.deleteTask(id);
   }
-
+  
   // delete all tasks
-    @DeleteMapping("/deleteAll")
-    public void deleteAllTasks() {
-        this.service.deleteAllTasks();
-    }
+  @DeleteMapping("/deleteAll")
+  public void deleteAllTasks() {
+    this.service.deleteAllTasks();
+  }
   /* Getters and Setters */
 
 
   /* Methods */
   @GetMapping("")
   public List<Task> getAllTasks() {
-    if (this.service.getAllTasks().isEmpty()){
+    if (this.service.getAllTasks().isEmpty()) {
       return new ArrayList<>();
     }
     return this.service.getAllTasks();

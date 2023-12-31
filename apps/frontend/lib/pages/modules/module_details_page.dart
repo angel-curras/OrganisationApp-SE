@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
+import 'package:organisation_app/controller/course_controller.dart';
+import 'package:organisation_app/model/app_user.dart';
 import 'package:organisation_app/model/module.dart';
+import 'package:organisation_app/settings/app_settings.dart';
+import 'package:provider/provider.dart';
+import 'package:universal_html/html.dart' show HttpStatus;
 
 class ModuleDetailsPage extends StatelessWidget {
+  static final _logger = Logger();
   final Module module;
+  final http.Client _client;
 
-  const ModuleDetailsPage({Key? key, required this.module}) : super(key: key);
+  const ModuleDetailsPage(
+      {Key? key, required this.module, required http.Client client})
+      : _client = client,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AppUser user = Provider.of<AppSettings>(context).user;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(module.name),
+        centerTitle: true,
+        title: Text("Module: ${module.name}"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -21,8 +36,6 @@ class ModuleDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // add a button to edit the module
-            const SubscribeButton(),
             _buildModuleDetailCard('Name', module.name, '📜'),
             _buildModuleDetailCard('ECTS', module.ects.toString(), '🎓'),
             _buildModuleDetailCard('SWS', module.sws.toString(), '🕒'),
@@ -41,6 +54,51 @@ class ModuleDetailsPage extends StatelessWidget {
             _buildModuleDetailCard('Literatur', module.literatur, '📚'),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          _logger.i('Enroll button pressed');
+          _logger.i('User: ${user.userName}');
+          _logger.i('Module: ${module.name}');
+          _logger.i('Module ID: ${module.id}');
+
+          int statusCode = await CourseController(client: _client)
+              .enroll(user.userName, module.id);
+
+          if (!context.mounted) return;
+
+          // Create a snackbar to show the result of the enrollment.
+          String message;
+          MaterialColor backgroundColor;
+
+          switch (statusCode) {
+            case HttpStatus.created:
+              message = 'Success: Enrolled in "${module.name}"!';
+              backgroundColor = Colors.green;
+              break;
+            case HttpStatus.conflict:
+              message = 'You are already enrolled in "${module.name}".';
+              backgroundColor = Colors.green;
+              break;
+            default:
+              message = 'Ups. Something went wrong! Please try again later...';
+              backgroundColor = Colors.red;
+              break;
+          } // end of switch
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(message),
+              duration: const Duration(seconds: 3),
+              backgroundColor: backgroundColor,
+            ),
+          );
+
+          Navigator.of(context).pop();
+        },
+        label: const Text('Enroll'),
+        icon: const Icon(Icons.add),
+        backgroundColor: Colors.red,
       ),
     );
   }
@@ -67,28 +125,6 @@ class ModuleDetailsPage extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(content),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SubscribeButton extends StatelessWidget {
-  const SubscribeButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: TextButton.styleFrom(
-        backgroundColor: Colors.red,
-      ),
-      child: const Text(
-        'Subscribe',
-        style: TextStyle(
-          color: Colors.white,
         ),
       ),
     );
