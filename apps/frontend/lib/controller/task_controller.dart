@@ -15,10 +15,9 @@ class TaskController {
 
   TaskController({required http.Client client}) : _client = client;
 
-  // get item list from backend
-  Future<List<Task>> fetchItemList() async {
+  Future<List<Task>> getAllTasksForUser(String username) async {
     // access REST interface with get request
-    final response = await _client.get(Uri.parse('$_apiUrl/tasks'));
+    final response = await _client.get(Uri.parse('$_apiUrl/tasks/$username'));
 
     // check response from backend
     if (response.statusCode == 200) {
@@ -93,20 +92,6 @@ class TaskController {
     // check response from backend
     if (response.statusCode != 200) {
       throw Exception('Failed to update item');
-    }
-  }
-
-  Future<List<Task>> getAllTasksForUser(String username) async {
-    // access REST interface with get request
-    final response = await _client.get(Uri.parse('$_apiUrl/tasks/$username'));
-
-    // check response from backend
-    if (response.statusCode == 200) {
-      return List<Task>.from(json
-          .decode(utf8.decode(response.bodyBytes))
-          .map((x) => Task.fromJsonMap(x)));
-    } else {
-      throw Exception('Failed to load Item list');
     }
   }
 } // end of class TaskController
