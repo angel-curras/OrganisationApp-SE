@@ -77,5 +77,21 @@ void main() {
 
       expect(task.deadlineDate, equals(deadline));
     });
+
+    test('Task to JSON String', () {
+      final deadline = DateTime(2023, 1, 1);
+      final task = Task(
+        id: 1,
+        name: 'Sample Task',
+        priority: 2,
+        deadline: deadline,
+        done: false,
+        frequency: Frequency.monthly,
+      );
+
+      final jsonString = task.toJsonString();
+      Task taskFromJson = Task.fromJsonString(jsonString);
+      expect(task.toJsonString(), equals(taskFromJson.toJsonString()));
+    });
   });
 }
