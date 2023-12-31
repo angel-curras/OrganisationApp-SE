@@ -9,14 +9,14 @@ class Course {
   final String name;
   final String responsible;
   final int progress;
-  final DateTime? startDate;
-  final DateTime? endDate;
-  final Weekday? lectureWeekday;
-  final TimeOfDay? lectureStartTime;
-  final TimeOfDay? lectureEndTime;
-  final Weekday? labWeekday;
-  final TimeOfDay? labStartTime;
-  final TimeOfDay? labEndTime;
+  DateTime? startDate;
+  DateTime? endDate;
+  Weekday? lectureWeekday;
+  TimeOfDay? lectureStartTime;
+  TimeOfDay? lectureEndTime;
+  Weekday? labWeekday;
+  TimeOfDay? labStartTime;
+  TimeOfDay? labEndTime;
 
   Course(
       {this.id = 0,
