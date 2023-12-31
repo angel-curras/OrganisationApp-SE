@@ -8,7 +8,11 @@ import 'package:organisation_app/pages/modules/module_search_delegate.dart';
 import '../../shared/menu_drawer.dart';
 
 class CoursesPage extends StatefulWidget {
-  const CoursesPage({Key? key}) : super(key: key);
+  final http.Client _client;
+
+  const CoursesPage({Key? key, required http.Client client})
+      : _client = client,
+        super(key: key);
 
   @override
   CoursesPageState createState() => CoursesPageState();
@@ -16,8 +20,8 @@ class CoursesPage extends StatefulWidget {
 
 class CoursesPageState extends State<CoursesPage> {
   late Future<List<Module>> modulesFuture;
-  late ModuleController _backend;
-  late http.Client client;
+  late ModuleController _moduleController;
+  late http.Client _client;
 
   int currentPage = 0;
   final int pageSize = 10;
@@ -32,15 +36,15 @@ class CoursesPageState extends State<CoursesPage> {
   @override
   void initState() {
     super.initState();
-    _backend = ModuleController();
-    client = http.Client();
+    _moduleController = ModuleController();
+    _client = widget._client;
     fetchModules();
   }
 
   void fetchModules() {
-    _backend
+    _moduleController
         .fetchModuleListWithPaginationAndSorting(
-      client,
+      _client,
       page: currentPage,
       size: pageSize,
       sortBy: _sortBy,
@@ -56,7 +60,7 @@ class CoursesPageState extends State<CoursesPage> {
   void _showSearch() {
     showSearch(
       context: context,
-      delegate: ModuleSearchDelegate(client, _backend),
+      delegate: ModuleSearchDelegate(_client, _moduleController),
     );
   }
 
@@ -184,8 +188,8 @@ class CoursesPageState extends State<CoursesPage> {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) =>
-                              ModuleDetailsPage(module: module, client: client),
+                          builder: (context) => ModuleDetailsPage(
+                              module: module, client: _client),
                         ),
                       );
                     },

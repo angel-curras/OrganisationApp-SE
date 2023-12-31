@@ -16,7 +16,7 @@ var appRoutes = {
   '/login': (context) => LoginPage(
         client: client,
       ),
-  '/modules': (context) => const CoursesPage(),
+  '/modules': (context) => CoursesPage(client: client),
   '/todos': (context) => TodosPage(
         client: client,
       ),
