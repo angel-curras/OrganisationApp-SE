@@ -122,4 +122,132 @@ void main() {
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pumpAndSettle();
   }); // end of test 'Test: Press enroll button (success)'
+
+  testWidgets('Test: Press enroll button (conflict)', (tester) async {
+    AppUser user = AppUser(
+      userName: "test",
+      fullName: "Test User",
+      userType: UserType.student,
+    );
+    SharedPreferences.setMockInitialValues({"user": user.toJsonString()});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    /* Arrange */
+    String username = "test";
+    Module module = Module(
+      id: 1,
+      name: "Test Module",
+      ects: 5,
+      sws: 2,
+      verantwortlich: "Test",
+      sprachen: "DE",
+      lehrform: "Test",
+      angebot: "Test",
+      aufwand: "Test",
+      voraussetzungen: "Test",
+      ziele: "Test",
+      inhalt: "Test",
+      medienUndMethoden: "Test",
+      literatur: "Test",
+      zpaId: 1,
+      anzahlSprachen: 2,
+      url: 'test',
+    );
+
+    CourseSubscription courseSubscription = CourseSubscription(
+      moduleId: module.id,
+      userName: username,
+    );
+
+    // Define the API URL and the username.
+    final String apiUrl = Environment.apiUrl;
+
+    // Create a mock HTTP client.
+    final httpClient = MockClient();
+
+    // Define the mocked response.
+    final String requestUrl = '$apiUrl/courses';
+
+    // Define the mocked response.
+    when(httpClient.post(Uri.parse(requestUrl),
+            headers: anyNamed("headers"),
+            body: courseSubscription.toJsonString()))
+        .thenAnswer((_) async => http.Response("{}", 409));
+
+    await tester.pumpWidget(MainTestAppHomePage(
+      httpClient: httpClient,
+      preferences: testPreferences,
+      module: module,
+    ));
+    expect(find.byType(ModuleDetailsPage), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 200));
+
+    /* Act */
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+  }); // end of test 'Test: Press enroll button (conflict)'
+
+  testWidgets('Test: Press enroll button (error)', (tester) async {
+    AppUser user = AppUser(
+      userName: "test",
+      fullName: "Test User",
+      userType: UserType.student,
+    );
+    SharedPreferences.setMockInitialValues({"user": user.toJsonString()});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    /* Arrange */
+    String username = "test";
+    Module module = Module(
+      id: 1,
+      name: "Test Module",
+      ects: 5,
+      sws: 2,
+      verantwortlich: "Test",
+      sprachen: "DE",
+      lehrform: "Test",
+      angebot: "Test",
+      aufwand: "Test",
+      voraussetzungen: "Test",
+      ziele: "Test",
+      inhalt: "Test",
+      medienUndMethoden: "Test",
+      literatur: "Test",
+      zpaId: 1,
+      anzahlSprachen: 2,
+      url: 'test',
+    );
+
+    CourseSubscription courseSubscription = CourseSubscription(
+      moduleId: module.id,
+      userName: username,
+    );
+
+    // Define the API URL and the username.
+    final String apiUrl = Environment.apiUrl;
+
+    // Create a mock HTTP client.
+    final httpClient = MockClient();
+
+    // Define the mocked response.
+    final String requestUrl = '$apiUrl/courses';
+
+    // Define the mocked response.
+    when(httpClient.post(Uri.parse(requestUrl),
+            headers: anyNamed("headers"),
+            body: courseSubscription.toJsonString()))
+        .thenAnswer((_) async => http.Response("{}", 405));
+
+    await tester.pumpWidget(MainTestAppHomePage(
+      httpClient: httpClient,
+      preferences: testPreferences,
+      module: module,
+    ));
+    expect(find.byType(ModuleDetailsPage), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 200));
+
+    /* Act */
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+  }); // end of test 'Test: Press enroll button (success)'
 }
