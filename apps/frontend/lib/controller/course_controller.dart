@@ -69,17 +69,21 @@ class CourseController {
     );
 
     String requestUrl = '$_apiUrl/courses';
-    final response = await _client
-        .post(
-      Uri.parse(requestUrl),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: courseSubscription.toJsonString(),
-    )
-        .timeout(const Duration(seconds: _timeout), onTimeout: () {
-      return http.Response('Error: timeout', HttpStatus.requestTimeout);
-    });
+    final http.Response response;
+    try {
+      response = await _client
+          .post(
+            Uri.parse(requestUrl),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: courseSubscription.toJsonString(),
+          )
+          .timeout(const Duration(seconds: _timeout));
+    } on TimeoutException catch (timeoutException) {
+      _logger.e("TimeoutException: ${timeoutException.message}");
+      return HttpStatus.requestTimeout;
+    }
 
     int statusCode = response.statusCode;
 
@@ -104,28 +108,38 @@ class CourseController {
   Future<bool> updateCourse(Course course) async {
     _logger
         .i("Updating course '${course.name}' with course id '${course.id}'.");
-    http.Response response = await _client
-        .put(Uri.parse('$_apiUrl/courses/${course.id}'),
-            headers: <String, String>{'Content-Type': 'application/json'},
-            body: course.toJsonString())
-        .timeout(const Duration(seconds: _timeout), onTimeout: () {
-      return http.Response('Error: timeout', HttpStatus.requestTimeout);
-    });
 
-    return response.statusCode != HttpStatus.ok;
+    http.Response response;
+
+    try {
+      response = await _client
+          .put(Uri.parse('$_apiUrl/courses/${course.id}'),
+              headers: <String, String>{'Content-Type': 'application/json'},
+              body: course.toJsonString())
+          .timeout(const Duration(seconds: _timeout));
+    } on TimeoutException catch (timeoutException) {
+      _logger.e("TimeoutException: ${timeoutException.message}");
+      return false;
+    }
+
+    return response.statusCode == HttpStatus.ok;
   }
 
   Future<bool> deleteCourse(Course course) async {
     _logger
         .i("Deleting course '${course.name}' with course id '${course.id}'.");
 
-    http.Response response = await _client
-        .delete(Uri.parse('$_apiUrl/courses/${course.id}'))
-        .timeout(const Duration(seconds: _timeout), onTimeout: () {
-      return http.Response('Error: timeout', HttpStatus.requestTimeout);
-    });
+    http.Response response;
+    try {
+      response = await _client
+          .delete(Uri.parse('$_apiUrl/courses/${course.id}'))
+          .timeout(const Duration(seconds: _timeout));
+    } on TimeoutException catch (timeoutException) {
+      _logger.e("TimeoutException: ${timeoutException.message}");
+      return false;
+    }
 
     // check response from backend
-    return response.statusCode != HttpStatus.ok;
+    return response.statusCode == HttpStatus.ok;
   }
 } // end of class CourseController
