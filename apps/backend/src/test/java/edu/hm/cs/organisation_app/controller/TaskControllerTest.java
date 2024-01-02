@@ -18,8 +18,8 @@ public class TaskControllerTest {
     @Autowired
     private TaskController taskController;
     private void initDB() {
-        Task firstTask = new Task(); // Configure task details as required
-        Task secondTask = new Task(); // Configure task details as required
+        Task firstTask = new Task();
+        Task secondTask = new Task();
         taskController.createTask(firstTask);
         taskController.createTask(secondTask);
     }
@@ -117,4 +117,15 @@ public class TaskControllerTest {
         Assertions.assertEquals(1, remainingTasks.size()); // Verify that one task has been deleted
     } // end of testDeleteTask()
 
+    //test for creating a task for a user
+    @Test
+    void createTaskForUserTest(){
+        this.clearDB();
+
+        Task task = new Task();
+
+        taskController.createTaskForUser(task, "test");
+        List<Task> tasksForUser = taskController.getAllTasksForUser("test");
+        Assertions.assertEquals(1, tasksForUser.size());
+    }
 } // end of class TaskControllerTest
