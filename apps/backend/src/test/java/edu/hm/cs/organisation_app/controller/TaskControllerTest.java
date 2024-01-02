@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -127,5 +128,24 @@ public class TaskControllerTest {
         taskController.createTaskForUser(task, "test");
         List<Task> tasksForUser = taskController.getAllTasksForUser("test");
         Assertions.assertEquals(1, tasksForUser.size());
+    }
+
+
+    @Test
+    void getAllTasksForUser_whenUserNotFound_shouldThrowResponseStatusException() {
+        this.clearDB();
+
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
+            taskController.getAllTasksForUser("invalidUser");
+        });
+    }
+
+    @Test
+    void createTaskForUser_whenUserNotFound_shouldThrowResponseStatusException() {
+        this.clearDB();
+
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
+            taskController.createTaskForUser(new Task(), "invalidUser");
+        });
     }
 } // end of class TaskControllerTest
