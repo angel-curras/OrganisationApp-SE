@@ -51,9 +51,6 @@ class CourseController {
       case HttpStatus.unauthorized:
         _logger.e("HTTP Status 401: Unauthorized. Username '$username' not "
             "authorized.");
-
-      case HttpStatus.notFound:
-        _logger.e("HTTP Status 404: Not Found. Courses not found.");
       default:
         _logger.e(
             "Unhandled HTTP Status $statusCode. Defaulting to empty courses.");
