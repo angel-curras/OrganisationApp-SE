@@ -52,9 +52,9 @@ class CreateItemPageState extends State<CreateItemPage> {
     );
 
     var deadlineField = DatePickerTask(
+      key: const Key("deadline"),
       restorationId: 'deadline',
       onDateSelected: (selectedDate) {
-        // Do something with the selectedDate, e.g., assign it to yourVar
         date = selectedDate;
       },
     );
@@ -79,7 +79,9 @@ class CreateItemPageState extends State<CreateItemPage> {
     );
 
     final saveButton = ElevatedButton(
+      key: const Key("save"),
       onPressed: () async {
+        BuildContext initialContext = context;
         if (widget.formKey.currentState!.validate()) {
           if (widget.edit) {
             try {
@@ -96,7 +98,7 @@ class CreateItemPageState extends State<CreateItemPage> {
               if (!context.mounted) {
                 return;
               }
-              Navigator.pop(context);
+              Navigator.pop(initialContext);
             } catch (error) {
               // Handle error (e.g., display a Snackbar)
 
@@ -119,7 +121,7 @@ class CreateItemPageState extends State<CreateItemPage> {
               if (!context.mounted) {
                 return;
               }
-              Navigator.pop(context);
+              Navigator.pop(initialContext);
             } catch (error) {
               // Handle error (e.g., display a Snackbar)
 

@@ -94,5 +94,52 @@ public class TaskTest {
     Assertions.assertSame(deadline, task.getDeadline());
   } // end of testGettersAndSetters
 
+  @Test
+  void getAppUsertest() {
+    // Arrange.
+    AppUser appUser = new AppUser();
+    Task task = new Task();
+    task.setAppUser(appUser);
 
+    // Act.
+    AppUser result = task.getAppUser();
+
+    // Assert.
+    Assertions.assertEquals(appUser, result);
+  } // end of getAppUsertest
+
+  @Test
+  void getCourseTest() {
+    // Arrange.
+    Course course = new Course();
+    Task task = new Task();
+    task.setCourse(course);
+
+    // Act.
+    Course result = task.getCourse();
+
+    // Assert.
+    Assertions.assertEquals(course, result);
+  } // end of getCourseTest
+
+  @Test
+  void getDateTest() {
+
+    // Arrange.
+    CalendarEvent calendarEvent = new CalendarEvent();
+    calendarEvent.setDate(LocalDate.now());
+    Task task = new Task();
+
+    //Assert that the date is null.
+    Assertions.assertNull(task.getDate());
+
+    // More Arrange.
+    task.setCalendarEvent(calendarEvent);
+
+    // Act.
+    String result = task.getDate();
+
+    // Assert.
+    Assertions.assertEquals(LocalDate.now().toString(), result);
+  } // end of getDateTest
 } // end of class TaskTest

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class TaskControllerTest {
     @Autowired
     private TaskController taskController;
     private void initDB() {
-        Task firstTask = new Task(); // Configure task details as required
-        Task secondTask = new Task(); // Configure task details as required
+        Task firstTask = new Task();
+        Task secondTask = new Task();
         taskController.createTask(firstTask);
         taskController.createTask(secondTask);
     }
@@ -117,4 +118,34 @@ public class TaskControllerTest {
         Assertions.assertEquals(1, remainingTasks.size()); // Verify that one task has been deleted
     } // end of testDeleteTask()
 
+    //test for creating a task for a user
+    @Test
+    void createTaskForUserTest(){
+        this.clearDB();
+
+        Task task = new Task();
+
+        taskController.createTaskForUser(task, "test");
+        List<Task> tasksForUser = taskController.getAllTasksForUser("test");
+        Assertions.assertEquals(1, tasksForUser.size());
+    }
+
+
+    @Test
+    void getAllTasksForUser_whenUserNotFound_shouldThrowResponseStatusException() {
+        this.clearDB();
+
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
+            taskController.getAllTasksForUser("invalidUser");
+        });
+    }
+
+    @Test
+    void createTaskForUser_whenUserNotFound_shouldThrowResponseStatusException() {
+        this.clearDB();
+
+        Assertions.assertThrows(ResponseStatusException.class, () -> {
+            taskController.createTaskForUser(new Task(), "invalidUser");
+        });
+    }
 } // end of class TaskControllerTest

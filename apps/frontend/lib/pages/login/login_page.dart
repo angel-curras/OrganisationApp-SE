@@ -54,6 +54,7 @@ class LoginPage extends StatelessWidget {
 
                 // username text field
                 TextField(
+                  key: const Key('usernameTextField'),
                   controller: usernameController,
                   decoration: const InputDecoration(
                     labelText: 'Enter your name',
