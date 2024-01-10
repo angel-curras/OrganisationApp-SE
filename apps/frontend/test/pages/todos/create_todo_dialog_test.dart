@@ -112,6 +112,8 @@ void main() {
 
     await tester.tap(find.text('Save'));
     await tester.pumpAndSettle();
+
+    await tester.pump(const Duration(milliseconds: 10000));
   });
 
   testWidgets('Test: Create new task', (tester) async {
@@ -128,10 +130,15 @@ void main() {
       edit: edit,
     ));
 
+    when(mockHttpClient.post(any,
+            headers: anyNamed('headers'), body: anyNamed('body')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
     expect(find.text('Save'), findsOneWidget);
     expect(find.text('New Task'), findsNothing);
 
     await tester.enterText(find.byKey(const Key('name')), 'New Task');
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('priority')));
     await tester.pumpAndSettle();
     await tester.tap(find.text('2').last);
@@ -141,8 +148,10 @@ void main() {
     await tester.tap(find.text("OK"));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Save'));
+    await tester.tap(find.byKey(const Key("save")));
     await tester.pumpAndSettle();
+
+    expect(find.byType(CreateItemPage), findsNothing);
   });
 
   testWidgets('Test: Validate empty form submission', (tester) async {

@@ -98,7 +98,7 @@ class CreateItemPageState extends State<CreateItemPage> {
               if (!context.mounted) {
                 return;
               }
-              Navigator.pushReplacementNamed(initialContext, '/todos');
+              Navigator.pop(initialContext);
             } catch (error) {
               // Handle error (e.g., display a Snackbar)
 
@@ -121,7 +121,7 @@ class CreateItemPageState extends State<CreateItemPage> {
               if (!context.mounted) {
                 return;
               }
-              Navigator.pushReplacementNamed(initialContext, '/todos');
+              Navigator.pop(initialContext);
             } catch (error) {
               // Handle error (e.g., display a Snackbar)
 

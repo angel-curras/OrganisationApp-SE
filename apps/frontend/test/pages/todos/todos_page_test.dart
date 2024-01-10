@@ -5,7 +5,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:organisation_app/main.dart';
 import 'package:organisation_app/model/task.dart';
-import 'package:organisation_app/pages/todos/create_todo_dialog.dart';
 import 'package:organisation_app/pages/todos/todos_page.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/settings/environment.dart';
@@ -91,12 +90,20 @@ void main() {
       id: 1,
       name: 'Task 1',
       priority: 2,
-      deadline: DateTime.now().add(Duration(days: 1)),
+      deadline: DateTime(1, 1, 3000).add(Duration(days: 1)),
     );
 
     // Define the mocked response for getAllTasksForUser.
     when(mockHttpClient.get(any)).thenAnswer(
         (_) async => http.Response('[${task1.toJsonString()}]', 200));
+
+    // Define the mocked response.
+    when(mockHttpClient.put(Uri.parse('${Environment.apiUrl}/tasks/1'),
+            headers: anyNamed('headers'), body: anyNamed('body')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
+    when(mockHttpClient.delete(Uri.parse('${Environment.apiUrl}/tasks/1')))
+        .thenAnswer((_) async => http.Response("{}", 200));
 
     // Build the widget tree.
     await tester.pumpWidget(
@@ -122,21 +129,6 @@ void main() {
     // Verify that the 'New' button exists.
     expect(find.byType(FloatingActionButton), findsOneWidget);
 
-    // Tap on the 'New' button.
-    await tester.tap(find.byType(FloatingActionButton));
-    await tester.pumpAndSettle();
-
-    // Verify that the CreateItemPage is shown for creating a new task.
-    expect(find.byType(CreateItemPage), findsOneWidget);
-
-    // Scroll until the widget is visible.
-    await tester.dragUntilVisible(
-        find.byKey(const Key('doneCheckbox_0')), // what you want to find
-        // what you want to find
-        find.byType(Checkbox),
-        // widget you want to scroll
-        const Offset(500, 500) // delta to move
-        );
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.byKey(const Key('doneCheckbox_0')));
     await tester.pumpAndSettle();
@@ -144,23 +136,163 @@ void main() {
     await tester.tap(find.byKey(const Key('doneCheckbox_0')));
     await tester.pumpAndSettle();
 
-    await tester.dragUntilVisible(
-        find.byIcon(Icons.delete), // what you want to find
-        find.byType(ListTile),
-        // widget you want to scroll
-        const Offset(-10, -20) // delta to move
-        );
-
-    await tester.pumpAndSettle();
-    // Tap on the 'Delete' button.
-    await tester.tap(find.byIcon(Icons.delete));
     await tester.pumpAndSettle();
 
     // Tap on the 'Edit' button.
     await tester.tap(find.byIcon(Icons.edit));
     await tester.pumpAndSettle();
 
-    // Verify that the CreateItemPage is shown for editing the second task.
-    expect(find.byType(CreateItemPage), findsOneWidget);
+    await tester.tap(find.byKey(const Key('save')));
+    await tester.pumpAndSettle();
+
+    // Tap on the 'Delete' button.
+    await tester.tap(find.byIcon(Icons.delete).at(0));
+    await tester.pumpAndSettle();
+  });
+
+  testWidgets('Test: Create new task', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    // Create a mock HTTP client.
+    final mockHttpClient = MockClient();
+
+    // Define the mocked response for getAllTasksForUser.
+    when(mockHttpClient.get(any))
+        .thenAnswer((_) async => http.Response('[]', 200));
+
+    // Define the mocked response.
+    when(mockHttpClient.post(Uri.parse('${Environment.apiUrl}/tasks/test'),
+            headers: anyNamed('headers'), body: anyNamed('body')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
+    // Build the widget tree.
+    await tester.pumpWidget(
+      MainTestAppTodosPage(
+        httpClient: mockHttpClient,
+        preferences: testPreferences,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Tap on the 'New' button.
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+
+    // Enter the task name.
+    await tester.enterText(find.byKey(const Key('name')), 'New Task');
+    await tester.pumpAndSettle();
+
+    // Tap on the 'Save' button.
+    await tester.tap(find.byKey(const Key('save')));
+    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 10000));
+  });
+
+  testWidgets('Test: Delete task', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    // Create a mock HTTP client.
+    final mockHttpClient = MockClient();
+
+    // Mock task data.
+    final task1 = Task(
+      id: 1,
+      name: 'Task 1',
+      priority: 2,
+      deadline: DateTime(1, 1, 3000).add(Duration(days: 1)),
+    );
+
+    // Define the mocked response for getAllTasksForUser.
+    when(mockHttpClient.get(any)).thenAnswer(
+        (_) async => http.Response('[${task1.toJsonString()}]', 200));
+
+    // Define the mocked response.
+    when(mockHttpClient.put(Uri.parse('${Environment.apiUrl}/tasks/1'),
+            headers: anyNamed('headers'), body: anyNamed('body')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
+    when(mockHttpClient.delete(Uri.parse('${Environment.apiUrl}/tasks/1')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
+    // Build the widget tree.
+    await tester.pumpWidget(
+      MainTestAppTodosPage(
+        httpClient: mockHttpClient,
+        preferences: testPreferences,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Tap on the 'Delete' button.
+    await tester.tap(find.byIcon(Icons.delete).at(0));
+    await tester.pumpAndSettle();
+  });
+
+  // done checkbox test whit 3 task whit difertent prioritys
+  testWidgets('Test: done checkbox', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    // Create a mock HTTP client.
+    final mockHttpClient = MockClient();
+
+    // Mock task data.
+    final task1 = Task(
+      id: 1,
+      name: 'Task 1',
+      priority: 1,
+      deadline: DateTime(1, 1, 3000).add(Duration(days: 1)),
+    );
+    final task2 = Task(
+      id: 2,
+      name: 'Task 2',
+      priority: 2,
+      deadline: DateTime(1, 1, 3000).add(Duration(days: 1)),
+    );
+    final task3 = Task(
+      id: 3,
+      name: 'Task 3',
+      priority: 3,
+      deadline: DateTime(1, 1, 3000).add(Duration(days: 1)),
+    );
+
+    // Define the mocked response for getAllTasksForUser.
+    when(mockHttpClient.get(any)).thenAnswer((_) async => http.Response(
+        '[${task1.toJsonString()},${task2.toJsonString()},${task3.toJsonString()}]',
+        200));
+
+    // Define the mocked response for task 1.
+    when(mockHttpClient.put(Uri.parse('${Environment.apiUrl}/tasks/1'),
+            headers: anyNamed('headers'), body: anyNamed('body')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
+    // Define the mocked response for task 2.
+    when(mockHttpClient.put(Uri.parse('${Environment.apiUrl}/tasks/2'),
+            headers: anyNamed('headers'), body: anyNamed('body')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
+    // Define the mocked response for task 3.
+    when(mockHttpClient.put(Uri.parse('${Environment.apiUrl}/tasks/3'),
+            headers: anyNamed('headers'), body: anyNamed('body')))
+        .thenAnswer((_) async => http.Response("{}", 200));
+
+    // Build the widget tree.
+    await tester.pumpWidget(
+      MainTestAppTodosPage(
+        httpClient: mockHttpClient,
+        preferences: testPreferences,
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Tap on the 'checkbox' button.
+    await tester.tap(find.byKey(const Key('doneCheckbox_0')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('doneCheckbox_1')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('doneCheckbox_2')));
+    await tester.pumpAndSettle();
   });
 }
