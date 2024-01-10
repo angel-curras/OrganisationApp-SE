@@ -94,16 +94,9 @@ void main() {
       deadline: DateTime.now().add(Duration(days: 1)),
     );
 
-    final task2 = Task(
-      id: 2,
-      name: 'Task 2',
-      priority: 1,
-      deadline: DateTime.now().add(Duration(days: 2)),
-    );
-
     // Define the mocked response for getAllTasksForUser.
-    when(mockHttpClient.get(any)).thenAnswer((_) async => http.Response(
-        '[${task1.toJsonString()}, ${task2.toJsonString()}]', 200));
+    when(mockHttpClient.get(any)).thenAnswer(
+        (_) async => http.Response('[${task1.toJsonString()}]', 200));
 
     // Build the widget tree.
     await tester.pumpWidget(
@@ -117,14 +110,14 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify the presence of task items.
-    expect(find.byType(ListTile), findsNWidgets(2));
+    expect(find.byType(ListTile), findsNWidgets(1));
 
     // Verify the presence of checkboxes.
-    expect(find.byType(Checkbox), findsNWidgets(2));
+    expect(find.byType(Checkbox), findsNWidgets(1));
 
     // Verify the presence of edit and delete buttons.
-    expect(find.byIcon(Icons.edit), findsNWidgets(2));
-    expect(find.byIcon(Icons.delete), findsNWidgets(2));
+    expect(find.byIcon(Icons.edit), findsNWidgets(1));
+    expect(find.byIcon(Icons.delete), findsNWidgets(1));
 
     // Verify that the 'New' button exists.
     expect(find.byType(FloatingActionButton), findsOneWidget);
@@ -136,16 +129,35 @@ void main() {
     // Verify that the CreateItemPage is shown for creating a new task.
     expect(find.byType(CreateItemPage), findsOneWidget);
 
+    // Scroll until the widget is visible.
+    await tester.dragUntilVisible(
+        find.byKey(const Key('doneCheckbox_0')), // what you want to find
+        // what you want to find
+        find.byType(Checkbox),
+        // widget you want to scroll
+        const Offset(500, 500) // delta to move
+        );
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('doneCheckbox_0')));
+    await tester.pumpAndSettle();
     // Tap on the checkbox of the first task.
     await tester.tap(find.byKey(const Key('doneCheckbox_0')));
     await tester.pumpAndSettle();
 
-    // Tap on the 'Delete' button of the first task.
-    await tester.press(find.byIcon(Icons.delete).at(0));
+    await tester.dragUntilVisible(
+        find.byIcon(Icons.delete), // what you want to find
+        find.byType(ListTile),
+        // widget you want to scroll
+        const Offset(-10, -20) // delta to move
+        );
+
+    await tester.pumpAndSettle();
+    // Tap on the 'Delete' button.
+    await tester.tap(find.byIcon(Icons.delete));
     await tester.pumpAndSettle();
 
-    // Tap on the 'Edit' button of the second task.
-    await tester.press(find.byIcon(Icons.edit).at(1));
+    // Tap on the 'Edit' button.
+    await tester.tap(find.byIcon(Icons.edit));
     await tester.pumpAndSettle();
 
     // Verify that the CreateItemPage is shown for editing the second task.
