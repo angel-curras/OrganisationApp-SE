@@ -34,6 +34,10 @@ Future<void> pauseForVisualization(tester, {int durationSecs = 1}) async {
 } // end of pauseTester()
 
 void main() {
+  // Before running this test, start the backend.
+  // Tested on the windows platform.
+  // (Make sure to run this file with flutter and not with dart directly).
+
   setUp(() async {
     await setUpEnvironment();
   }); // end of setUp()
