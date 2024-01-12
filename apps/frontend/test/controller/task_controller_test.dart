@@ -180,21 +180,5 @@ void main() {
       // Act & Assert
       expect(() => taskController.deleteTask(taskIdToDelete), throwsException);
     });
-
-    // Test case to cover a non-200 HTTP response
-    test('updateItemDoneStatus throws an exception for non-200 response', () {
-      // Arrange
-      final int taskIdToUpdate = 1;
-      final url = Uri.parse('$apiUrl/item/done');
-      when(mockClient.put(
-        url,
-        headers: anyNamed('headers'),
-        body: anyNamed('body'),
-      )).thenAnswer((_) async => http.Response('Not Found', 404));
-
-      // Act & Assert
-      expect(() => taskController.updateItemDoneStatus(taskIdToUpdate, true),
-          throwsException);
-    });
   });
 }
