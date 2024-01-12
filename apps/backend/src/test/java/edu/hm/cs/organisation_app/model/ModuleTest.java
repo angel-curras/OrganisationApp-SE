@@ -29,8 +29,6 @@ public class ModuleTest {
 
     @Test
     public void testGettersAndSetters() {
-        // Arrange.
-        long id = 1L;
         Module module1 = new Module(
                 1L,
                 "TestModule",
@@ -91,9 +89,11 @@ public class ModuleTest {
         Assertions.assertEquals(moduleMediaAndMethods, module1.getMedienUndMethoden());
         Assertions.assertEquals(moduleLiterature, module1.getLiteratur());
         Assertions.assertEquals(moduleUrl, module1.getUrl());
+    }
 
-        Assertions.assertNotNull(module1.toString());
-        Module module2 = new Module(
+    @Test
+    public void testEquals() {
+        Module module1 = new Module(
                 1L,
                 "TestModule",
                 1,
@@ -131,16 +131,119 @@ public class ModuleTest {
                 "TestUrl"
         );
 
+        Module module2 = new Module(
+                2L,
+                "TestModule 2",
+                2,
+                "TestResponsible 2",
+                2,
+                2,
+                "TestLanguage 2",
+                "TestFormOfTeaching 2",
+                "TestOffer 2",
+                "TestWorkload 2",
+                "TestRequirements 2",
+                "TestGoals 2",
+                "TestContent 2",
+                "TestMediaAndMethods 2",
+                "TestLiterature 2",
+                "TestUrl 2"
+        );
+
         Object notAModule = new Object();
         Assertions.assertFalse(module1.equals(null)); // Test with null
         Assertions.assertFalse(module1.equals(notAModule)); // Test with different class object
         Assertions.assertFalse(module1.equals(module2)); // Test with different module
         Assertions.assertTrue(module1.equals(module1)); // Test with same reference
-        Assertions.assertTrue(module2.equals(moduleCopy)); // Test with two equal modules
+        Assertions.assertTrue(module1.equals(moduleCopy)); // Test with two equal modules
+    }
+
+    @Test
+    public void testHashCode() {
+        Module module1 = new Module(
+                1L,
+                "TestModule",
+                1,
+                "TestResponsible",
+                1,
+                1,
+                "TestLanguage",
+                "TestFormOfTeaching",
+                "TestOffer",
+                "TestWorkload",
+                "TestRequirements",
+                "TestGoals",
+                "TestContent",
+                "TestMediaAndMethods",
+                "TestLiterature",
+                "TestUrl"
+        );
+
+        Module moduleCopy = new Module(
+                1L,
+                "TestModule",
+                1,
+                "TestResponsible",
+                1,
+                1,
+                "TestLanguage",
+                "TestFormOfTeaching",
+                "TestOffer",
+                "TestWorkload",
+                "TestRequirements",
+                "TestGoals",
+                "TestContent",
+                "TestMediaAndMethods",
+                "TestLiterature",
+                "TestUrl"
+        );
+
+        Module module2 = new Module(
+                2L,
+                "TestModule 2",
+                2,
+                "TestResponsible 2",
+                2,
+                2,
+                "TestLanguage 2",
+                "TestFormOfTeaching 2",
+                "TestOffer 2",
+                "TestWorkload 2",
+                "TestRequirements 2",
+                "TestGoals 2",
+                "TestContent 2",
+                "TestMediaAndMethods 2",
+                "TestLiterature 2",
+                "TestUrl 2"
+        );
 
         // Assert hashCode method
         Assertions.assertEquals(module1.hashCode(), module1.hashCode()); // Consistency check
-        Assertions.assertEquals(module2.hashCode(), moduleCopy.hashCode()); // Equal objects have equal hash codes
+        Assertions.assertEquals(module1.hashCode(), moduleCopy.hashCode()); // Equal objects have equal hash codes
         Assertions.assertNotEquals(module1.hashCode(), module2.hashCode()); // Unequal objects, likely different hash codes
+    }
+
+    @Test
+    void testToString() {
+        Module module1 = new Module(
+                1L,
+                "TestModule",
+                1,
+                "TestResponsible",
+                1,
+                1,
+                "TestLanguage",
+                "TestFormOfTeaching",
+                "TestOffer",
+                "TestWorkload",
+                "TestRequirements",
+                "TestGoals",
+                "TestContent",
+                "TestMediaAndMethods",
+                "TestLiterature",
+                "TestUrl"
+        );
+
+        Assertions.assertNotNull(module1.toString());
     }
 }
