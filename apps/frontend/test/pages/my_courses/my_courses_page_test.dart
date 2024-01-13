@@ -78,69 +78,10 @@ void main() {
       preferences: testPreferences,
     ));
     expect(find.byType(MyCoursesPage), findsOneWidget);
-    await tester.pump(const Duration(milliseconds: 200));
+    expect(find.byType(ListTile), findsNothing);
   });
 
-  testWidgets('Test: Update button', (tester) async {
-    SharedPreferences.setMockInitialValues({});
-    SharedPreferences testPreferences = await SharedPreferences.getInstance();
-
-    // Define the API URL and the username.
-    final String apiUrl = Environment.apiUrl;
-    const String username = "test";
-    final String requestUrl = '$apiUrl/courses/user/$username';
-
-    // Create a mock HTTP client.
-    final mockHttpClient = MockClient();
-
-    // Define the mocked response.
-    when(mockHttpClient.get(Uri.parse(requestUrl)))
-        .thenAnswer((_) async => http.Response('[]', 200));
-
-    await tester.pumpWidget(MainTestAppHomePage(
-      httpClient: mockHttpClient,
-      preferences: testPreferences,
-    ));
-    expect(find.byType(MyCoursesPage), findsOneWidget);
-    await tester.pumpAndSettle();
-
-    // Check that the update button is present.
-    expect(find.byIcon(Icons.update), findsOneWidget);
-    await tester.tap(find.byIcon(Icons.update));
-    await tester.pumpAndSettle();
-    expect(find.byType(MyCoursesPage), findsOneWidget);
-  });
-
-  testWidgets('Test: Navigate to modules', (tester) async {
-    SharedPreferences.setMockInitialValues({});
-    SharedPreferences testPreferences = await SharedPreferences.getInstance();
-
-    // Define the API URL and the username.
-    final String apiUrl = Environment.apiUrl;
-    const String username = "test";
-    final String requestUrl = '$apiUrl/courses/user/$username';
-
-    // Create a mock HTTP client.
-    final mockHttpClient = MockClient();
-
-    // Define the mocked response.
-    when(mockHttpClient.get(Uri.parse(requestUrl)))
-        .thenAnswer((_) async => http.Response('[]', 200));
-
-    await tester.pumpWidget(MainTestAppHomePage(
-      httpClient: mockHttpClient,
-      preferences: testPreferences,
-    ));
-    expect(find.byType(MyCoursesPage), findsOneWidget);
-    await tester.pump(const Duration(milliseconds: 200));
-
-    // Navigate to Modules
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pumpAndSettle();
-    expect(find.byType(Placeholder), findsOneWidget);
-  });
-
-  testWidgets('Test: load 2 courses', (tester) async {
+  testWidgets('Test: Load 2 courses', (tester) async {
     AppUser user = AppUser(
       userName: "test",
       fullName: "Test User",
@@ -184,12 +125,107 @@ void main() {
     await tester.pumpAndSettle();
 
     // Find the courses.
+    expect(find.byType(MyCoursesPage), findsOneWidget);
     expect(find.byType(ListTile), findsNWidgets(2));
+    expect(find.byIcon(Icons.delete), findsNWidgets(2));
+    expect(find.byType(CircleAvatar), findsNWidgets(2));
     expect(find.text(course1.name), findsOneWidget);
     expect(find.text(course2.name), findsOneWidget);
   });
 
-  testWidgets('Test: update a course', (tester) async {
+  testWidgets('Test: Click add course', (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    // Define the API URL and the username.
+    final String apiUrl = Environment.apiUrl;
+    const String username = "test";
+    final String requestUrl = '$apiUrl/courses/user/$username';
+
+    // Create a mock HTTP client.
+    final mockHttpClient = MockClient();
+
+    // Define the mocked response.
+    when(mockHttpClient.get(Uri.parse(requestUrl)))
+        .thenAnswer((_) async => http.Response('[]', 200));
+
+    await tester.pumpWidget(MainTestAppHomePage(
+      httpClient: mockHttpClient,
+      preferences: testPreferences,
+    ));
+
+    await tester.pumpAndSettle();
+    expect(find.byType(MyCoursesPage), findsOneWidget);
+    expect(find.byType(ListTile), findsNothing);
+
+    // Click add and navigate to Modules
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+    expect(find.byType(Placeholder), findsOneWidget);
+  });
+
+  testWidgets('Test: Update view button clicked', (tester) async {
+    AppUser user = AppUser(
+      userName: "test",
+      fullName: "Test User",
+      userType: UserType.student,
+    );
+    SharedPreferences.setMockInitialValues({"user": user.toJsonString()});
+    SharedPreferences testPreferences = await SharedPreferences.getInstance();
+
+    // Define the API URL and the username.
+    final String apiUrl = Environment.apiUrl;
+    const String username = "test";
+    final String requestUrl = '$apiUrl/courses/user/$username';
+
+    // Create a mock HTTP client.
+    final mockHttpClient = MockClient();
+
+    // Define the mocked response.
+    Course course1 = Course(
+      id: 1,
+      name: "Course 1",
+    );
+
+    Course course2 = Course(
+      id: 2,
+      name: "Course 2",
+    );
+
+    // Encode the expected course as JSON.
+    String responseBody =
+        json.encode([course1.toJsonMap(), course2.toJsonMap()]);
+    when(mockHttpClient.get(Uri.parse(requestUrl)))
+        .thenAnswer((_) async => http.Response(responseBody, 200));
+
+    await tester.pumpWidget(MainTestAppHomePage(
+      httpClient: mockHttpClient,
+      preferences: testPreferences,
+    ));
+
+    // Find the courses.
+    await tester.pumpAndSettle();
+    expect(find.byType(MyCoursesPage), findsOneWidget);
+    expect(find.byType(ListTile), findsNWidgets(2));
+    expect(find.byIcon(Icons.delete), findsNWidgets(2));
+    expect(find.byType(CircleAvatar), findsNWidgets(2));
+    expect(find.text(course1.name), findsOneWidget);
+    expect(find.text(course2.name), findsOneWidget);
+
+    // Check that the update button is present and tap it.
+    expect(find.byIcon(Icons.update), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.update));
+    await tester.pumpAndSettle();
+    // Find the courses.
+    expect(find.byType(MyCoursesPage), findsOneWidget);
+    expect(find.byType(ListTile), findsNWidgets(2));
+    expect(find.byIcon(Icons.delete), findsNWidgets(2));
+    expect(find.byType(CircleAvatar), findsNWidgets(2));
+    expect(find.text(course1.name), findsOneWidget);
+    expect(find.text(course2.name), findsOneWidget);
+  });
+
+  testWidgets('Test: Update a course', (tester) async {
     AppUser user = AppUser(
       userName: "test",
       fullName: "Test User",
@@ -226,6 +262,7 @@ void main() {
 
     // Find the courses.
     expect(find.byType(ListTile), findsNWidgets(1));
+    expect(find.byType(CircleAvatar), findsNWidgets(1));
     expect(find.text(course1.name), findsOneWidget);
 
     // Update the course.
@@ -237,9 +274,12 @@ void main() {
     await tester.tapAt(const Offset(0.0, 0.0));
     await tester.pumpAndSettle();
     expect(find.byType(MyCoursesPage), findsOneWidget);
+    expect(find.byType(ListTile), findsNWidgets(1));
+    expect(find.byType(CircleAvatar), findsNWidgets(1));
+    expect(find.text(course1.name), findsOneWidget);
   });
 
-  testWidgets('Test: delete a course', (tester) async {
+  testWidgets('Test: Delete a course', (tester) async {
     AppUser user = AppUser(
       userName: "test",
       fullName: "Test User",
@@ -276,6 +316,8 @@ void main() {
 
     // Find the courses.
     expect(find.byType(ListTile), findsNWidgets(1));
+    expect(find.byIcon(Icons.delete), findsNWidgets(1));
+    expect(find.byType(CircleAvatar), findsNWidgets(1));
     expect(find.text(course1.name), findsOneWidget);
 
     // Delete the course.
@@ -291,7 +333,8 @@ void main() {
     await tester.tap(find.byKey(const Key("delete")));
     await tester.pumpAndSettle();
     expect(find.byType(MyCoursesPage), findsOneWidget);
-    await tester.pumpAndSettle();
     expect(find.byType(ListTile), findsNWidgets(0));
+    expect(find.byIcon(Icons.delete), findsNWidgets(0));
+    expect(find.byType(CircleAvatar), findsNWidgets(0));
   });
 }
