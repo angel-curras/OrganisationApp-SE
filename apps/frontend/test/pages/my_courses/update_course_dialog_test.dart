@@ -5,6 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:organisation_app/main.dart';
 import 'package:organisation_app/model/course.dart';
+import 'package:organisation_app/model/weekday.dart';
 import 'package:organisation_app/pages/my_courses/update_course_dialog.dart';
 import 'package:organisation_app/settings/app_settings.dart';
 import 'package:organisation_app/settings/environment.dart';
@@ -61,7 +62,8 @@ void main() {
     // Create a mock HTTP client.
     final mockHttpClient = MockClient();
 
-    Course course = Course();
+    Course course =
+        Course(name: "Test Course", responsible: "Test Responsible");
 
     await tester.pumpWidget(MainTestApp(
       httpClient: mockHttpClient,
@@ -69,35 +71,24 @@ void main() {
       course: course,
     ));
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
+    expect(find.byType(Card), findsNWidgets(3));
+    expect(find.text("Course: "), findsOneWidget);
+    expect(find.text(course.name), findsOneWidget);
+    expect(find.text("Responsible: "), findsOneWidget);
+    expect(find.text(course.responsible), findsOneWidget);
+    expect(find.text("0%"), findsOneWidget);
+    expect(find.text("Select date"), findsNWidgets(2));
+    expect(find.text("Lecture:"), findsOneWidget);
+    expect(find.text("Lab:"), findsOneWidget);
+    expect(find.text("Day of week: "), findsNWidgets(2));
+    expect(find.text("Start time: "), findsNWidgets(2));
+    expect(find.text("End time: "), findsNWidgets(2));
+    expect(find.text("Select time"), findsNWidgets(4));
+    expect(find.byType(ElevatedButton), findsNWidgets(6));
+    expect(find.byType(DropdownButtonFormField<Weekday>), findsNWidgets(2));
   });
 
-  testWidgets('Test: Load empty dialog', (tester) async {
-    SharedPreferences.setMockInitialValues({});
-    SharedPreferences testPreferences = await SharedPreferences.getInstance();
-
-    // Define the API URL and the username.
-    final String apiUrl = Environment.apiUrl;
-    const String username = "test";
-    final String requestUrl = '$apiUrl/courses/user/$username';
-
-    // Create a mock HTTP client.
-    final mockHttpClient = MockClient();
-
-    // Define the mocked response.
-    when(mockHttpClient.get(Uri.parse(requestUrl)))
-        .thenAnswer((_) async => http.Response('[]', 200));
-
-    Course course = Course();
-
-    await tester.pumpWidget(MainTestApp(
-      httpClient: mockHttpClient,
-      preferences: testPreferences,
-      course: course,
-    ));
-    expect(find.byType(UpdateCourseDialog), findsOneWidget);
-  });
-
-  testWidgets('Test: Start date', (tester) async {
+  testWidgets('Test: Click to course start date', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -115,12 +106,13 @@ void main() {
 
     await tester.tap(find.byKey(const Key("startDateButton")));
     await tester.pumpAndSettle();
+    expect(find.byType(DatePickerDialog), findsOneWidget);
     await tester.tap(find.text("OK"));
     await tester.pumpAndSettle();
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: End date', (tester) async {
+  testWidgets('Test: Click to course end date', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -138,12 +130,13 @@ void main() {
 
     await tester.tap(find.byKey(const Key("endDateButton")));
     await tester.pumpAndSettle();
+    expect(find.byType(DatePickerDialog), findsOneWidget);
     await tester.tap(find.text("OK"));
     await tester.pumpAndSettle();
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: Lecture week day', (tester) async {
+  testWidgets('Test: Click to course lecture week day', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -166,7 +159,7 @@ void main() {
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: Lecture start time', (tester) async {
+  testWidgets('Test: Click to course lecture start time', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -184,12 +177,13 @@ void main() {
 
     await tester.tap(find.byKey(const Key("lectureStartTimeButton")));
     await tester.pumpAndSettle();
+    expect(find.byType(TimePickerDialog), findsOneWidget);
     await tester.tap(find.text("OK"));
     await tester.pumpAndSettle();
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: Lecture end time', (tester) async {
+  testWidgets('Test: Click to course lecture end time', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -207,12 +201,13 @@ void main() {
 
     await tester.tap(find.byKey(const Key("lectureEndTimeButton")));
     await tester.pumpAndSettle();
+    expect(find.byType(TimePickerDialog), findsOneWidget);
     await tester.tap(find.text("OK"));
     await tester.pumpAndSettle();
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: Lab week day', (tester) async {
+  testWidgets('Test: Click to course lab week day', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -245,7 +240,7 @@ void main() {
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: Lab start time', (tester) async {
+  testWidgets('Test: Click to course lab start time', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -275,12 +270,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key("labStartTimeButton")));
     await tester.pumpAndSettle();
+    expect(find.byType(TimePickerDialog), findsOneWidget);
     await tester.tap(find.text("OK"));
     await tester.pumpAndSettle();
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: Lab end time', (tester) async {
+  testWidgets('Test: Click to course lab end time', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -310,12 +306,13 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key("labEndTimeButton")));
     await tester.pumpAndSettle();
+    expect(find.byType(TimePickerDialog), findsOneWidget);
     await tester.tap(find.text("OK"));
     await tester.pumpAndSettle();
     expect(find.byType(UpdateCourseDialog), findsOneWidget);
   });
 
-  testWidgets('Test: Update button', (tester) async {
+  testWidgets('Test: Click to course update button', (tester) async {
     SharedPreferences.setMockInitialValues({});
     SharedPreferences testPreferences = await SharedPreferences.getInstance();
 
@@ -355,5 +352,6 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key("updateButton")));
     await tester.pumpAndSettle();
+    expect(find.byType(UpdateCourseDialog), findsNothing);
   });
 }
