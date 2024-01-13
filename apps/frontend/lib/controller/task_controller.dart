@@ -76,22 +76,4 @@ class TaskController {
       throw Exception('Failed to delete item');
     }
   }
-
-  // set done value of item on backend
-  Future<void> updateItemDoneStatus(int id, bool? done) async {
-    Task task = Task(
-      id: id,
-      done: done ?? false,
-    );
-
-    // access REST interface with put request
-    var response = await _client.put(Uri.parse('$_apiUrl/item/done'),
-        headers: <String, String>{'Content-Type': 'application/json'},
-        body: task.toJsonString());
-
-    // check response from backend
-    if (response.statusCode != 200) {
-      throw Exception('Failed to update item');
-    }
-  }
 } // end of class TaskController
