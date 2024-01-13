@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="task.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="31" lines-valid="31" package="lib/model" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'dart:convert';</code>
+        </line>
+        <line number="2">
+            <code/>
+        </line>
+        <line number="3">
+            <code>enum Frequency { once, daily, weekly, monthly }</code>
+        </line>
+        <line number="4">
+            <code/>
+        </line>
+        <line number="5">
+            <code>extension FrequencyExtension on Frequency {</code>
+        </line>
+        <line hits="4" number="6">
+            <code>  String toJSON() {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="7">
+            <code>    switch (this) {</code>
+        </line>
+        <line hits="4" number="8">
+            <code>      case Frequency.once:</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="9">
+            <code>        return 'ONCE';</code>
+        </line>
+        <line hits="1" number="10">
+            <code>      case Frequency.daily:</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="11">
+            <code>        return 'DAILY';</code>
+        </line>
+        <line hits="1" number="12">
+            <code>      case Frequency.weekly:</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>        return 'WEEKLY';</code>
+        </line>
+        <line hits="1" number="14">
+            <code>      case Frequency.monthly:</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="15">
+            <code>        return 'MONTHLY';</code>
+        </line>
+        <line number="16">
+            <code>    }</code>
+        </line>
+        <line number="17">
+            <code>  }</code>
+        </line>
+        <line number="18">
+            <code/>
+        </line>
+        <line hits="4" number="19">
+            <code>  static Frequency fromJSON(String frequency) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="20">
+            <code>    switch (frequency.toUpperCase()) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="21">
+            <code>      case 'ONCE':</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="22">
+            <code>        return Frequency.once;</code>
+        </line>
+        <line hits="1" number="23">
+            <code>      case 'DAILY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code>        return Frequency.weekly;</code>
+        </line>
+        <line hits="1" number="25">
+            <code>      case 'WEEKLY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="26">
+            <code>        return Frequency.weekly;</code>
+        </line>
+        <line hits="1" number="27">
+            <code>      case 'MONTHLY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="28">
+            <code>        return Frequency.monthly;</code>
+        </line>
+        <line number="29">
+            <code>      default:</code>
+        </line>
+        <line number="30">
+            <code>        return Frequency.once;</code>
+        </line>
+        <line number="31">
+            <code>    }</code>
+        </line>
+        <line number="32">
+            <code>  }</code>
+        </line>
+        <line number="33">
+            <code>}</code>
+        </line>
+        <line number="34">
+            <code/>
+        </line>
+        <line number="35">
+            <code>class Task {</code>
+        </line>
+        <line number="36">
+            <code>  int id;</code>
+        </line>
+        <line number="37">
+            <code>  String name;</code>
+        </line>
+        <line number="38">
+            <code>  DateTime? deadline;</code>
+        </line>
+        <line number="39">
+            <code>  int priority;</code>
+        </line>
+        <line number="40">
+            <code>  bool done = false;</code>
+        </line>
+        <line number="41">
+            <code>  Frequency frequency;</code>
+        </line>
+        <line number="42">
+            <code/>
+        </line>
+        <line hits="4" number="43">
+            <code>  Task({</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="44">
+            <code>    this.id = 0,</code>
+        </line>
+        <line number="45">
+            <code>    this.name = "",</code>
+        </line>
+        <line number="46">
+            <code>    this.priority = 3,</code>
+        </line>
+        <line number="47">
+            <code>    this.deadline,</code>
+        </line>
+        <line number="48">
+            <code>    this.done = false,</code>
+        </line>
+        <line number="49">
+            <code>    this.frequency = Frequency.once,</code>
+        </line>
+        <line number="50">
+            <code>  });</code>
+        </line>
+        <line number="51">
+            <code/>
+        </line>
+        <line hits="2" number="52">
+            <code>  get deadlineDate =&gt; deadline;</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="53">
+            <code/>
+        </line>
+        <line number="54">
+            <code>  // parse Item from JSON-data</code>
+        </line>
+        <line hits="4" number="55">
+            <code>  factory Task.fromJsonMap(Map&lt;String, dynamic&gt; json) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="56">
+            <code>    return Task(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="57">
+            <code>      id: json['task_id'] ?? 0,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="58">
+            <code>      name: json['task_name'] ?? '',</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="59">
+            <code>      priority: json['priority'] ?? 3,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="60">
+            <code>      deadline:</code>
+        </line>
+        <line hits="10" number="61">
+            <code>          json['deadline'] != null ? DateTime.parse(json['deadline']) : null,</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="62">
+            <code>      done: json['is_done'] ?? false,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="63">
+            <code>      frequency: FrequencyExtension.fromJSON(json['frequency'] ?? 'once'),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="64">
+            <code>    );</code>
+        </line>
+        <line number="65">
+            <code>  }</code>
+        </line>
+        <line number="66">
+            <code/>
+        </line>
+        <line number="67">
+            <code>  // map item to JSON-data (so far not used in app)</code>
+        </line>
+        <line hits="8" number="68">
+            <code>  Map&lt;String, dynamic&gt; toJsonMap() =&gt; {</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="69">
+            <code>        "task_id": id,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="70">
+            <code>        "task_name": name,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="71">
+            <code>        "deadline": deadline?.toIso8601String(),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="72">
+            <code>        "priority": priority,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="73">
+            <code>        "is_done": done,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="74">
+            <code>        "frequency": frequency.toJSON(),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="75">
+            <code>      };</code>
+        </line>
+        <line number="76">
+            <code/>
+        </line>
+        <line hits="12" number="77">
+            <code>  String toJsonString() =&gt; json.encode(toJsonMap());</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="78">
+            <code/>
+        </line>
+        <line hits="1" number="79">
+            <code>  factory Task.fromJsonString(String jsonString) =&gt;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="80">
+            <code>      Task.fromJsonMap(json.decode(jsonString));</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="81">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

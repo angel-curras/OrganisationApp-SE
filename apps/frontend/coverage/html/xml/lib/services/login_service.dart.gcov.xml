@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="login_service.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="11" lines-valid="11" package="lib/services" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="2">
+            <code>import 'package:logger/logger.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/controller/user_controller.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/model/app_user.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/settings/app_settings.dart';</code>
+        </line>
+        <line number="6">
+            <code/>
+        </line>
+        <line number="7">
+            <code>class LoginService {</code>
+        </line>
+        <line number="8">
+            <code>  final Logger _logger = Logger();</code>
+        </line>
+        <line number="9">
+            <code>  final UserController _userController;</code>
+        </line>
+        <line number="10">
+            <code>  final AppSettings _appSettings;</code>
+        </line>
+        <line number="11">
+            <code/>
+        </line>
+        <line hits="2" number="12">
+            <code>  LoginService({</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>    required http.Client client,</code>
+        </line>
+        <line number="14">
+            <code>    required AppSettings appSettings,</code>
+        </line>
+        <line number="15">
+            <code>  })  : _appSettings = appSettings,</code>
+        </line>
+        <line hits="2" number="16">
+            <code>        _userController = UserController(client: client);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="17">
+            <code/>
+        </line>
+        <line hits="1" number="18">
+            <code>  Future&lt;bool&gt; login(String username) async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code>    try {</code>
+        </line>
+        <line hits="3" number="20">
+            <code>      _logger.i('Logging in: $username');</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="21">
+            <code>      AppUser user = await _userController.getUser(username);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="22">
+            <code>      _logger.i('User found: $user');</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="23">
+            <code>      await _appSettings.saveUser(user);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code>      return true;</code>
+        </line>
+        <line number="25">
+            <code>    } catch (exception) {</code>
+        </line>
+        <line hits="3" number="26">
+            <code>      _logger.i('User not found: $username');</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="27">
+            <code>      return false;</code>
+        </line>
+        <line number="28">
+            <code>    } // end of try-catch</code>
+        </line>
+        <line number="29">
+            <code>  } // end of login()</code>
+        </line>
+        <line number="30">
+            <code/>
+        </line>
+        <line hits="1" number="31">
+            <code>  Future&lt;void&gt; logout() async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="32">
+            <code>    _logger.i('Logging out...');</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="33">
+            <code>    await _appSettings.clearUser();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="34">
+            <code>  } // end of logout()</code>
+        </line>
+        <line number="35">
+            <code>} // end of class LoginService</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

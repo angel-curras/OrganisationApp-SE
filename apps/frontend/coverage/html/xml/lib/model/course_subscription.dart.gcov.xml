@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="course_subscription.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="11" lines-valid="11" package="lib/model" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'dart:convert';</code>
+        </line>
+        <line number="2">
+            <code/>
+        </line>
+        <line number="3">
+            <code>class CourseSubscription {</code>
+        </line>
+        <line number="4">
+            <code>  int moduleId;</code>
+        </line>
+        <line number="5">
+            <code>  String userName;</code>
+        </line>
+        <line number="6">
+            <code/>
+        </line>
+        <line hits="3" number="7">
+            <code>  CourseSubscription({</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="8">
+            <code>    required this.moduleId,</code>
+        </line>
+        <line number="9">
+            <code>    required this.userName,</code>
+        </line>
+        <line number="10">
+            <code>  });</code>
+        </line>
+        <line number="11">
+            <code/>
+        </line>
+        <line hits="6" number="12">
+            <code>  Map&lt;String, dynamic&gt; toJsonMap() =&gt; {</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="13">
+            <code>        'module_id': moduleId,</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="14">
+            <code>        'user_name': userName,</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="15">
+            <code>      };</code>
+        </line>
+        <line number="16">
+            <code/>
+        </line>
+        <line hits="1" number="17">
+            <code>  factory CourseSubscription.fromJsonMap(Map&lt;String, dynamic&gt; json) =&gt;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="18">
+            <code>      CourseSubscription(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="19">
+            <code>        moduleId: json['module_id'] ?? '',</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="20">
+            <code>        userName: json['user_name'] ?? '',</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="21">
+            <code>      );</code>
+        </line>
+        <line number="22">
+            <code/>
+        </line>
+        <line hits="9" number="23">
+            <code>  String toJsonString() =&gt; jsonEncode(toJsonMap());</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code/>
+        </line>
+        <line hits="1" number="25">
+            <code>  factory CourseSubscription.fromJsonString(String jsonString) =&gt;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="26">
+            <code>      CourseSubscription.fromJsonMap(jsonDecode(jsonString));</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="27">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

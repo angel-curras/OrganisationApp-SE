@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="theme.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="1" lines-valid="1" package="lib/app" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code/>
+        </line>
+        <line hits="3" number="3">
+            <code>var appTheme = ThemeData(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="4">
+            <code>  bottomAppBarTheme: const BottomAppBarTheme(</code>
+        </line>
+        <line number="5">
+            <code>    color: Colors.black87,</code>
+        </line>
+        <line number="6">
+            <code>  ),</code>
+        </line>
+        <line number="7">
+            <code>  brightness: Brightness.dark,</code>
+        </line>
+        <line number="8">
+            <code>  textTheme: const TextTheme(</code>
+        </line>
+        <line number="9">
+            <code>    bodyLarge: TextStyle(fontSize: 18),</code>
+        </line>
+        <line number="10">
+            <code>    bodyMedium: TextStyle(fontSize: 16),</code>
+        </line>
+        <line number="11">
+            <code>    labelLarge: TextStyle(</code>
+        </line>
+        <line number="12">
+            <code>      letterSpacing: 1.5,</code>
+        </line>
+        <line number="13">
+            <code>      fontWeight: FontWeight.bold,</code>
+        </line>
+        <line number="14">
+            <code>    ),</code>
+        </line>
+        <line number="15">
+            <code>    displayLarge: TextStyle(</code>
+        </line>
+        <line number="16">
+            <code>      fontWeight: FontWeight.bold,</code>
+        </line>
+        <line number="17">
+            <code>    ),</code>
+        </line>
+        <line number="18">
+            <code>    titleMedium: TextStyle(</code>
+        </line>
+        <line number="19">
+            <code>      color: Colors.grey,</code>
+        </line>
+        <line number="20">
+            <code>    ),</code>
+        </line>
+        <line number="21">
+            <code>  ),</code>
+        </line>
+        <line number="22">
+            <code>  buttonTheme: const ButtonThemeData(),</code>
+        </line>
+        <line number="23">
+            <code>);</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

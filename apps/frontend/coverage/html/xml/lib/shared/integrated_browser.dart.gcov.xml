@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="integrated_browser.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="8" lines-valid="8" package="lib/shared" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:organisation_app/shared/menu_drawer.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:webview_flutter/webview_flutter.dart';</code>
+        </line>
+        <line number="4">
+            <code/>
+        </line>
+        <line number="5">
+            <code>class IntegratedBrowser extends StatelessWidget {</code>
+        </line>
+        <line number="6">
+            <code>  final String _title;</code>
+        </line>
+        <line number="7">
+            <code>  final String _startUrl;</code>
+        </line>
+        <line number="8">
+            <code>  final WebViewController _webViewController;</code>
+        </line>
+        <line number="9">
+            <code/>
+        </line>
+        <line hits="4" number="10">
+            <code>  const IntegratedBrowser(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="11">
+            <code>      {super.key,</code>
+        </line>
+        <line number="12">
+            <code>      required String title,</code>
+        </line>
+        <line number="13">
+            <code>      required String startUrl,</code>
+        </line>
+        <line number="14">
+            <code>      required WebViewController webViewController})</code>
+        </line>
+        <line number="15">
+            <code>      : _startUrl = startUrl,</code>
+        </line>
+        <line number="16">
+            <code>        _title = title,</code>
+        </line>
+        <line number="17">
+            <code>        _webViewController = webViewController;</code>
+        </line>
+        <line number="18">
+            <code/>
+        </line>
+        <line hits="4" number="19">
+            <code>  @override</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="20">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="8" number="21">
+            <code>    _webViewController.setJavaScriptMode(JavaScriptMode.unrestricted);</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="16" number="22">
+            <code>    _webViewController.loadRequest(Uri.parse(_startUrl));</code>
+            <hit count="16" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="23">
+            <code>    return Scaffold(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="24">
+            <code>      appBar: AppBar(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="25">
+            <code>        centerTitle: true,</code>
+        </line>
+        <line number="26">
+            <code>        backgroundColor: const Color.fromARGB(255, 3, 134, 204),</code>
+        </line>
+        <line hits="8" number="27">
+            <code>        title: Text(_title),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="28">
+            <code>      ),</code>
+        </line>
+        <line number="29">
+            <code>      drawer: const MenuDrawer(),</code>
+        </line>
+        <line hits="8" number="30">
+            <code>      body: WebViewWidget(controller: _webViewController),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="31">
+            <code>    );</code>
+        </line>
+        <line number="32">
+            <code>  }</code>
+        </line>
+        <line number="33">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

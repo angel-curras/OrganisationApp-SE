@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="todos_page.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="66" lines-valid="66" package="lib/pages/todos" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/controller/task_controller.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/model/task.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/settings/app_settings.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:organisation_app/shared/menu_drawer.dart';</code>
+        </line>
+        <line number="7">
+            <code>import 'package:provider/provider.dart';</code>
+        </line>
+        <line number="8">
+            <code/>
+        </line>
+        <line number="9">
+            <code>import 'create_todo_dialog.dart';</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line number="11">
+            <code>class TodosPage extends StatefulWidget {</code>
+        </line>
+        <line number="12">
+            <code>  // Fields.</code>
+        </line>
+        <line number="13">
+            <code>  final String title = "ToDo List";</code>
+        </line>
+        <line number="14">
+            <code>  final TaskController _taskController;</code>
+        </line>
+        <line number="15">
+            <code/>
+        </line>
+        <line number="16">
+            <code>  // Constructor.</code>
+        </line>
+        <line hits="2" number="17">
+            <code>  TodosPage({super.key, required http.Client client})</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="18">
+            <code>      : _taskController = TaskController(client: client);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code/>
+        </line>
+        <line number="20">
+            <code>  // Methods.</code>
+        </line>
+        <line hits="2" number="21">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="22">
+            <code>  State&lt;TodosPage&gt; createState() =&gt; _TodosPageState();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="23">
+            <code>}</code>
+        </line>
+        <line number="24">
+            <code/>
+        </line>
+        <line number="25">
+            <code>class _TodosPageState extends State&lt;TodosPage&gt; {</code>
+        </line>
+        <line number="26">
+            <code>  late TaskController _taskController;</code>
+        </line>
+        <line number="27">
+            <code/>
+        </line>
+        <line hits="2" number="28">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="29">
+            <code>  void initState() {</code>
+        </line>
+        <line hits="2" number="30">
+            <code>    super.initState();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="31">
+            <code>    _taskController = widget._taskController;</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="32">
+            <code>  }</code>
+        </line>
+        <line number="33">
+            <code/>
+        </line>
+        <line number="34">
+            <code>// Todos are displayed with a name, deadline date, Priority and three buttons to edit, delete the item and to check it if you have done it.</code>
+        </line>
+        <line hits="2" number="35">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="36">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="2" number="37">
+            <code>    return Scaffold(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="38">
+            <code>      appBar: AppBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="39">
+            <code>        backgroundColor: const Color.fromARGB(255, 3, 134, 204),</code>
+        </line>
+        <line number="40">
+            <code>        title: const Center(</code>
+        </line>
+        <line number="41">
+            <code>          child: Text('ToDo List'),</code>
+        </line>
+        <line number="42">
+            <code>        ),</code>
+        </line>
+        <line number="43">
+            <code>      ),</code>
+        </line>
+        <line hits="2" number="44">
+            <code>      body: Consumer&lt;AppSettings&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="45">
+            <code>        builder:</code>
+        </line>
+        <line hits="2" number="46">
+            <code>            (BuildContext context, AppSettings appSettings, Widget? child) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="47">
+            <code>          return FutureBuilder&lt;List&lt;Task&gt;&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="48">
+            <code>            future:</code>
+        </line>
+        <line hits="8" number="49">
+            <code>                _taskController.getAllTasksForUser(appSettings.user.userName),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="50">
+            <code>            builder: (context, snapshot) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="51">
+            <code>              if (snapshot.hasData) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="52">
+            <code>                List&lt;Task&gt; tasks = snapshot.data!;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="53">
+            <code>                sortTasksByPriority(tasks);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="54">
+            <code>                return ListView.builder(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="55">
+            <code>                  itemCount: tasks.length,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="56">
+            <code>                  itemBuilder: (_, int position) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="57">
+            <code>                    final task = tasks[position];</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="58">
+            <code>                    return Card(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="59">
+            <code>                      child: ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="60">
+            <code>                        leading: Checkbox(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="61">
+            <code>                          key: Key("doneCheckbox_$position"),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="62">
+            <code>                          value: task.done,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="63">
+            <code>                          onChanged: (bool? value) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="64">
+            <code>                            setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="65">
+            <code>                              task.done = value!;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="66">
+            <code>                              // Update the backend with the 'done' attribute.</code>
+        </line>
+        <line hits="2" number="67">
+            <code>                              _taskController.updateTask(task);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="68">
+            <code>                            });</code>
+        </line>
+        <line number="69">
+            <code>                          },</code>
+        </line>
+        <line number="70">
+            <code>                        ),</code>
+        </line>
+        <line hits="2" number="71">
+            <code>                        title: Text(task.name),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="72">
+            <code>                        subtitle: Column(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="73">
+            <code>                          crossAxisAlignment: CrossAxisAlignment.start,</code>
+        </line>
+        <line hits="1" number="74">
+            <code>                          children: &lt;Widget&gt;[</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="75">
+            <code>                            Text(task.deadline != null</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="76">
+            <code>                                ? "until: "</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="77">
+            <code>                                    "${task.deadline!.day}/${task.deadline!.month}/${task.deadline!.year}"</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="78">
+            <code>                                : "No deadline"),</code>
+        </line>
+        <line hits="3" number="79">
+            <code>                            Text("Priority: ${task.priority}"),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="80">
+            <code>                          ],</code>
+        </line>
+        <line number="81">
+            <code>                        ),</code>
+        </line>
+        <line hits="1" number="82">
+            <code>                        trailing: Row(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="83">
+            <code>                          mainAxisSize: MainAxisSize.min,</code>
+        </line>
+        <line hits="1" number="84">
+            <code>                          children: &lt;Widget&gt;[</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="85">
+            <code>                            IconButton(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="86">
+            <code>                              key: const Key("edit"),</code>
+        </line>
+        <line number="87">
+            <code>                              icon: const Icon(Icons.edit),</code>
+        </line>
+        <line number="88">
+            <code>                              tooltip: 'Edit Item',</code>
+        </line>
+        <line hits="1" number="89">
+            <code>                              onPressed: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="90">
+            <code>                                showDialog&lt;bool&gt;(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="91">
+            <code>                                  context: context,</code>
+        </line>
+        <line hits="2" number="92">
+            <code>                                  builder: (BuildContext context) =&gt; Dialog(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="93">
+            <code>                                    child: CreateItemPage(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="94">
+            <code>                                        _taskController.client, true,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="95">
+            <code>                                        task: task),</code>
+        </line>
+        <line number="96">
+            <code>                                  ),</code>
+        </line>
+        <line hits="2" number="97">
+            <code>                                ).then((result) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="98">
+            <code>                                  setState(() {});</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="99">
+            <code>                                });</code>
+        </line>
+        <line number="100">
+            <code>                              },</code>
+        </line>
+        <line number="101">
+            <code>                            ),</code>
+        </line>
+        <line hits="1" number="102">
+            <code>                            IconButton(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="103">
+            <code>                              key: const Key("delete"),</code>
+        </line>
+        <line number="104">
+            <code>                              icon: const Icon(Icons.delete),</code>
+        </line>
+        <line number="105">
+            <code>                              tooltip: 'Delete Item',</code>
+        </line>
+        <line hits="1" number="106">
+            <code>                              onPressed: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="107">
+            <code>                                setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="108">
+            <code>                                  _taskController.deleteTask(task.id);</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="109">
+            <code>                                });</code>
+        </line>
+        <line number="110">
+            <code>                              },</code>
+        </line>
+        <line number="111">
+            <code>                            )</code>
+        </line>
+        <line number="112">
+            <code>                          ],</code>
+        </line>
+        <line number="113">
+            <code>                        ),</code>
+        </line>
+        <line number="114">
+            <code>                      ),</code>
+        </line>
+        <line number="115">
+            <code>                    );</code>
+        </line>
+        <line number="116">
+            <code>                  },</code>
+        </line>
+        <line number="117">
+            <code>                );</code>
+        </line>
+        <line hits="2" number="118">
+            <code>              } else if (snapshot.hasError) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="119">
+            <code>                return Text('${snapshot.error}');</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="120">
+            <code>              } else {</code>
+        </line>
+        <line number="121">
+            <code>                return const Center(</code>
+        </line>
+        <line number="122">
+            <code>                  child: CircularProgressIndicator(),</code>
+        </line>
+        <line number="123">
+            <code>                );</code>
+        </line>
+        <line number="124">
+            <code>              }</code>
+        </line>
+        <line number="125">
+            <code>            },</code>
+        </line>
+        <line number="126">
+            <code>          );</code>
+        </line>
+        <line number="127">
+            <code>        },</code>
+        </line>
+        <line number="128">
+            <code>      ),</code>
+        </line>
+        <line hits="2" number="129">
+            <code>      floatingActionButton: FloatingActionButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="130">
+            <code>        tooltip: 'New',</code>
+        </line>
+        <line hits="2" number="131">
+            <code>        onPressed: () =&gt; showDialog&lt;bool&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="132">
+            <code>          context: context,</code>
+        </line>
+        <line hits="1" number="133">
+            <code>          builder: (BuildContext context) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="134">
+            <code>            return Dialog(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="135">
+            <code>              child: CreateItemPage(_taskController.client, false),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="136">
+            <code>            );</code>
+        </line>
+        <line number="137">
+            <code>          },</code>
+        </line>
+        <line hits="1" number="138">
+            <code>        ).then((_) =&gt; setState(() {})),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="139">
+            <code>        child: const Icon(Icons.add),</code>
+        </line>
+        <line number="140">
+            <code>      ),</code>
+        </line>
+        <line number="141">
+            <code>      drawer: const MenuDrawer(),</code>
+        </line>
+        <line number="142">
+            <code>    );</code>
+        </line>
+        <line number="143">
+            <code>  }</code>
+        </line>
+        <line number="144">
+            <code/>
+        </line>
+        <line hits="1" number="145">
+            <code>  void sortTasksByPriority(List&lt;Task&gt; tasks) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="146">
+            <code>    tasks.sort((Task a, Task b) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="147">
+            <code>      if (a.done &amp;&amp; !b.done) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="148">
+            <code>        return 1; // a has lower priority because it's done</code>
+        </line>
+        <line hits="2" number="149">
+            <code>      } else if (!a.done &amp;&amp; b.done) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="150">
+            <code>        return -1; // a has higher priority because it's not done</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="151">
+            <code>      } else {</code>
+        </line>
+        <line number="152">
+            <code>        // if both are done or not done, then sort by priority</code>
+        </line>
+        <line hits="3" number="153">
+            <code>        return a.priority.compareTo(b.priority);</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="154">
+            <code>      }</code>
+        </line>
+        <line number="155">
+            <code>    });</code>
+        </line>
+        <line number="156">
+            <code>  }</code>
+        </line>
+        <line number="157">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../../"/>
+    <base href="../../../"/>
+</coverage>

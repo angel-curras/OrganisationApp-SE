@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="routes.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="12" lines-valid="12" package="lib/app" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="2">
+            <code>import 'package:organisation_app/pages/chatgpt/chatgpt_page.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/pages/login/initialization_page.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/pages/login/login_page.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/pages/modules/modules_list.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:organisation_app/pages/moodle/moodle_page.dart';</code>
+        </line>
+        <line number="7">
+            <code>import 'package:organisation_app/pages/my_courses/my_courses_page.dart';</code>
+        </line>
+        <line number="8">
+            <code>import 'package:organisation_app/pages/primuss/primuss_page.dart';</code>
+        </line>
+        <line number="9">
+            <code>import 'package:organisation_app/pages/todos/todos_page.dart';</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line hits="3" number="11">
+            <code>http.Client client = http.Client();</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="12">
+            <code/>
+        </line>
+        <line hits="12" number="13">
+            <code>var appRoutes = {</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="14">
+            <code>  '/init': (context) =&gt; InitializationPage(),</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="15">
+            <code>  '/my_courses': (context) =&gt; MyCoursesPage(),</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="16">
+            <code>  '/login': (context) =&gt; LoginPage(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="17">
+            <code>        client: client,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="18">
+            <code>      ),</code>
+        </line>
+        <line hits="3" number="19">
+            <code>  '/modules': (context) =&gt; CoursesPage(client: client),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="20">
+            <code>  '/todos': (context) =&gt; TodosPage(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="21">
+            <code>        client: client,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="22">
+            <code>      ),</code>
+        </line>
+        <line hits="2" number="23">
+            <code>  '/moodle': (context) =&gt; MoodlePage(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="24">
+            <code>  '/chatgpt': (context) =&gt; ChatGptPage(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="25">
+            <code>  '/primuss': (context) =&gt; PrimussPage(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="26">
+            <code>};</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

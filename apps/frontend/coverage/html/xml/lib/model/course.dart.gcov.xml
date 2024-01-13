@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="course.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="46" lines-valid="46" package="lib/model" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'dart:convert';</code>
+        </line>
+        <line number="2">
+            <code/>
+        </line>
+        <line number="3">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:intl/intl.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/model/weekday.dart';</code>
+        </line>
+        <line number="6">
+            <code/>
+        </line>
+        <line number="7">
+            <code>class Course {</code>
+        </line>
+        <line number="8">
+            <code>  final int id;</code>
+        </line>
+        <line number="9">
+            <code>  final String name;</code>
+        </line>
+        <line number="10">
+            <code>  final String responsible;</code>
+        </line>
+        <line number="11">
+            <code>  final int progress;</code>
+        </line>
+        <line number="12">
+            <code>  DateTime? startDate;</code>
+        </line>
+        <line number="13">
+            <code>  DateTime? endDate;</code>
+        </line>
+        <line number="14">
+            <code>  Weekday? lectureWeekday;</code>
+        </line>
+        <line number="15">
+            <code>  TimeOfDay? lectureStartTime;</code>
+        </line>
+        <line number="16">
+            <code>  TimeOfDay? lectureEndTime;</code>
+        </line>
+        <line number="17">
+            <code>  Weekday? labWeekday;</code>
+        </line>
+        <line number="18">
+            <code>  TimeOfDay? labStartTime;</code>
+        </line>
+        <line number="19">
+            <code>  TimeOfDay? labEndTime;</code>
+        </line>
+        <line number="20">
+            <code/>
+        </line>
+        <line hits="4" number="21">
+            <code>  Course(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="22">
+            <code>      {this.id = 0,</code>
+        </line>
+        <line number="23">
+            <code>      this.name = '',</code>
+        </line>
+        <line number="24">
+            <code>      this.responsible = '',</code>
+        </line>
+        <line number="25">
+            <code>      this.progress = 0,</code>
+        </line>
+        <line number="26">
+            <code>      this.startDate,</code>
+        </line>
+        <line number="27">
+            <code>      this.endDate,</code>
+        </line>
+        <line number="28">
+            <code>      this.lectureWeekday,</code>
+        </line>
+        <line number="29">
+            <code>      this.lectureStartTime,</code>
+        </line>
+        <line number="30">
+            <code>      this.lectureEndTime,</code>
+        </line>
+        <line number="31">
+            <code>      this.labWeekday,</code>
+        </line>
+        <line number="32">
+            <code>      this.labStartTime,</code>
+        </line>
+        <line number="33">
+            <code>      this.labEndTime});</code>
+        </line>
+        <line number="34">
+            <code/>
+        </line>
+        <line hits="4" number="35">
+            <code>  static String? timeOfDayToString(TimeOfDay? timeOfDay) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="36">
+            <code>    if (timeOfDay == null) {</code>
+        </line>
+        <line number="37">
+            <code>      return null;</code>
+        </line>
+        <line number="38">
+            <code>    }</code>
+        </line>
+        <line hits="3" number="39">
+            <code>    return DateFormat('HH:mm:ss').format(DateTime(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="40">
+            <code>        DateTime.now().year,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="41">
+            <code>        DateTime.now().month,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="42">
+            <code>        DateTime.now().day,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="43">
+            <code>        timeOfDay.hour,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="44">
+            <code>        timeOfDay.minute));</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="45">
+            <code>  }</code>
+        </line>
+        <line number="46">
+            <code/>
+        </line>
+        <line hits="1" number="47">
+            <code>  static TimeOfDay? stringToTimeOfDay(String? timeString) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="48">
+            <code>    if (timeString == null) {</code>
+        </line>
+        <line number="49">
+            <code>      return null;</code>
+        </line>
+        <line number="50">
+            <code>    }</code>
+        </line>
+        <line hits="3" number="51">
+            <code>    return TimeOfDay.fromDateTime(DateFormat('HH:mm:ss').parse(timeString));</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="52">
+            <code>  }</code>
+        </line>
+        <line number="53">
+            <code/>
+        </line>
+        <line hits="8" number="54">
+            <code>  Map&lt;String, dynamic&gt; toJsonMap() =&gt; {</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="55">
+            <code>        'course_id': id,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="56">
+            <code>        'course_name': name,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="57">
+            <code>        'responsible': responsible,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="58">
+            <code>        'progress': progress,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="5" number="59">
+            <code>        'start_date': startDate?.toIso8601String(),</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="5" number="60">
+            <code>        'end_date': endDate?.toIso8601String(),</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="5" number="61">
+            <code>        'lecture_weekday': lectureWeekday?.toJSON(),</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="62">
+            <code>        'lecture_start_time': timeOfDayToString(lectureStartTime),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="63">
+            <code>        'lecture_end_time': timeOfDayToString(lectureEndTime),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="5" number="64">
+            <code>        'lab_weekday': labWeekday?.toJSON(),</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="65">
+            <code>        'lab_start_time': timeOfDayToString(labStartTime),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="66">
+            <code>        'lab_end_time': timeOfDayToString(labEndTime),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="67">
+            <code>      };</code>
+        </line>
+        <line number="68">
+            <code/>
+        </line>
+        <line hits="6" number="69">
+            <code>  factory Course.fromJsonMap(Map&lt;String, dynamic&gt; json) =&gt; Course(</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="70">
+            <code>        id: json['course_id'] ?? 0,</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="71">
+            <code>        name: json['course_name'] ?? '',</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="72">
+            <code>        responsible: json['responsible'] ?? '',</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="73">
+            <code>        progress: json['progress'] ?? 0,</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="74">
+            <code>        startDate: json['start_date'] != null</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="75">
+            <code>            ? DateTime.parse(json['start_date'])</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="76">
+            <code>            : null,</code>
+        </line>
+        <line number="77">
+            <code>        endDate:</code>
+        </line>
+        <line hits="5" number="78">
+            <code>            json['end_date'] != null ? DateTime.parse(json['end_date']) : null,</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="79">
+            <code>        lectureWeekday: json['lecture_weekday'] != null</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="80">
+            <code>            ? WeekdayExtension.fromJSON(json['lecture_weekday'] as String)</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="81">
+            <code>            : null,</code>
+        </line>
+        <line hits="3" number="82">
+            <code>        lectureStartTime: json['lecture_start_time'] != null</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="83">
+            <code>            ? stringToTimeOfDay(json['lecture_start_time'])</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="84">
+            <code>            : null,</code>
+        </line>
+        <line hits="3" number="85">
+            <code>        lectureEndTime: json['lecture_end_time'] != null</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="86">
+            <code>            ? stringToTimeOfDay(json['lecture_end_time'])</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="87">
+            <code>            : null,</code>
+        </line>
+        <line hits="3" number="88">
+            <code>        labWeekday: json['lab_weekday'] != null</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="89">
+            <code>            ? WeekdayExtension.fromJSON(json['lab_weekday'] as String)</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="90">
+            <code>            : null,</code>
+        </line>
+        <line hits="3" number="91">
+            <code>        labStartTime: json['lab_start_time'] != null</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="92">
+            <code>            ? stringToTimeOfDay(json['lab_start_time'])</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="93">
+            <code>            : null,</code>
+        </line>
+        <line hits="3" number="94">
+            <code>        labEndTime: json['lab_end_time'] != null</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="95">
+            <code>            ? stringToTimeOfDay(json['lab_end_time'])</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="96">
+            <code>            : null,</code>
+        </line>
+        <line number="97">
+            <code>      );</code>
+        </line>
+        <line number="98">
+            <code/>
+        </line>
+        <line hits="9" number="99">
+            <code>  String toJsonString() =&gt; jsonEncode(toJsonMap());</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="100">
+            <code/>
+        </line>
+        <line hits="1" number="101">
+            <code>  factory Course.fromJsonString(String jsonString) =&gt;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="102">
+            <code>      Course.fromJsonMap(jsonDecode(jsonString));</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="103">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="create_todo_dialog.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="54" lines-valid="54" package="lib/pages/todos" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="3">
+            <code>import 'package:provider/provider.dart';</code>
+        </line>
+        <line number="4">
+            <code/>
+        </line>
+        <line number="5">
+            <code>import '../../controller/task_controller.dart';</code>
+        </line>
+        <line number="6">
+            <code>import '../../model/task.dart';</code>
+        </line>
+        <line number="7">
+            <code>import '../../settings/app_settings.dart';</code>
+        </line>
+        <line number="8">
+            <code>import '../../shared/date_picker.dart';</code>
+        </line>
+        <line number="9">
+            <code/>
+        </line>
+        <line number="10">
+            <code>class CreateItemPage extends StatefulWidget {</code>
+        </line>
+        <line number="11">
+            <code>  final TaskController _taskController;</code>
+        </line>
+        <line number="12">
+            <code>  final GlobalKey&lt;FormState&gt; _formKey = GlobalKey&lt;FormState&gt;();</code>
+        </line>
+        <line number="13">
+            <code>  final bool edit;</code>
+        </line>
+        <line number="14">
+            <code>  final Task? task;</code>
+        </line>
+        <line number="15">
+            <code/>
+        </line>
+        <line hits="4" number="16">
+            <code>  GlobalKey&lt;FormState&gt; get formKey =&gt; _formKey;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="17">
+            <code/>
+        </line>
+        <line hits="2" number="18">
+            <code>  CreateItemPage(http.Client client, this.edit, {super.key, this.task})</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="19">
+            <code>      : _taskController = TaskController(client: client);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="20">
+            <code/>
+        </line>
+        <line hits="2" number="21">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="22">
+            <code>  CreateItemPageState createState() {</code>
+        </line>
+        <line hits="2" number="23">
+            <code>    return CreateItemPageState();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code>  }</code>
+        </line>
+        <line number="25">
+            <code>}</code>
+        </line>
+        <line number="26">
+            <code/>
+        </line>
+        <line number="27">
+            <code>class CreateItemPageState extends State&lt;CreateItemPage&gt; {</code>
+        </line>
+        <line number="28">
+            <code>  final TextEditingController nameController = TextEditingController();</code>
+        </line>
+        <line number="29">
+            <code>  int priority = 3; // Set a default priority value</code>
+        </line>
+        <line number="30">
+            <code>  DateTime date = DateTime(3000, 01, 01);</code>
+        </line>
+        <line number="31">
+            <code>  bool done = false;</code>
+        </line>
+        <line number="32">
+            <code/>
+        </line>
+        <line hits="2" number="33">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="34">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="6" number="35">
+            <code>    String userName = Provider.of&lt;AppSettings&gt;(context).user.userName;</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="36">
+            <code/>
+        </line>
+        <line hits="4" number="37">
+            <code>    if (widget.edit) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="38">
+            <code>      nameController.text = widget.task!.name;</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="39">
+            <code>      priority = widget.task!.priority;</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="40">
+            <code>    }</code>
+        </line>
+        <line hits="2" number="41">
+            <code>    final nameField = TextFormField(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="42">
+            <code>      key: const Key("name"),</code>
+        </line>
+        <line hits="2" number="43">
+            <code>      controller: nameController,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="44">
+            <code>      keyboardType: TextInputType.text,</code>
+        </line>
+        <line number="45">
+            <code>      decoration: const InputDecoration(hintText: "Please enter Task name"),</code>
+        </line>
+        <line hits="2" number="46">
+            <code>      validator: (text) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="47">
+            <code>        if (text == null || text.isEmpty) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="48">
+            <code>          return 'Error: please enter Task name';</code>
+        </line>
+        <line number="49">
+            <code>        }</code>
+        </line>
+        <line number="50">
+            <code>        return null;</code>
+        </line>
+        <line number="51">
+            <code>      },</code>
+        </line>
+        <line number="52">
+            <code>    );</code>
+        </line>
+        <line number="53">
+            <code/>
+        </line>
+        <line hits="2" number="54">
+            <code>    var deadlineField = DatePickerTask(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="55">
+            <code>      key: const Key("deadline"),</code>
+        </line>
+        <line number="56">
+            <code>      restorationId: 'deadline',</code>
+        </line>
+        <line hits="1" number="57">
+            <code>      onDateSelected: (selectedDate) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="58">
+            <code>        date = selectedDate;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="59">
+            <code>      },</code>
+        </line>
+        <line number="60">
+            <code>    );</code>
+        </line>
+        <line number="61">
+            <code/>
+        </line>
+        <line hits="2" number="62">
+            <code>    var priorityField = DropdownButtonFormField(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="63">
+            <code>      key: const Key("priority"),</code>
+        </line>
+        <line hits="2" number="64">
+            <code>      value: priority,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="65">
+            <code>      decoration: const InputDecoration(</code>
+        </line>
+        <line number="66">
+            <code>        hintText: "Please select priority",</code>
+        </line>
+        <line number="67">
+            <code>      ),</code>
+        </line>
+        <line hits="1" number="68">
+            <code>      onChanged: (int? newValue) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="69">
+            <code>        setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="70">
+            <code>          priority = newValue ?? 3; // Set a default value if null</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="71">
+            <code>        });</code>
+        </line>
+        <line number="72">
+            <code>      },</code>
+        </line>
+        <line hits="6" number="73">
+            <code>      items: [1, 2, 3].map((int value) {</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="74">
+            <code>        return DropdownMenuItem(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="75">
+            <code>          value: value,</code>
+        </line>
+        <line hits="4" number="76">
+            <code>          child: Text(value.toString()),</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="77">
+            <code>        );</code>
+        </line>
+        <line hits="2" number="78">
+            <code>      }).toList(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="79">
+            <code>    );</code>
+        </line>
+        <line number="80">
+            <code/>
+        </line>
+        <line hits="2" number="81">
+            <code>    final saveButton = ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="82">
+            <code>      key: const Key("save"),</code>
+        </line>
+        <line hits="2" number="83">
+            <code>      onPressed: () async {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="84">
+            <code>        BuildContext initialContext = context;</code>
+        </line>
+        <line hits="8" number="85">
+            <code>        if (widget.formKey.currentState!.validate()) {</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="86">
+            <code>          if (widget.edit) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="87">
+            <code>            try {</code>
+        </line>
+        <line number="88">
+            <code>              // Perform saving action</code>
+        </line>
+        <line number="89">
+            <code/>
+        </line>
+        <line hits="2" number="90">
+            <code>              Task task = Task(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="91">
+            <code>                id: widget.task!.id,</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="92">
+            <code>                name: nameController.text,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="93">
+            <code>                priority: priority,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="94">
+            <code>                deadline: date,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="95">
+            <code>              );</code>
+        </line>
+        <line hits="6" number="96">
+            <code>              await widget._taskController.updateTask(task);</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="97">
+            <code/>
+        </line>
+        <line hits="1" number="98">
+            <code>              if (!context.mounted) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="99">
+            <code>                return;</code>
+        </line>
+        <line number="100">
+            <code>              }</code>
+        </line>
+        <line hits="1" number="101">
+            <code>              Navigator.pop(initialContext);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="102">
+            <code>            } catch (error) {</code>
+        </line>
+        <line number="103">
+            <code>              // Handle error (e.g., display a Snackbar)</code>
+        </line>
+        <line number="104">
+            <code/>
+        </line>
+        <line hits="2" number="105">
+            <code>              ScaffoldMessenger.of(context).showSnackBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="106">
+            <code>                SnackBar(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="107">
+            <code>                  content: Text('Error: $error'),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="108">
+            <code>                ),</code>
+        </line>
+        <line number="109">
+            <code>              );</code>
+        </line>
+        <line number="110">
+            <code>            }</code>
+        </line>
+        <line number="111">
+            <code>          } else {</code>
+        </line>
+        <line number="112">
+            <code>            try {</code>
+        </line>
+        <line number="113">
+            <code>              // Perform saving action</code>
+        </line>
+        <line hits="6" number="114">
+            <code>              await widget._taskController.createTask(</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="115">
+            <code>                userName,</code>
+        </line>
+        <line hits="4" number="116">
+            <code>                nameController.text,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="117">
+            <code>                date,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="118">
+            <code>                priority,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="119">
+            <code>              );</code>
+        </line>
+        <line number="120">
+            <code/>
+        </line>
+        <line hits="1" number="121">
+            <code>              if (!context.mounted) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="122">
+            <code>                return;</code>
+        </line>
+        <line number="123">
+            <code>              }</code>
+        </line>
+        <line hits="1" number="124">
+            <code>              Navigator.pop(initialContext);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="125">
+            <code>            } catch (error) {</code>
+        </line>
+        <line number="126">
+            <code>              // Handle error (e.g., display a Snackbar)</code>
+        </line>
+        <line number="127">
+            <code/>
+        </line>
+        <line hits="2" number="128">
+            <code>              ScaffoldMessenger.of(context).showSnackBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="129">
+            <code>                SnackBar(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="130">
+            <code>                  content: Text('Error: $error'),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="131">
+            <code>                ),</code>
+        </line>
+        <line number="132">
+            <code>              );</code>
+        </line>
+        <line number="133">
+            <code>            }</code>
+        </line>
+        <line number="134">
+            <code>          }</code>
+        </line>
+        <line number="135">
+            <code>        }</code>
+        </line>
+        <line number="136">
+            <code>      },</code>
+        </line>
+        <line number="137">
+            <code>      child: const Text('Save'),</code>
+        </line>
+        <line number="138">
+            <code>    );</code>
+        </line>
+        <line number="139">
+            <code/>
+        </line>
+        <line hits="2" number="140">
+            <code>    return Form(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="141">
+            <code>      key: widget.formKey,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="142">
+            <code>      child: ListView(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="143">
+            <code>        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),</code>
+        </line>
+        <line hits="2" number="144">
+            <code>        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="145">
+            <code>          nameField,</code>
+        </line>
+        <line number="146">
+            <code>          deadlineField,</code>
+        </line>
+        <line number="147">
+            <code>          priorityField,</code>
+        </line>
+        <line number="148">
+            <code>          saveButton,</code>
+        </line>
+        <line number="149">
+            <code>        ],</code>
+        </line>
+        <line number="150">
+            <code>      ),</code>
+        </line>
+        <line number="151">
+            <code>    );</code>
+        </line>
+        <line number="152">
+            <code>  }</code>
+        </line>
+        <line number="153">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../../"/>
+    <base href="../../../"/>
+</coverage>

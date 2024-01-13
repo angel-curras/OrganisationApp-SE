@@ -1,0 +1,1587 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="update_course_dialog.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="160" lines-valid="160" package="lib/pages/my_courses" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/controller/course_controller.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/model/course.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/model/weekday.dart';</code>
+        </line>
+        <line number="6">
+            <code/>
+        </line>
+        <line number="7">
+            <code>class UpdateCourseDialog extends StatefulWidget {</code>
+        </line>
+        <line number="8">
+            <code>  // Fields.</code>
+        </line>
+        <line number="9">
+            <code>  final CourseController _courseController;</code>
+        </line>
+        <line number="10">
+            <code>  final Course _course;</code>
+        </line>
+        <line number="11">
+            <code/>
+        </line>
+        <line hits="2" number="12">
+            <code>  UpdateCourseDialog(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>      {super.key, required http.Client client, required Course course})</code>
+        </line>
+        <line number="14">
+            <code>      : _course = course,</code>
+        </line>
+        <line hits="2" number="15">
+            <code>        _courseController = CourseController(client: client);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="16">
+            <code/>
+        </line>
+        <line hits="2" number="17">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="18">
+            <code>  State&lt;UpdateCourseDialog&gt; createState() =&gt; _UpdateCourseDialogState();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code>}</code>
+        </line>
+        <line number="20">
+            <code/>
+        </line>
+        <line number="21">
+            <code>class _UpdateCourseDialogState extends State&lt;UpdateCourseDialog&gt; {</code>
+        </line>
+        <line number="22">
+            <code>  final GlobalKey&lt;FormState&gt; _formKey = GlobalKey&lt;FormState&gt;();</code>
+        </line>
+        <line number="23">
+            <code/>
+        </line>
+        <line hits="1" number="24">
+            <code>  Future&lt;void&gt; _onUpdateClicked(BuildContext context) async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="25">
+            <code>    if (!_formKey.currentState!.validate()) {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="26">
+            <code>      return;</code>
+        </line>
+        <line number="27">
+            <code>    }</code>
+        </line>
+        <line number="28">
+            <code/>
+        </line>
+        <line hits="5" number="29">
+            <code>    await widget._courseController.updateCourse(widget._course);</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="30">
+            <code/>
+        </line>
+        <line hits="1" number="31">
+            <code>    if (!context.mounted) return;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="32">
+            <code>    Navigator.of(context).pop();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="33">
+            <code>  }</code>
+        </line>
+        <line number="34">
+            <code/>
+        </line>
+        <line hits="1" number="35">
+            <code>  Future&lt;TimeOfDay?&gt; _selectTime(BuildContext context) async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="36">
+            <code>    final TimeOfDay? pickedTime = await showTimePicker(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="37">
+            <code>      context: context,</code>
+        </line>
+        <line hits="1" number="38">
+            <code>      initialTime: TimeOfDay.now(),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="39">
+            <code>    );</code>
+        </line>
+        <line number="40">
+            <code>    return pickedTime;</code>
+        </line>
+        <line number="41">
+            <code>  }</code>
+        </line>
+        <line number="42">
+            <code/>
+        </line>
+        <line hits="1" number="43">
+            <code>  Future&lt;DateTime?&gt; _selectDate(BuildContext context) async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="44">
+            <code>    final DateTime? pickedDate = await showDatePicker(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="45">
+            <code>      context: context,</code>
+        </line>
+        <line hits="1" number="46">
+            <code>      initialDate: DateTime.now(),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="47">
+            <code>      firstDate: DateTime(2020),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="48">
+            <code>      lastDate: DateTime(2030),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="49">
+            <code>    );</code>
+        </line>
+        <line number="50">
+            <code/>
+        </line>
+        <line number="51">
+            <code>    return pickedDate;</code>
+        </line>
+        <line number="52">
+            <code>  }</code>
+        </line>
+        <line number="53">
+            <code/>
+        </line>
+        <line hits="2" number="54">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="55">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="2" number="56">
+            <code>    return Dialog(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="57">
+            <code>      shape: RoundedRectangleBorder(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="58">
+            <code>        borderRadius: BorderRadius.circular(16),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="59">
+            <code>      ),</code>
+        </line>
+        <line hits="2" number="60">
+            <code>      child: Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="61">
+            <code>        padding: const EdgeInsets.all(16.0),</code>
+        </line>
+        <line hits="2" number="62">
+            <code>        child: Form(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="63">
+            <code>          key: _formKey,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="64">
+            <code>          child: ListView(children: [</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="65">
+            <code>            // Start of the list view.</code>
+        </line>
+        <line number="66">
+            <code/>
+        </line>
+        <line number="67">
+            <code>            // Course card infos:</code>
+        </line>
+        <line hits="2" number="68">
+            <code>            Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="69">
+            <code>              padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="70">
+            <code>              child: Card(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="71">
+            <code>                child: Column(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="72">
+            <code>                  crossAxisAlignment: CrossAxisAlignment.start,</code>
+        </line>
+        <line hits="2" number="73">
+            <code>                  children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="74">
+            <code>                    // Course name:</code>
+        </line>
+        <line hits="2" number="75">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="76">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="77">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="78">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="79">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="80">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="81">
+            <code>                              "Course: ",</code>
+        </line>
+        <line number="82">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="83">
+            <code>                            ),</code>
+        </line>
+        <line number="84">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="85">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="86">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="87">
+            <code>                            child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="88">
+            <code>                              widget._course.name,</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="89">
+            <code>                            ),</code>
+        </line>
+        <line number="90">
+            <code>                          ),</code>
+        </line>
+        <line number="91">
+            <code>                        ],</code>
+        </line>
+        <line number="92">
+            <code>                      ),</code>
+        </line>
+        <line number="93">
+            <code>                    ),</code>
+        </line>
+        <line number="94">
+            <code/>
+        </line>
+        <line number="95">
+            <code>                    // Course responsible:</code>
+        </line>
+        <line hits="2" number="96">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="97">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="98">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="99">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="100">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="101">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="102">
+            <code>                              "Responsible: ",</code>
+        </line>
+        <line number="103">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="104">
+            <code>                            ),</code>
+        </line>
+        <line number="105">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="106">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="107">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="108">
+            <code>                            child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="109">
+            <code>                              widget._course.responsible,</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="110">
+            <code>                            ),</code>
+        </line>
+        <line number="111">
+            <code>                          ),</code>
+        </line>
+        <line number="112">
+            <code>                        ],</code>
+        </line>
+        <line number="113">
+            <code>                      ),</code>
+        </line>
+        <line number="114">
+            <code>                    ),</code>
+        </line>
+        <line number="115">
+            <code/>
+        </line>
+        <line number="116">
+            <code>                    // Course progress:</code>
+        </line>
+        <line hits="2" number="117">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="118">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="119">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="120">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="121">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="122">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="123">
+            <code>                              "Progress: ",</code>
+        </line>
+        <line number="124">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="125">
+            <code>                            ),</code>
+        </line>
+        <line number="126">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="127">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="128">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="129">
+            <code>                            child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="130">
+            <code>                              "${widget._course.progress}%",</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="131">
+            <code>                            ),</code>
+        </line>
+        <line number="132">
+            <code>                          ),</code>
+        </line>
+        <line number="133">
+            <code>                        ],</code>
+        </line>
+        <line number="134">
+            <code>                      ),</code>
+        </line>
+        <line number="135">
+            <code>                    ),</code>
+        </line>
+        <line number="136">
+            <code/>
+        </line>
+        <line hits="2" number="137">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="138">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="139">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="140">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="141">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="142">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="143">
+            <code>                              "Start date: ",</code>
+        </line>
+        <line number="144">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="145">
+            <code>                            ),</code>
+        </line>
+        <line number="146">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="147">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="148">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="149">
+            <code>                            child: ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="150">
+            <code>                              key: const Key("startDateButton"),</code>
+        </line>
+        <line hits="1" number="151">
+            <code>                              onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="152">
+            <code>                                DateTime? pickedDate =</code>
+        </line>
+        <line hits="1" number="153">
+            <code>                                    await _selectDate(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="154">
+            <code>                                if (pickedDate != null) {</code>
+        </line>
+        <line hits="2" number="155">
+            <code>                                  setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="156">
+            <code>                                    widget._course.startDate = pickedDate;</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="157">
+            <code>                                  });</code>
+        </line>
+        <line number="158">
+            <code>                                }</code>
+        </line>
+        <line number="159">
+            <code>                              },</code>
+        </line>
+        <line hits="8" number="160">
+            <code>                              child: Text(widget._course.startDate == null</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="161">
+            <code>                                  ? "Select date"</code>
+        </line>
+        <line hits="13" number="162">
+            <code>                                  : '${widget._course.startDate!.day}/${widget._course.startDate!.month}/${widget._course.startDate!.year}'),</code>
+            <hit count="13" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="163">
+            <code>                            ),</code>
+        </line>
+        <line number="164">
+            <code>                          ),</code>
+        </line>
+        <line number="165">
+            <code>                        ],</code>
+        </line>
+        <line number="166">
+            <code>                      ),</code>
+        </line>
+        <line number="167">
+            <code>                    ),</code>
+        </line>
+        <line number="168">
+            <code/>
+        </line>
+        <line hits="2" number="169">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="170">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="171">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="172">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="173">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="174">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="175">
+            <code>                              "End date: ",</code>
+        </line>
+        <line number="176">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="177">
+            <code>                            ),</code>
+        </line>
+        <line number="178">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="179">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="180">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="181">
+            <code>                            child: ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="182">
+            <code>                              key: const Key("endDateButton"),</code>
+        </line>
+        <line hits="1" number="183">
+            <code>                              onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="184">
+            <code>                                DateTime? pickedDate =</code>
+        </line>
+        <line hits="1" number="185">
+            <code>                                    await _selectDate(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="186">
+            <code>                                if (pickedDate != null) {</code>
+        </line>
+        <line hits="2" number="187">
+            <code>                                  setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="188">
+            <code>                                    widget._course.endDate = pickedDate;</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="189">
+            <code>                                  });</code>
+        </line>
+        <line number="190">
+            <code>                                }</code>
+        </line>
+        <line number="191">
+            <code>                              },</code>
+        </line>
+        <line hits="8" number="192">
+            <code>                              child: Text(widget._course.endDate == null</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="193">
+            <code>                                  ? "Select date"</code>
+        </line>
+        <line hits="13" number="194">
+            <code>                                  : '${widget._course.endDate!.day}/${widget._course.endDate!.month}/${widget._course.endDate!.year}'),</code>
+            <hit count="13" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="195">
+            <code>                            ),</code>
+        </line>
+        <line number="196">
+            <code>                          ),</code>
+        </line>
+        <line number="197">
+            <code>                        ],</code>
+        </line>
+        <line number="198">
+            <code>                      ),</code>
+        </line>
+        <line number="199">
+            <code>                    ),</code>
+        </line>
+        <line number="200">
+            <code>                  ],</code>
+        </line>
+        <line number="201">
+            <code>                ),</code>
+        </line>
+        <line number="202">
+            <code>              ),</code>
+        </line>
+        <line number="203">
+            <code>            ),</code>
+        </line>
+        <line number="204">
+            <code/>
+        </line>
+        <line number="205">
+            <code>            // Course settings: lecture</code>
+        </line>
+        <line hits="2" number="206">
+            <code>            Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="207">
+            <code>              padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="208">
+            <code>              child: Card(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="209">
+            <code>                child: Column(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="210">
+            <code>                  crossAxisAlignment: CrossAxisAlignment.start,</code>
+        </line>
+        <line hits="2" number="211">
+            <code>                  children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="212">
+            <code>                    const Padding(</code>
+        </line>
+        <line number="213">
+            <code>                      padding: EdgeInsets.all(8.0),</code>
+        </line>
+        <line number="214">
+            <code>                      child: Text(</code>
+        </line>
+        <line number="215">
+            <code>                        'Lecture:',</code>
+        </line>
+        <line number="216">
+            <code>                        style: TextStyle(</code>
+        </line>
+        <line number="217">
+            <code>                          fontWeight: FontWeight.bold,</code>
+        </line>
+        <line number="218">
+            <code>                          fontSize: 18.0,</code>
+        </line>
+        <line number="219">
+            <code>                        ),</code>
+        </line>
+        <line number="220">
+            <code>                      ),</code>
+        </line>
+        <line number="221">
+            <code>                    ),</code>
+        </line>
+        <line hits="2" number="222">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="223">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="224">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="225">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="226">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="227">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="228">
+            <code>                              "Day of week: ",</code>
+        </line>
+        <line number="229">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="230">
+            <code>                            ),</code>
+        </line>
+        <line number="231">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="232">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="233">
+            <code>                              flex: 2,</code>
+        </line>
+        <line hits="2" number="234">
+            <code>                              child: DropdownButtonFormField&lt;Weekday&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="235">
+            <code>                                key: const Key("lectureWeekDayDropdownButton"),</code>
+        </line>
+        <line hits="6" number="236">
+            <code>                                value: widget._course.lectureWeekday,</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="237">
+            <code>                                decoration: const InputDecoration(</code>
+        </line>
+        <line number="238">
+            <code>                                  hintText: "Please select the lecture day",</code>
+        </line>
+        <line number="239">
+            <code>                                ),</code>
+        </line>
+        <line hits="1" number="240">
+            <code>                                onChanged: (Weekday? newValue) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="241">
+            <code>                                  if (newValue != null) {</code>
+        </line>
+        <line hits="2" number="242">
+            <code>                                    setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="243">
+            <code>                                      widget._course.lectureWeekday = newValue;</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="244">
+            <code>                                    });</code>
+        </line>
+        <line number="245">
+            <code>                                  }</code>
+        </line>
+        <line number="246">
+            <code>                                },</code>
+        </line>
+        <line hits="4" number="247">
+            <code>                                items: Weekday.values.map((weekday) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="248">
+            <code>                                  return DropdownMenuItem&lt;Weekday&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="249">
+            <code>                                      value: weekday,</code>
+        </line>
+        <line hits="2" number="250">
+            <code>                                      child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="251">
+            <code>                                        weekday.toJSON(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="252">
+            <code>                                      ));</code>
+        </line>
+        <line hits="2" number="253">
+            <code>                                }).toList(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="254">
+            <code>                              )),</code>
+        </line>
+        <line number="255">
+            <code>                        ],</code>
+        </line>
+        <line number="256">
+            <code>                      ),</code>
+        </line>
+        <line number="257">
+            <code>                    ),</code>
+        </line>
+        <line hits="2" number="258">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="259">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="260">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="261">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="262">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="263">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="264">
+            <code>                              "Start time: ",</code>
+        </line>
+        <line number="265">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="266">
+            <code>                            ),</code>
+        </line>
+        <line number="267">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="268">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="269">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="270">
+            <code>                            child: ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="271">
+            <code>                              key: const Key("lectureStartTimeButton"),</code>
+        </line>
+        <line hits="1" number="272">
+            <code>                              onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="273">
+            <code>                                TimeOfDay? pickedTime =</code>
+        </line>
+        <line hits="1" number="274">
+            <code>                                    await _selectTime(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="275">
+            <code>                                if (pickedTime != null) {</code>
+        </line>
+        <line hits="2" number="276">
+            <code>                                  setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="277">
+            <code>                                    widget._course.lectureStartTime =</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="278">
+            <code>                                        pickedTime;</code>
+        </line>
+        <line number="279">
+            <code>                                  });</code>
+        </line>
+        <line number="280">
+            <code>                                }</code>
+        </line>
+        <line number="281">
+            <code>                              },</code>
+        </line>
+        <line hits="2" number="282">
+            <code>                              child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="283">
+            <code>                                widget._course.lectureStartTime == null</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="284">
+            <code>                                    ? "Select time"</code>
+        </line>
+        <line hits="3" number="285">
+            <code>                                    : widget._course.lectureStartTime!</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="286">
+            <code>                                        .format(context),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="287">
+            <code>                              ),</code>
+        </line>
+        <line number="288">
+            <code>                            ),</code>
+        </line>
+        <line number="289">
+            <code>                          ),</code>
+        </line>
+        <line number="290">
+            <code>                        ],</code>
+        </line>
+        <line number="291">
+            <code>                      ),</code>
+        </line>
+        <line number="292">
+            <code>                    ),</code>
+        </line>
+        <line hits="2" number="293">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="294">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="295">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="296">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="297">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="298">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="299">
+            <code>                              "End time: ",</code>
+        </line>
+        <line number="300">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="301">
+            <code>                            ),</code>
+        </line>
+        <line number="302">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="303">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="304">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="305">
+            <code>                            child: ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="306">
+            <code>                              key: const Key("lectureEndTimeButton"),</code>
+        </line>
+        <line hits="1" number="307">
+            <code>                              onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="308">
+            <code>                                TimeOfDay? pickedTime =</code>
+        </line>
+        <line hits="1" number="309">
+            <code>                                    await _selectTime(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="310">
+            <code>                                if (pickedTime != null) {</code>
+        </line>
+        <line hits="2" number="311">
+            <code>                                  setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="312">
+            <code>                                    widget._course.lectureEndTime = pickedTime;</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="313">
+            <code>                                  });</code>
+        </line>
+        <line number="314">
+            <code>                                }</code>
+        </line>
+        <line number="315">
+            <code>                              },</code>
+        </line>
+        <line hits="2" number="316">
+            <code>                              child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="317">
+            <code>                                widget._course.lectureEndTime == null</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="318">
+            <code>                                    ? "Select time"</code>
+        </line>
+        <line hits="3" number="319">
+            <code>                                    : widget._course.lectureEndTime!</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="320">
+            <code>                                        .format(context),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="321">
+            <code>                              ),</code>
+        </line>
+        <line number="322">
+            <code>                            ),</code>
+        </line>
+        <line number="323">
+            <code>                          ),</code>
+        </line>
+        <line number="324">
+            <code>                        ],</code>
+        </line>
+        <line number="325">
+            <code>                      ),</code>
+        </line>
+        <line number="326">
+            <code>                    ),</code>
+        </line>
+        <line number="327">
+            <code>                  ],</code>
+        </line>
+        <line number="328">
+            <code>                ),</code>
+        </line>
+        <line number="329">
+            <code>              ),</code>
+        </line>
+        <line number="330">
+            <code>            ),</code>
+        </line>
+        <line number="331">
+            <code/>
+        </line>
+        <line number="332">
+            <code>            // Course settings: lab</code>
+        </line>
+        <line hits="2" number="333">
+            <code>            Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="334">
+            <code>              padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="335">
+            <code>              child: Card(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="336">
+            <code>                child: Column(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="337">
+            <code>                  crossAxisAlignment: CrossAxisAlignment.start,</code>
+        </line>
+        <line hits="2" number="338">
+            <code>                  children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="339">
+            <code>                    const Padding(</code>
+        </line>
+        <line number="340">
+            <code>                      padding: EdgeInsets.all(8.0),</code>
+        </line>
+        <line number="341">
+            <code>                      child: Text(</code>
+        </line>
+        <line number="342">
+            <code>                        'Lab:',</code>
+        </line>
+        <line number="343">
+            <code>                        style: TextStyle(</code>
+        </line>
+        <line number="344">
+            <code>                          fontWeight: FontWeight.bold,</code>
+        </line>
+        <line number="345">
+            <code>                          fontSize: 18.0,</code>
+        </line>
+        <line number="346">
+            <code>                        ),</code>
+        </line>
+        <line number="347">
+            <code>                      ),</code>
+        </line>
+        <line number="348">
+            <code>                    ),</code>
+        </line>
+        <line hits="2" number="349">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="350">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="351">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="352">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="353">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="354">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="355">
+            <code>                              "Day of week: ",</code>
+        </line>
+        <line number="356">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="357">
+            <code>                            ),</code>
+        </line>
+        <line number="358">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="359">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="360">
+            <code>                              flex: 2,</code>
+        </line>
+        <line hits="2" number="361">
+            <code>                              child: DropdownButtonFormField&lt;Weekday&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="362">
+            <code>                                key: const Key("labWeekDayDropdownButton"),</code>
+        </line>
+        <line hits="6" number="363">
+            <code>                                value: widget._course.labWeekday,</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="364">
+            <code>                                decoration: const InputDecoration(</code>
+        </line>
+        <line number="365">
+            <code>                                  hintText: "Please select the lab day",</code>
+        </line>
+        <line number="366">
+            <code>                                ),</code>
+        </line>
+        <line hits="1" number="367">
+            <code>                                onChanged: (Weekday? newValue) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="368">
+            <code>                                  if (newValue == null) {</code>
+        </line>
+        <line number="369">
+            <code>                                    return;</code>
+        </line>
+        <line number="370">
+            <code>                                  }</code>
+        </line>
+        <line hits="2" number="371">
+            <code>                                  setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="372">
+            <code>                                    widget._course.labWeekday = newValue;</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="373">
+            <code>                                  });</code>
+        </line>
+        <line number="374">
+            <code>                                },</code>
+        </line>
+        <line hits="4" number="375">
+            <code>                                items: Weekday.values.map((weekday) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="376">
+            <code>                                  return DropdownMenuItem&lt;Weekday&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="377">
+            <code>                                      value: weekday,</code>
+        </line>
+        <line hits="2" number="378">
+            <code>                                      child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="379">
+            <code>                                        weekday.toJSON(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="380">
+            <code>                                      ));</code>
+        </line>
+        <line hits="2" number="381">
+            <code>                                }).toList(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="382">
+            <code>                              )),</code>
+        </line>
+        <line number="383">
+            <code>                        ],</code>
+        </line>
+        <line number="384">
+            <code>                      ),</code>
+        </line>
+        <line number="385">
+            <code>                    ),</code>
+        </line>
+        <line hits="2" number="386">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="387">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="388">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="389">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="390">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="391">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="392">
+            <code>                              "Start time: ",</code>
+        </line>
+        <line number="393">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="394">
+            <code>                            ),</code>
+        </line>
+        <line number="395">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="396">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="397">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="398">
+            <code>                            child: ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="399">
+            <code>                              key: const Key("labStartTimeButton"),</code>
+        </line>
+        <line hits="1" number="400">
+            <code>                              onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="401">
+            <code>                                TimeOfDay? pickedTime =</code>
+        </line>
+        <line hits="1" number="402">
+            <code>                                    await _selectTime(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="403">
+            <code>                                if (pickedTime != null) {</code>
+        </line>
+        <line hits="2" number="404">
+            <code>                                  setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="405">
+            <code>                                    widget._course.labStartTime = pickedTime;</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="406">
+            <code>                                  });</code>
+        </line>
+        <line number="407">
+            <code>                                }</code>
+        </line>
+        <line number="408">
+            <code>                              },</code>
+        </line>
+        <line hits="2" number="409">
+            <code>                              child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="410">
+            <code>                                widget._course.labStartTime == null</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="411">
+            <code>                                    ? "Select time"</code>
+        </line>
+        <line hits="3" number="412">
+            <code>                                    : widget._course.labStartTime!</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="413">
+            <code>                                        .format(context),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="414">
+            <code>                              ),</code>
+        </line>
+        <line number="415">
+            <code>                            ),</code>
+        </line>
+        <line number="416">
+            <code>                          ),</code>
+        </line>
+        <line number="417">
+            <code>                        ],</code>
+        </line>
+        <line number="418">
+            <code>                      ),</code>
+        </line>
+        <line number="419">
+            <code>                    ),</code>
+        </line>
+        <line hits="2" number="420">
+            <code>                    Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="421">
+            <code>                      padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="422">
+            <code>                      child: Row(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="423">
+            <code>                        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="424">
+            <code>                          const Expanded(</code>
+        </line>
+        <line number="425">
+            <code>                            child: Text(</code>
+        </line>
+        <line number="426">
+            <code>                              "End time: ",</code>
+        </line>
+        <line number="427">
+            <code>                              style: TextStyle(fontWeight: FontWeight.bold),</code>
+        </line>
+        <line number="428">
+            <code>                            ),</code>
+        </line>
+        <line number="429">
+            <code>                          ),</code>
+        </line>
+        <line hits="2" number="430">
+            <code>                          Expanded(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="431">
+            <code>                            flex: 2,</code>
+        </line>
+        <line hits="2" number="432">
+            <code>                            child: ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="433">
+            <code>                              key: const Key("labEndTimeButton"),</code>
+        </line>
+        <line hits="1" number="434">
+            <code>                              onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="435">
+            <code>                                TimeOfDay? pickedTime =</code>
+        </line>
+        <line hits="1" number="436">
+            <code>                                    await _selectTime(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="437">
+            <code>                                if (pickedTime != null) {</code>
+        </line>
+        <line hits="2" number="438">
+            <code>                                  setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="439">
+            <code>                                    widget._course.labEndTime = pickedTime;</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="440">
+            <code>                                  });</code>
+        </line>
+        <line number="441">
+            <code>                                }</code>
+        </line>
+        <line number="442">
+            <code>                              },</code>
+        </line>
+        <line hits="2" number="443">
+            <code>                              child: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="444">
+            <code>                                widget._course.labEndTime == null</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="445">
+            <code>                                    ? "Select time"</code>
+        </line>
+        <line hits="3" number="446">
+            <code>                                    : widget._course.labEndTime!</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="447">
+            <code>                                        .format(context),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="448">
+            <code>                              ),</code>
+        </line>
+        <line number="449">
+            <code>                            ),</code>
+        </line>
+        <line number="450">
+            <code>                          ),</code>
+        </line>
+        <line number="451">
+            <code>                        ],</code>
+        </line>
+        <line number="452">
+            <code>                      ),</code>
+        </line>
+        <line number="453">
+            <code>                    ),</code>
+        </line>
+        <line number="454">
+            <code>                  ],</code>
+        </line>
+        <line number="455">
+            <code>                ),</code>
+        </line>
+        <line number="456">
+            <code>              ),</code>
+        </line>
+        <line number="457">
+            <code>            ),</code>
+        </line>
+        <line number="458">
+            <code/>
+        </line>
+        <line number="459">
+            <code>            // Save button:</code>
+        </line>
+        <line hits="2" number="460">
+            <code>            Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="461">
+            <code>              padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="2" number="462">
+            <code>              child: ElevatedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="463">
+            <code>                key: const Key("updateButton"),</code>
+        </line>
+        <line hits="2" number="464">
+            <code>                onPressed: () =&gt; _onUpdateClicked(context),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="465">
+            <code>                child: const Text("Update"),</code>
+        </line>
+        <line number="466">
+            <code>              ),</code>
+        </line>
+        <line number="467">
+            <code>            ),</code>
+        </line>
+        <line number="468">
+            <code>          ]),</code>
+        </line>
+        <line number="469">
+            <code>        ),</code>
+        </line>
+        <line number="470">
+            <code>      ),</code>
+        </line>
+        <line number="471">
+            <code>    );</code>
+        </line>
+        <line number="472">
+            <code>  }</code>
+        </line>
+        <line number="473">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../../"/>
+    <base href="../../../"/>
+</coverage>

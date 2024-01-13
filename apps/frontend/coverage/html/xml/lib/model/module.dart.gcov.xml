@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="module.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="37" lines-valid="37" package="lib/model" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>class Module {</code>
+        </line>
+        <line number="2">
+            <code>  int id;</code>
+        </line>
+        <line number="3">
+            <code>  int zpaId;</code>
+        </line>
+        <line number="4">
+            <code>  String name;</code>
+        </line>
+        <line number="5">
+            <code>  int anzahlSprachen;</code>
+        </line>
+        <line number="6">
+            <code>  String verantwortlich;</code>
+        </line>
+        <line number="7">
+            <code>  int sws;</code>
+        </line>
+        <line number="8">
+            <code>  int ects;</code>
+        </line>
+        <line number="9">
+            <code>  String sprachen;</code>
+        </line>
+        <line number="10">
+            <code>  String lehrform;</code>
+        </line>
+        <line number="11">
+            <code>  String angebot;</code>
+        </line>
+        <line number="12">
+            <code>  String aufwand;</code>
+        </line>
+        <line number="13">
+            <code>  String voraussetzungen;</code>
+        </line>
+        <line number="14">
+            <code>  String ziele;</code>
+        </line>
+        <line number="15">
+            <code>  String inhalt;</code>
+        </line>
+        <line number="16">
+            <code>  String medienUndMethoden;</code>
+        </line>
+        <line number="17">
+            <code>  String literatur;</code>
+        </line>
+        <line number="18">
+            <code>  String url;</code>
+        </line>
+        <line number="19">
+            <code/>
+        </line>
+        <line hits="5" number="20">
+            <code>  Module({</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="21">
+            <code>    required this.id,</code>
+        </line>
+        <line number="22">
+            <code>    required this.zpaId,</code>
+        </line>
+        <line number="23">
+            <code>    required this.name,</code>
+        </line>
+        <line number="24">
+            <code>    required this.anzahlSprachen,</code>
+        </line>
+        <line number="25">
+            <code>    required this.verantwortlich,</code>
+        </line>
+        <line number="26">
+            <code>    required this.sws,</code>
+        </line>
+        <line number="27">
+            <code>    required this.ects,</code>
+        </line>
+        <line number="28">
+            <code>    required this.sprachen,</code>
+        </line>
+        <line number="29">
+            <code>    required this.lehrform,</code>
+        </line>
+        <line number="30">
+            <code>    required this.angebot,</code>
+        </line>
+        <line number="31">
+            <code>    required this.aufwand,</code>
+        </line>
+        <line number="32">
+            <code>    required this.voraussetzungen,</code>
+        </line>
+        <line number="33">
+            <code>    required this.ziele,</code>
+        </line>
+        <line number="34">
+            <code>    required this.inhalt,</code>
+        </line>
+        <line number="35">
+            <code>    required this.medienUndMethoden,</code>
+        </line>
+        <line number="36">
+            <code>    required this.literatur,</code>
+        </line>
+        <line number="37">
+            <code>    required this.url,</code>
+        </line>
+        <line number="38">
+            <code>  });</code>
+        </line>
+        <line number="39">
+            <code/>
+        </line>
+        <line number="40">
+            <code>  // Method to convert Dart object to JSON Map</code>
+        </line>
+        <line hits="2" number="41">
+            <code>  Map&lt;String, dynamic&gt; toJson() =&gt; {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="42">
+            <code>        'id': id,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="43">
+            <code>        'zpaId': zpaId,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="44">
+            <code>        'name': name,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="45">
+            <code>        'anzahlSprachen': anzahlSprachen,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="46">
+            <code>        'verantwortlich': verantwortlich,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="47">
+            <code>        'sws': sws,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="48">
+            <code>        'ects': ects,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="49">
+            <code>        'sprachen': sprachen,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="50">
+            <code>        'lehrform': lehrform,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="51">
+            <code>        'angebot': angebot,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="52">
+            <code>        'aufwand': aufwand,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="53">
+            <code>        'voraussetzungen': voraussetzungen,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="54">
+            <code>        'ziele': ziele,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="55">
+            <code>        'inhalt': inhalt,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="56">
+            <code>        'medienUndMethoden': medienUndMethoden,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="57">
+            <code>        'literatur': literatur,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="58">
+            <code>        'url': url,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="59">
+            <code>      };</code>
+        </line>
+        <line number="60">
+            <code/>
+        </line>
+        <line number="61">
+            <code>  // Method to create Dart object from JSON Map</code>
+        </line>
+        <line hits="6" number="62">
+            <code>  factory Module.fromJson(Map&lt;String, dynamic&gt; json) =&gt; Module(</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="63">
+            <code>        id: json['id'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="64">
+            <code>        zpaId: json['zpaId'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="65">
+            <code>        name: json['name'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="66">
+            <code>        anzahlSprachen: json['anzahlSprachen'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="67">
+            <code>        verantwortlich: json['verantwortlich'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="68">
+            <code>        sws: json['sws'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="69">
+            <code>        ects: json['ects'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="70">
+            <code>        sprachen: json['sprachen'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="71">
+            <code>        lehrform: json['lehrform'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="72">
+            <code>        angebot: json['angebot'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="73">
+            <code>        aufwand: json['aufwand'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="74">
+            <code>        voraussetzungen: json['voraussetzungen'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="75">
+            <code>        ziele: json['ziele'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="76">
+            <code>        inhalt: json['inhalt'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="77">
+            <code>        medienUndMethoden: json['medienUndMethoden'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="78">
+            <code>        literatur: json['literatur'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="79">
+            <code>        url: json['url'],</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="80">
+            <code>      );</code>
+        </line>
+        <line number="81">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

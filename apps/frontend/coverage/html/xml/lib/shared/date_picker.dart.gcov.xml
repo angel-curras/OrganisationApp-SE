@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="date_picker.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="36" lines-valid="36" package="lib/shared" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code/>
+        </line>
+        <line number="3">
+            <code>typedef OnDateSelectedCallback = void Function(DateTime selectedDate);</code>
+        </line>
+        <line number="4">
+            <code/>
+        </line>
+        <line number="5">
+            <code>/// RestorationProperty objects can be used because of RestorationMixin.</code>
+        </line>
+        <line number="6">
+            <code>class DatePickerTask extends StatefulWidget {</code>
+        </line>
+        <line hits="3" number="7">
+            <code>  const DatePickerTask({</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="8">
+            <code>    Key? key,</code>
+        </line>
+        <line number="9">
+            <code>    this.restorationId,</code>
+        </line>
+        <line number="10">
+            <code>    this.onDateSelected,</code>
+        </line>
+        <line hits="3" number="11">
+            <code>  }) : super(key: key);</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="12">
+            <code/>
+        </line>
+        <line number="13">
+            <code>  final String? restorationId;</code>
+        </line>
+        <line number="14">
+            <code>  final OnDateSelectedCallback? onDateSelected;</code>
+        </line>
+        <line number="15">
+            <code/>
+        </line>
+        <line hits="3" number="16">
+            <code>  @override</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="17">
+            <code>  State&lt;DatePickerTask&gt; createState() =&gt; _DatePickerTaskState();</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="18">
+            <code>}</code>
+        </line>
+        <line number="19">
+            <code/>
+        </line>
+        <line number="20">
+            <code>class _DatePickerTaskState extends State&lt;DatePickerTask&gt;</code>
+        </line>
+        <line number="21">
+            <code>    with RestorationMixin {</code>
+        </line>
+        <line number="22">
+            <code>  final RestorableDateTime _selectedDate = RestorableDateTime(</code>
+        </line>
+        <line number="23">
+            <code>    DateTime.now(),</code>
+        </line>
+        <line number="24">
+            <code>  );</code>
+        </line>
+        <line hits="3" number="25">
+            <code>  late final RestorableRouteFuture&lt;DateTime?&gt; _restorableDatePickerRouteFuture =</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="26">
+            <code>  RestorableRouteFuture&lt;DateTime?&gt;(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="27">
+            <code>    onComplete: _selectDate,</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="28">
+            <code>    onPresent: (NavigatorState navigator, Object? arguments) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="29">
+            <code>      return navigator.restorablePush(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="30">
+            <code>        _datePickerRoute,</code>
+        </line>
+        <line hits="6" number="31">
+            <code>        arguments: _selectedDate.value.millisecondsSinceEpoch,</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="32">
+            <code>      );</code>
+        </line>
+        <line number="33">
+            <code>    },</code>
+        </line>
+        <line number="34">
+            <code>  );</code>
+        </line>
+        <line number="35">
+            <code/>
+        </line>
+        <line number="36">
+            <code>  static const int _minYear = 2000;</code>
+        </line>
+        <line number="37">
+            <code>  static const int _maxYear = 3000;</code>
+        </line>
+        <line number="38">
+            <code/>
+        </line>
+        <line hits="2" number="39">
+            <code>  static Route&lt;DateTime&gt; _datePickerRoute(BuildContext context,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="40">
+            <code>      Object? arguments,) {</code>
+        </line>
+        <line hits="2" number="41">
+            <code>    return DialogRoute&lt;DateTime&gt;(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="42">
+            <code>      context: context,</code>
+        </line>
+        <line hits="2" number="43">
+            <code>      builder: (BuildContext context) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="44">
+            <code>        return DatePickerDialog(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="45">
+            <code>          restorationId: 'date_picker_dialog',</code>
+        </line>
+        <line number="46">
+            <code>          initialEntryMode: DatePickerEntryMode.calendarOnly,</code>
+        </line>
+        <line hits="2" number="47">
+            <code>          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="48">
+            <code>          firstDate: DateTime(_minYear),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="49">
+            <code>          lastDate: DateTime(_maxYear),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="50">
+            <code>        );</code>
+        </line>
+        <line number="51">
+            <code>      },</code>
+        </line>
+        <line number="52">
+            <code>    );</code>
+        </line>
+        <line number="53">
+            <code>  }</code>
+        </line>
+        <line number="54">
+            <code/>
+        </line>
+        <line hits="3" number="55">
+            <code>  @override</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="56">
+            <code>  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {</code>
+        </line>
+        <line hits="6" number="57">
+            <code>    registerForRestoration(_selectedDate, 'selected_date');</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="58">
+            <code>    registerForRestoration(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="59">
+            <code>        _restorableDatePickerRouteFuture, 'date_picker_route_future');</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="60">
+            <code>  }</code>
+        </line>
+        <line number="61">
+            <code/>
+        </line>
+        <line hits="2" number="62">
+            <code>  void _selectDate(DateTime? newSelectedDate) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="63">
+            <code>    if (newSelectedDate != null) {</code>
+        </line>
+        <line hits="4" number="64">
+            <code>      setState(() {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="65">
+            <code>        _selectedDate.value = newSelectedDate;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="66">
+            <code>        ScaffoldMessenger.of(context).showSnackBar(</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="67">
+            <code>          SnackBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="68">
+            <code>            content: Text(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="69">
+            <code>                'Selected: ${_selectedDate.value.day}/${_selectedDate.value</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="70">
+            <code>                    .month}/${_selectedDate.value.year}'),</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="71">
+            <code>          ),</code>
+        </line>
+        <line number="72">
+            <code>        );</code>
+        </line>
+        <line number="73">
+            <code>      });</code>
+        </line>
+        <line hits="6" number="74">
+            <code>      widget.onDateSelected?.call(newSelectedDate);</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="75">
+            <code>    }</code>
+        </line>
+        <line number="76">
+            <code>  }</code>
+        </line>
+        <line number="77">
+            <code/>
+        </line>
+        <line hits="3" number="78">
+            <code>  @override</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="79">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="3" number="80">
+            <code>    return ElevatedButton(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="81">
+            <code>      onPressed: () {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="82">
+            <code>        _restorableDatePickerRouteFuture.present();</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="83">
+            <code>      },</code>
+        </line>
+        <line number="84">
+            <code>      child: const Text('Pick a date'),</code>
+        </line>
+        <line number="85">
+            <code>    );</code>
+        </line>
+        <line number="86">
+            <code>  }</code>
+        </line>
+        <line number="87">
+            <code/>
+        </line>
+        <line hits="3" number="88">
+            <code>  @override</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="89">
+            <code>  String? get restorationId =&gt; widget.restorationId;</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="90">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

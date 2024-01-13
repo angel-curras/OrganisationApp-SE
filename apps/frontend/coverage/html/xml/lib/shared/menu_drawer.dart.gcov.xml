@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="menu_drawer.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="35" lines-valid="35" package="lib/shared" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:font_awesome_flutter/font_awesome_flutter.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/services/login_service.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/settings/app_settings.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:provider/provider.dart';</code>
+        </line>
+        <line number="7">
+            <code/>
+        </line>
+        <line number="8">
+            <code>class MenuDrawer extends StatelessWidget {</code>
+        </line>
+        <line hits="97" number="9">
+            <code>  const MenuDrawer({</code>
+            <hit count="97" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="10">
+            <code>    super.key,</code>
+        </line>
+        <line number="11">
+            <code>  });</code>
+        </line>
+        <line number="12">
+            <code/>
+        </line>
+        <line hits="2" number="13">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="14">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="2" number="15">
+            <code>    return Drawer(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="16">
+            <code>      // Add a ListView to the drawer. This ensures the user can scroll</code>
+        </line>
+        <line number="17">
+            <code>      // through the options in the drawer if there isn't enough vertical</code>
+        </line>
+        <line number="18">
+            <code>      // space to fit everything.</code>
+        </line>
+        <line hits="2" number="19">
+            <code>      child: ListView(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="20">
+            <code>        // Important: Remove any padding from the ListView.</code>
+        </line>
+        <line number="21">
+            <code>        padding: EdgeInsets.zero,</code>
+        </line>
+        <line hits="2" number="22">
+            <code>        children: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="23">
+            <code>          UserAccountsDrawerHeader(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="24">
+            <code>            accountName: Text(context.read&lt;AppSettings&gt;().user.fullName),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="25">
+            <code>            accountEmail: Text("@${context.read&lt;AppSettings&gt;().user.userName}"),</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="26">
+            <code>            currentAccountPicture: const CircleAvatar(</code>
+        </line>
+        <line number="27">
+            <code>              backgroundColor: Colors.white,</code>
+        </line>
+        <line number="28">
+            <code>              child: Icon(</code>
+        </line>
+        <line number="29">
+            <code>                Icons.person,</code>
+        </line>
+        <line number="30">
+            <code>                color: Colors.black,</code>
+        </line>
+        <line number="31">
+            <code>              ),</code>
+        </line>
+        <line number="32">
+            <code>            ),</code>
+        </line>
+        <line number="33">
+            <code>          ),</code>
+        </line>
+        <line hits="2" number="34">
+            <code>          ListTile(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="35">
+            <code>            key: const Key('homeTile'),</code>
+        </line>
+        <line number="36">
+            <code>            leading: const Icon(</code>
+        </line>
+        <line number="37">
+            <code>              FontAwesomeIcons.house, // replace with your own icon</code>
+        </line>
+        <line number="38">
+            <code>              size: 25,</code>
+        </line>
+        <line number="39">
+            <code>            ),</code>
+        </line>
+        <line number="40">
+            <code>            title: const Text('My Courses'),</code>
+        </line>
+        <line hits="1" number="41">
+            <code>            onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="42">
+            <code>              Navigator.pushReplacementNamed(context, '/my_courses');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="43">
+            <code>            },</code>
+        </line>
+        <line number="44">
+            <code>          ),</code>
+        </line>
+        <line hits="2" number="45">
+            <code>          ListTile(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="46">
+            <code>            key: const Key('modulesTile'),</code>
+        </line>
+        <line number="47">
+            <code>            leading: const Icon(</code>
+        </line>
+        <line number="48">
+            <code>              FontAwesomeIcons.book, // replace with your own icon</code>
+        </line>
+        <line number="49">
+            <code>              size: 25,</code>
+        </line>
+        <line number="50">
+            <code>            ),</code>
+        </line>
+        <line number="51">
+            <code>            title: const Text('Modules'),</code>
+        </line>
+        <line hits="1" number="52">
+            <code>            onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="53">
+            <code>              Navigator.pushReplacementNamed(context, '/modules');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="54">
+            <code>            },</code>
+        </line>
+        <line number="55">
+            <code>          ),</code>
+        </line>
+        <line hits="2" number="56">
+            <code>          ListTile(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="57">
+            <code>            key: const Key('todosTile'),</code>
+        </line>
+        <line number="58">
+            <code>            leading: const Icon(</code>
+        </line>
+        <line number="59">
+            <code>              FontAwesomeIcons.listCheck, // replace with your own icon</code>
+        </line>
+        <line number="60">
+            <code>              size: 25,</code>
+        </line>
+        <line number="61">
+            <code>            ),</code>
+        </line>
+        <line number="62">
+            <code>            title: const Text('ToDos'),</code>
+        </line>
+        <line hits="1" number="63">
+            <code>            onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="64">
+            <code>              Navigator.pushReplacementNamed(context, '/todos');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="65">
+            <code>            },</code>
+        </line>
+        <line number="66">
+            <code>          ),</code>
+        </line>
+        <line number="67">
+            <code>          const Divider(),</code>
+        </line>
+        <line hits="2" number="68">
+            <code>          ListTile(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="69">
+            <code>            key: const Key('moodleTile'),</code>
+        </line>
+        <line number="70">
+            <code>            leading: const Icon(</code>
+        </line>
+        <line number="71">
+            <code>              FontAwesomeIcons.m, // replace with your own icon</code>
+        </line>
+        <line number="72">
+            <code>              size: 25,</code>
+        </line>
+        <line number="73">
+            <code>            ),</code>
+        </line>
+        <line number="74">
+            <code>            title: const Text('Moodle'),</code>
+        </line>
+        <line hits="1" number="75">
+            <code>            onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="76">
+            <code>              Navigator.pushReplacementNamed(context, '/moodle');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="77">
+            <code>            },</code>
+        </line>
+        <line number="78">
+            <code>          ),</code>
+        </line>
+        <line hits="2" number="79">
+            <code>          ListTile(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="80">
+            <code>            key: const Key('primussTile'),</code>
+        </line>
+        <line number="81">
+            <code>            leading: const Icon(</code>
+        </line>
+        <line number="82">
+            <code>              FontAwesomeIcons.idCard, // replace with your own icon</code>
+        </line>
+        <line number="83">
+            <code>              size: 25,</code>
+        </line>
+        <line number="84">
+            <code>            ),</code>
+        </line>
+        <line number="85">
+            <code>            title: const Text('Primuss'),</code>
+        </line>
+        <line hits="1" number="86">
+            <code>            onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="87">
+            <code>              Navigator.pushReplacementNamed(context, '/primuss');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="88">
+            <code>            },</code>
+        </line>
+        <line number="89">
+            <code>          ),</code>
+        </line>
+        <line hits="2" number="90">
+            <code>          ListTile(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="91">
+            <code>            key: const Key('chatgptTile'),</code>
+        </line>
+        <line number="92">
+            <code>            leading: const Icon(</code>
+        </line>
+        <line number="93">
+            <code>              FontAwesomeIcons.comments, // replace with your own icon</code>
+        </line>
+        <line number="94">
+            <code>              size: 25,</code>
+        </line>
+        <line number="95">
+            <code>            ),</code>
+        </line>
+        <line number="96">
+            <code>            title: const Text('ChatGPT'),</code>
+        </line>
+        <line hits="1" number="97">
+            <code>            onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="98">
+            <code>              Navigator.pushReplacementNamed(context, '/chatgpt');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="99">
+            <code>            },</code>
+        </line>
+        <line number="100">
+            <code>          ),</code>
+        </line>
+        <line number="101">
+            <code>          const Divider(),</code>
+        </line>
+        <line hits="2" number="102">
+            <code>          ListTile(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="103">
+            <code>            key: const Key('logoutTile'),</code>
+        </line>
+        <line number="104">
+            <code>            leading: const Icon(</code>
+        </line>
+        <line number="105">
+            <code>              FontAwesomeIcons.arrowRightFromBracket,</code>
+        </line>
+        <line number="106">
+            <code>              // replace with your own icon</code>
+        </line>
+        <line number="107">
+            <code>              size: 25,</code>
+        </line>
+        <line number="108">
+            <code>            ),</code>
+        </line>
+        <line number="109">
+            <code>            title: const Text(</code>
+        </line>
+        <line number="110">
+            <code>              'Logout',</code>
+        </line>
+        <line number="111">
+            <code>              style: TextStyle(color: Colors.red),</code>
+        </line>
+        <line number="112">
+            <code>            ),</code>
+        </line>
+        <line hits="1" number="113">
+            <code>            onTap: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="114">
+            <code>              BuildContext initialContext = context;</code>
+        </line>
+        <line number="115">
+            <code>              AppSettings appSettings =</code>
+        </line>
+        <line hits="1" number="116">
+            <code>                  Provider.of&lt;AppSettings&gt;(context, listen: false);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="117">
+            <code>              await LoginService(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="118">
+            <code>                      appSettings: appSettings, client: http.Client())</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="119">
+            <code>                  .logout();</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="120">
+            <code>              if (!initialContext.mounted) return;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="121">
+            <code>              Navigator.of(initialContext)</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="122">
+            <code>                  .pushNamedAndRemoveUntil('/login', (route) =&gt; false);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="123">
+            <code>            },</code>
+        </line>
+        <line number="124">
+            <code>          ),</code>
+        </line>
+        <line number="125">
+            <code>        ],</code>
+        </line>
+        <line number="126">
+            <code>      ),</code>
+        </line>
+        <line number="127">
+            <code>    );</code>
+        </line>
+        <line number="128">
+            <code>  }</code>
+        </line>
+        <line number="129">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

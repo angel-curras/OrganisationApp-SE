@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="module_controller.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="29" lines-valid="29" package="lib/controller" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'dart:async';</code>
+        </line>
+        <line number="2">
+            <code>import 'dart:convert';</code>
+        </line>
+        <line number="3">
+            <code/>
+        </line>
+        <line number="4">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/model/module.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:organisation_app/settings/environment.dart';</code>
+        </line>
+        <line number="7">
+            <code/>
+        </line>
+        <line number="8">
+            <code>class ModuleController {</code>
+        </line>
+        <line hits="12" number="9">
+            <code>  static final _apiUrl = "${Environment.apiUrl}/";</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line number="11">
+            <code>  // Get modules</code>
+        </line>
+        <line hits="1" number="12">
+            <code>  Future&lt;List&lt;Module&gt;&gt; fetchModuleList(http.Client client) async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>    // Access REST interface with get request</code>
+        </line>
+        <line hits="4" number="14">
+            <code>    final response = await client.get(Uri.parse('${_apiUrl}modules'));</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="15">
+            <code/>
+        </line>
+        <line number="16">
+            <code>    // Check response from backend</code>
+        </line>
+        <line hits="2" number="17">
+            <code>    if (response.statusCode == 200) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="18">
+            <code>      var jsonData = json.decode(utf8.decode(response.bodyBytes));</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code>      // Extract the list from the 'content' field</code>
+        </line>
+        <line hits="1" number="20">
+            <code>      var content = jsonData['content'];</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="21">
+            <code>      if (content != null) {</code>
+        </line>
+        <line hits="4" number="22">
+            <code>        var modules = List&lt;Module&gt;.from(content.map((x) =&gt; Module.fromJson(x)));</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="23">
+            <code>        return modules;</code>
+        </line>
+        <line number="24">
+            <code>      } else {</code>
+        </line>
+        <line hits="1" number="25">
+            <code>        throw Exception('Content field is missing in the JSON data');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="26">
+            <code>      }</code>
+        </line>
+        <line number="27">
+            <code>    } else {</code>
+        </line>
+        <line hits="1" number="28">
+            <code>      throw Exception('Failed to load Module list');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="29">
+            <code>    }</code>
+        </line>
+        <line number="30">
+            <code>  }</code>
+        </line>
+        <line number="31">
+            <code/>
+        </line>
+        <line number="32">
+            <code>  // Get modules with pagination and sorting</code>
+        </line>
+        <line hits="3" number="33">
+            <code>  Future&lt;List&lt;Module&gt;&gt; fetchModuleListWithPaginationAndSorting(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="34">
+            <code>    http.Client client, {</code>
+        </line>
+        <line number="35">
+            <code>    int page = 0,</code>
+        </line>
+        <line number="36">
+            <code>    int size = 10,</code>
+        </line>
+        <line number="37">
+            <code>    String sortBy = 'name',</code>
+        </line>
+        <line number="38">
+            <code>    String sortDir = 'asc',</code>
+        </line>
+        <line number="39">
+            <code>    String searchQuery = '',</code>
+        </line>
+        <line number="40">
+            <code>  }) async {</code>
+        </line>
+        <line number="41">
+            <code>    try {</code>
+        </line>
+        <line hits="3" number="42">
+            <code>      final queryParams = {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="43">
+            <code>        'page': page.toString(),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="44">
+            <code>        'size': size.toString(),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="45">
+            <code>        'sortBy': sortBy,</code>
+        </line>
+        <line number="46">
+            <code>        'sortDir': sortDir,</code>
+        </line>
+        <line number="47">
+            <code>      };</code>
+        </line>
+        <line number="48">
+            <code/>
+        </line>
+        <line hits="3" number="49">
+            <code>      if (searchQuery.isNotEmpty) {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="50">
+            <code>        queryParams['search'] =</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="51">
+            <code>            searchQuery; // Add the search query if not empty</code>
+        </line>
+        <line number="52">
+            <code>      }</code>
+        </line>
+        <line number="53">
+            <code>      // Construct the URL with query parameters for pagination and sorting</code>
+        </line>
+        <line number="54">
+            <code>      final url =</code>
+        </line>
+        <line hits="12" number="55">
+            <code>          Uri.parse('${_apiUrl}modules').replace(queryParameters: queryParams);</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="56">
+            <code/>
+        </line>
+        <line number="57">
+            <code>      // Make the GET request</code>
+        </line>
+        <line hits="3" number="58">
+            <code>      final response = await client.get(url);</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="59">
+            <code/>
+        </line>
+        <line number="60">
+            <code>      // Check the response status</code>
+        </line>
+        <line hits="6" number="61">
+            <code>      if (response.statusCode == 200) {</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="62">
+            <code>        var jsonData = json.decode(utf8.decode(response.bodyBytes));</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="63">
+            <code>        var content = jsonData['content'];</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="64">
+            <code>        if (content != null) {</code>
+        </line>
+        <line hits="10" number="65">
+            <code>          return List&lt;Module&gt;.from(content.map((x) =&gt; Module.fromJson(x)));</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="66">
+            <code>        } else {</code>
+        </line>
+        <line hits="1" number="67">
+            <code>          throw Exception('Content field is missing in the JSON data');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="68">
+            <code>        }</code>
+        </line>
+        <line number="69">
+            <code>      } else {</code>
+        </line>
+        <line hits="1" number="70">
+            <code>        throw Exception('Failed to load Module list');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="71">
+            <code>      }</code>
+        </line>
+        <line number="72">
+            <code>    } catch (e) {</code>
+        </line>
+        <line hits="2" number="73">
+            <code>      throw Exception('Error fetching modules with pagination and sorting: $e');</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="74">
+            <code>    }</code>
+        </line>
+        <line number="75">
+            <code>  }</code>
+        </line>
+        <line number="76">
+            <code/>
+        </line>
+        <line number="77">
+            <code>  // Get module</code>
+        </line>
+        <line hits="1" number="78">
+            <code>  Future&lt;Module&gt; fetchModule(http.Client client, int id) async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="79">
+            <code>    // access REST interface with get request</code>
+        </line>
+        <line hits="4" number="80">
+            <code>    final response = await client.get(Uri.parse('${_apiUrl}modules/$id'));</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="81">
+            <code/>
+        </line>
+        <line number="82">
+            <code>    // check response from backend</code>
+        </line>
+        <line hits="2" number="83">
+            <code>    if (response.statusCode == 200) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="84">
+            <code>      return Module.fromJson(json.decode(utf8.decode(response.bodyBytes)));</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="85">
+            <code>    } else {</code>
+        </line>
+        <line hits="1" number="86">
+            <code>      throw Exception('Failed to fetch Module');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="87">
+            <code>    }</code>
+        </line>
+        <line number="88">
+            <code>  }</code>
+        </line>
+        <line number="89">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

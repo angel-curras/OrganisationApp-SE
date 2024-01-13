@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="modules_list.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="110" lines-valid="110" package="lib/pages/modules" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/controller/module_controller.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/model/module.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/pages/modules/module_details_page.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:organisation_app/pages/modules/module_search_delegate.dart';</code>
+        </line>
+        <line number="7">
+            <code/>
+        </line>
+        <line number="8">
+            <code>import '../../shared/menu_drawer.dart';</code>
+        </line>
+        <line number="9">
+            <code/>
+        </line>
+        <line number="10">
+            <code>class CoursesPage extends StatefulWidget {</code>
+        </line>
+        <line number="11">
+            <code>  final http.Client _client;</code>
+        </line>
+        <line number="12">
+            <code/>
+        </line>
+        <line hits="2" number="13">
+            <code>  const CoursesPage({Key? key, required http.Client client})</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="14">
+            <code>      : _client = client,</code>
+        </line>
+        <line hits="2" number="15">
+            <code>        super(key: key);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="16">
+            <code/>
+        </line>
+        <line hits="2" number="17">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="18">
+            <code>  CoursesPageState createState() =&gt; CoursesPageState();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code>}</code>
+        </line>
+        <line number="20">
+            <code/>
+        </line>
+        <line number="21">
+            <code>class CoursesPageState extends State&lt;CoursesPage&gt; {</code>
+        </line>
+        <line number="22">
+            <code>  late Future&lt;List&lt;Module&gt;&gt; modulesFuture;</code>
+        </line>
+        <line number="23">
+            <code>  late ModuleController _moduleController;</code>
+        </line>
+        <line number="24">
+            <code>  late http.Client _client;</code>
+        </line>
+        <line number="25">
+            <code/>
+        </line>
+        <line number="26">
+            <code>  int currentPage = 0;</code>
+        </line>
+        <line number="27">
+            <code>  final int pageSize = 10;</code>
+        </line>
+        <line number="28">
+            <code/>
+        </line>
+        <line number="29">
+            <code>  String _sortBy = 'name';</code>
+        </line>
+        <line number="30">
+            <code>  String _sortDir = 'asc';</code>
+        </line>
+        <line number="31">
+            <code/>
+        </line>
+        <line number="32">
+            <code>  List&lt;Module&gt; modules = [];</code>
+        </line>
+        <line number="33">
+            <code/>
+        </line>
+        <line number="34">
+            <code>  final ScrollController _scrollController = ScrollController();</code>
+        </line>
+        <line number="35">
+            <code/>
+        </line>
+        <line hits="2" number="36">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="37">
+            <code>  void initState() {</code>
+        </line>
+        <line hits="2" number="38">
+            <code>    super.initState();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="39">
+            <code>    _moduleController = ModuleController();</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="40">
+            <code>    _client = widget._client;</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="41">
+            <code>    fetchModules();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="42">
+            <code>  }</code>
+        </line>
+        <line number="43">
+            <code/>
+        </line>
+        <line hits="2" number="44">
+            <code>  void fetchModules() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="45">
+            <code>    _moduleController</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="46">
+            <code>        .fetchModuleListWithPaginationAndSorting(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="47">
+            <code>      _client,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="48">
+            <code>      page: currentPage,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="49">
+            <code>      size: pageSize,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="50">
+            <code>      sortBy: _sortBy,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="51">
+            <code>      sortDir: _sortDir,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="52">
+            <code>    )</code>
+        </line>
+        <line hits="4" number="53">
+            <code>        .then((newModules) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="54">
+            <code>      setState(() {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="55">
+            <code>        modules.addAll(newModules);</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="56">
+            <code>      });</code>
+        </line>
+        <line number="57">
+            <code>    });</code>
+        </line>
+        <line number="58">
+            <code>  }</code>
+        </line>
+        <line number="59">
+            <code/>
+        </line>
+        <line hits="1" number="60">
+            <code>  void _showSearch() {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="61">
+            <code>    showSearch(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="62">
+            <code>      context: context,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="63">
+            <code>      delegate: ModuleSearchDelegate(_client, _moduleController),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="64">
+            <code>    );</code>
+        </line>
+        <line number="65">
+            <code>  }</code>
+        </line>
+        <line number="66">
+            <code/>
+        </line>
+        <line hits="1" number="67">
+            <code>  void _showSortOptions() {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="68">
+            <code>    showModalBottomSheet(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="69">
+            <code>      context: context,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="70">
+            <code>      builder: (BuildContext context) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="71">
+            <code>        return StatefulBuilder(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="72">
+            <code>          builder: (BuildContext context, StateSetter setState) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="73">
+            <code>            return ListView(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="74">
+            <code>              children: [</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="75">
+            <code>                ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="76">
+            <code>                  title: const Text('Sort by Name'),</code>
+        </line>
+        <line hits="2" number="77">
+            <code>                  onTap: () =&gt; _updateSortOptions('name'),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="78">
+            <code>                ),</code>
+        </line>
+        <line hits="1" number="79">
+            <code>                ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="80">
+            <code>                  title: const Text('Sort by Verantwortlich'),</code>
+        </line>
+        <line hits="2" number="81">
+            <code>                  onTap: () =&gt; _updateSortOptions('verantwortlich'),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="82">
+            <code>                ),</code>
+        </line>
+        <line hits="1" number="83">
+            <code>                ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="84">
+            <code>                  title: const Text('Sort by ECTS'),</code>
+        </line>
+        <line hits="2" number="85">
+            <code>                  onTap: () =&gt; _updateSortOptions('ects'),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="86">
+            <code>                ),</code>
+        </line>
+        <line hits="1" number="87">
+            <code>                ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="88">
+            <code>                  title: const Text('Sort by Lehrform'),</code>
+        </line>
+        <line hits="2" number="89">
+            <code>                  onTap: () =&gt; _updateSortOptions('lehrform'),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="90">
+            <code>                ),</code>
+        </line>
+        <line hits="1" number="91">
+            <code>                SwitchListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="92">
+            <code>                  title: const Text('Ascending'),</code>
+        </line>
+        <line hits="2" number="93">
+            <code>                  value: _sortDir == 'asc',</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="94">
+            <code>                  onChanged: (bool value) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="95">
+            <code>                    setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="96">
+            <code>                      _sortDir = value ? 'asc' : 'desc';</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="97">
+            <code>                    });</code>
+        </line>
+        <line hits="1" number="98">
+            <code>                    _updateSorting();</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="99">
+            <code>                    Navigator.pop(context);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="100">
+            <code>                  },</code>
+        </line>
+        <line number="101">
+            <code>                ),</code>
+        </line>
+        <line number="102">
+            <code>              ],</code>
+        </line>
+        <line number="103">
+            <code>            );</code>
+        </line>
+        <line number="104">
+            <code>          },</code>
+        </line>
+        <line number="105">
+            <code>        );</code>
+        </line>
+        <line number="106">
+            <code>      },</code>
+        </line>
+        <line number="107">
+            <code>    );</code>
+        </line>
+        <line number="108">
+            <code>  }</code>
+        </line>
+        <line number="109">
+            <code/>
+        </line>
+        <line hits="1" number="110">
+            <code>  void _updateSortOptions(String sortBy) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="111">
+            <code>    setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="112">
+            <code>      _sortBy = sortBy;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="113">
+            <code>      currentPage = 0;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="114">
+            <code>      modules.clear();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="115">
+            <code>    });</code>
+        </line>
+        <line hits="1" number="116">
+            <code>    fetchModules();</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="117">
+            <code>    Navigator.pop(context);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="118">
+            <code>  }</code>
+        </line>
+        <line number="119">
+            <code/>
+        </line>
+        <line hits="1" number="120">
+            <code>  void _updateSorting() {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="121">
+            <code>    setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="122">
+            <code>      currentPage = 0;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="123">
+            <code>      modules.clear();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="124">
+            <code>      fetchModules();</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="125">
+            <code>    });</code>
+        </line>
+        <line number="126">
+            <code>  }</code>
+        </line>
+        <line number="127">
+            <code/>
+        </line>
+        <line hits="2" number="128">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="129">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="2" number="130">
+            <code>    return Scaffold(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="131">
+            <code>      appBar: AppBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="132">
+            <code>        centerTitle: true,</code>
+        </line>
+        <line number="133">
+            <code>        backgroundColor: const Color.fromARGB(255, 3, 134, 204),</code>
+        </line>
+        <line number="134">
+            <code>        title: const Text('Modules'),</code>
+        </line>
+        <line hits="2" number="135">
+            <code>        actions: [</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="136">
+            <code>          IconButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="137">
+            <code>            icon: const Icon(Icons.search),</code>
+        </line>
+        <line hits="2" number="138">
+            <code>            onPressed: _showSearch,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="139">
+            <code>          ),</code>
+        </line>
+        <line number="140">
+            <code>        ],</code>
+        </line>
+        <line number="141">
+            <code>      ),</code>
+        </line>
+        <line hits="2" number="142">
+            <code>      body: ListView.builder(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="143">
+            <code>        controller: _scrollController,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="144">
+            <code>        itemCount: modules.length + 1,</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="145">
+            <code>        itemBuilder: (context, index) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="146">
+            <code>          if (index &lt; modules.length) {</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="147">
+            <code>            Module module = modules[index];</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="148">
+            <code>            return Card(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="149">
+            <code>              child: Stack(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="150">
+            <code>                children: [</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="151">
+            <code>                  ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="152">
+            <code>                    title: Padding(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="153">
+            <code>                      padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),</code>
+        </line>
+        <line hits="1" number="154">
+            <code>                      child: Text(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="155">
+            <code>                        module.name,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="156">
+            <code>                        style: const TextStyle(</code>
+        </line>
+        <line number="157">
+            <code>                          fontSize: 16.0,</code>
+        </line>
+        <line number="158">
+            <code>                          fontWeight: FontWeight.bold,</code>
+        </line>
+        <line number="159">
+            <code>                          color: Colors.white,</code>
+        </line>
+        <line number="160">
+            <code>                        ),</code>
+        </line>
+        <line number="161">
+            <code>                      ),</code>
+        </line>
+        <line number="162">
+            <code>                    ),</code>
+        </line>
+        <line hits="1" number="163">
+            <code>                    subtitle: Column(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="164">
+            <code>                      crossAxisAlignment: CrossAxisAlignment.start,</code>
+        </line>
+        <line hits="1" number="165">
+            <code>                      children: [</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="166">
+            <code>                        Padding(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="167">
+            <code>                          padding: const EdgeInsets.only(bottom: 8.0),</code>
+        </line>
+        <line hits="1" number="168">
+            <code>                          child: Text(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="169">
+            <code>                            module.verantwortlich,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="170">
+            <code>                            style: TextStyle(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="171">
+            <code>                              fontSize: 14.0,</code>
+        </line>
+        <line hits="1" number="172">
+            <code>                              color: Colors.grey[100],</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="173">
+            <code>                            ),</code>
+        </line>
+        <line number="174">
+            <code>                          ),</code>
+        </line>
+        <line number="175">
+            <code>                        ),</code>
+        </line>
+        <line hits="1" number="176">
+            <code>                        Padding(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="177">
+            <code>                          padding: const EdgeInsets.only(bottom: 8.0),</code>
+        </line>
+        <line hits="1" number="178">
+            <code>                          child: Text(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="179">
+            <code>                            module.lehrform,</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="180">
+            <code>                            style: TextStyle(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="181">
+            <code>                              fontSize: 14.0,</code>
+        </line>
+        <line hits="1" number="182">
+            <code>                              color: Colors.grey[300],</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="183">
+            <code>                            ),</code>
+        </line>
+        <line number="184">
+            <code>                          ),</code>
+        </line>
+        <line number="185">
+            <code>                        ),</code>
+        </line>
+        <line number="186">
+            <code>                      ],</code>
+        </line>
+        <line number="187">
+            <code>                    ),</code>
+        </line>
+        <line hits="1" number="188">
+            <code>                    onTap: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="189">
+            <code>                      Navigator.of(context).push(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="190">
+            <code>                        MaterialPageRoute(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="191">
+            <code>                          builder: (context) =&gt; ModuleDetailsPage(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="192">
+            <code>                              module: module, client: _client),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="193">
+            <code>                        ),</code>
+        </line>
+        <line number="194">
+            <code>                      );</code>
+        </line>
+        <line number="195">
+            <code>                    },</code>
+        </line>
+        <line number="196">
+            <code>                  ),</code>
+        </line>
+        <line hits="1" number="197">
+            <code>                  Positioned(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="198">
+            <code>                    top: 8,</code>
+        </line>
+        <line number="199">
+            <code>                    right: 8,</code>
+        </line>
+        <line hits="1" number="200">
+            <code>                    child: Text(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="201">
+            <code>                      module.ects.toString(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="202">
+            <code>                      style: const TextStyle(</code>
+        </line>
+        <line number="203">
+            <code>                        fontSize: 16.0,</code>
+        </line>
+        <line number="204">
+            <code>                        fontWeight: FontWeight.bold,</code>
+        </line>
+        <line number="205">
+            <code>                        color: Colors.white,</code>
+        </line>
+        <line number="206">
+            <code>                      ),</code>
+        </line>
+        <line number="207">
+            <code>                    ),</code>
+        </line>
+        <line number="208">
+            <code>                  ),</code>
+        </line>
+        <line number="209">
+            <code>                ],</code>
+        </line>
+        <line number="210">
+            <code>              ),</code>
+        </line>
+        <line number="211">
+            <code>            );</code>
+        </line>
+        <line number="212">
+            <code>          } else {</code>
+        </line>
+        <line hits="2" number="213">
+            <code>            return Padding(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="214">
+            <code>              padding: const EdgeInsets.symmetric(vertical: 16.0),</code>
+        </line>
+        <line hits="2" number="215">
+            <code>              child: Center(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="216">
+            <code>                child: OutlinedButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="217">
+            <code>                  child: const Text('Load More'),</code>
+        </line>
+        <line hits="1" number="218">
+            <code>                  onPressed: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="219">
+            <code>                    setState(() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="220">
+            <code>                      currentPage++;</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="221">
+            <code>                      fetchModules();</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="222">
+            <code>                    });</code>
+        </line>
+        <line number="223">
+            <code>                  },</code>
+        </line>
+        <line number="224">
+            <code>                ),</code>
+        </line>
+        <line number="225">
+            <code>              ),</code>
+        </line>
+        <line number="226">
+            <code>            );</code>
+        </line>
+        <line number="227">
+            <code>          }</code>
+        </line>
+        <line number="228">
+            <code>        },</code>
+        </line>
+        <line number="229">
+            <code>      ),</code>
+        </line>
+        <line hits="2" number="230">
+            <code>      floatingActionButton: FloatingActionButton(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="231">
+            <code>        onPressed: _showSortOptions,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="232">
+            <code>        tooltip: 'Sort',</code>
+        </line>
+        <line number="233">
+            <code>        child: const Icon(Icons.sort),</code>
+        </line>
+        <line number="234">
+            <code>      ),</code>
+        </line>
+        <line number="235">
+            <code>      drawer: const MenuDrawer(),</code>
+        </line>
+        <line number="236">
+            <code>    );</code>
+        </line>
+        <line number="237">
+            <code>  }</code>
+        </line>
+        <line number="238">
+            <code/>
+        </line>
+        <line hits="2" number="239">
+            <code>  @override</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="240">
+            <code>  void dispose() {</code>
+        </line>
+        <line hits="4" number="241">
+            <code>    _scrollController.dispose();</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="242">
+            <code>    super.dispose();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="243">
+            <code>  }</code>
+        </line>
+        <line number="244">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../../"/>
+    <base href="../../../"/>
+</coverage>

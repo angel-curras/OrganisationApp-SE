@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="my_courses_page.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="50" lines-valid="50" package="lib/pages/my_courses" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/pages/my_courses/update_course_dialog.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/settings/app_settings.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/shared/menu_drawer.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:provider/provider.dart';</code>
+        </line>
+        <line number="7">
+            <code/>
+        </line>
+        <line number="8">
+            <code>import '../../controller/course_controller.dart';</code>
+        </line>
+        <line number="9">
+            <code>import '../../model/course.dart';</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line number="11">
+            <code>class MyCoursesPage extends StatefulWidget {</code>
+        </line>
+        <line number="12">
+            <code>  // Fields.</code>
+        </line>
+        <line number="13">
+            <code>  late final CourseController _courseController;</code>
+        </line>
+        <line number="14">
+            <code/>
+        </line>
+        <line number="15">
+            <code>  // Constructor.</code>
+        </line>
+        <line hits="4" number="16">
+            <code>  MyCoursesPage({super.key, http.Client? client}) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="17">
+            <code>    _courseController = CourseController(client: client ?? http.Client());</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="18">
+            <code>  }</code>
+        </line>
+        <line number="19">
+            <code/>
+        </line>
+        <line number="20">
+            <code>  // Methods.</code>
+        </line>
+        <line hits="4" number="21">
+            <code>  @override</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="22">
+            <code>  State&lt;MyCoursesPage&gt; createState() =&gt; _MyCoursesPageState();</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="23">
+            <code>}</code>
+        </line>
+        <line number="24">
+            <code/>
+        </line>
+        <line number="25">
+            <code>class _MyCoursesPageState extends State&lt;MyCoursesPage&gt; {</code>
+        </line>
+        <line number="26">
+            <code>  late final CourseController _courseController;</code>
+        </line>
+        <line number="27">
+            <code>  bool isEditing = false;</code>
+        </line>
+        <line number="28">
+            <code/>
+        </line>
+        <line hits="4" number="29">
+            <code>  @override</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="30">
+            <code>  void initState() {</code>
+        </line>
+        <line hits="4" number="31">
+            <code>    super.initState();</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="12" number="32">
+            <code>    _courseController = widget._courseController;</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="33">
+            <code>  }</code>
+        </line>
+        <line number="34">
+            <code/>
+        </line>
+        <line hits="4" number="35">
+            <code>  @override</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="36">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="4" number="37">
+            <code>    return Scaffold(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="38">
+            <code>      appBar: AppBar(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="39">
+            <code>        centerTitle: true,</code>
+        </line>
+        <line number="40">
+            <code>        backgroundColor: const Color.fromARGB(255, 3, 134, 204),</code>
+        </line>
+        <line number="41">
+            <code>        title: const Text('My Courses'),</code>
+        </line>
+        <line hits="4" number="42">
+            <code>        actions: [</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="43">
+            <code>          IconButton(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="44">
+            <code>            key: const Key("update"),</code>
+        </line>
+        <line number="45">
+            <code>            icon: const Icon(Icons.update),</code>
+        </line>
+        <line hits="1" number="46">
+            <code>            onPressed: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="47">
+            <code>              setState(() {});</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="48">
+            <code>            },</code>
+        </line>
+        <line number="49">
+            <code>          ),</code>
+        </line>
+        <line number="50">
+            <code>        ],</code>
+        </line>
+        <line number="51">
+            <code>      ),</code>
+        </line>
+        <line hits="4" number="52">
+            <code>      body: FutureBuilder&lt;List&lt;Course&gt;&gt;(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="53">
+            <code>        future: _courseController</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="16" number="54">
+            <code>            .getAllCoursesForUser(context.read&lt;AppSettings&gt;().user.userName),</code>
+            <hit count="16" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="55">
+            <code>        builder: (context, snapshot) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="56">
+            <code>          if (snapshot.hasData) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="57">
+            <code>            // The future is complete.</code>
+        </line>
+        <line hits="2" number="58">
+            <code>            List&lt;Course&gt; courses = snapshot.data ?? [];</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="59">
+            <code>            return ListView.builder(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="60">
+            <code>              itemCount: courses.length,</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="61">
+            <code>              itemBuilder: (_, int position) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="62">
+            <code>                final course = courses[position];</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="63">
+            <code>                return GestureDetector(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="64">
+            <code>                  onTap: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="65">
+            <code>                    await showDialog&lt;void&gt;(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="66">
+            <code>                      context: context,</code>
+        </line>
+        <line hits="1" number="67">
+            <code>                      builder: (BuildContext context) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="68">
+            <code>                        return UpdateCourseDialog(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="69">
+            <code>                            client: _courseController.client, course: course);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="70">
+            <code>                      },</code>
+        </line>
+        <line number="71">
+            <code>                    );</code>
+        </line>
+        <line hits="2" number="72">
+            <code>                    setState(() {});</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="73">
+            <code>                  },</code>
+        </line>
+        <line hits="1" number="74">
+            <code>                  child: Card(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="75">
+            <code>                    shape: RoundedRectangleBorder(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="76">
+            <code>                      borderRadius: BorderRadius.circular(15.0),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="77">
+            <code>                    ),</code>
+        </line>
+        <line hits="1" number="78">
+            <code>                    child: ListTile(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="79">
+            <code>                      title: Text(course.name),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="80">
+            <code>                      subtitle: Text(course.responsible),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="81">
+            <code>                      trailing: Row(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="82">
+            <code>                          mainAxisSize: MainAxisSize.min,</code>
+        </line>
+        <line hits="1" number="83">
+            <code>                          children: &lt;Widget&gt;[</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="84">
+            <code>                            IconButton(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="85">
+            <code>                              key: const Key("delete"),</code>
+        </line>
+        <line number="86">
+            <code>                              icon: const Icon(Icons.delete),</code>
+        </line>
+        <line number="87">
+            <code>                              tooltip: 'Delete Item',</code>
+        </line>
+        <line hits="1" number="88">
+            <code>                              onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="89">
+            <code>                                await _courseController.deleteCourse(course);</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="90">
+            <code>                                setState(() {});</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="91">
+            <code>                              },</code>
+        </line>
+        <line number="92">
+            <code>                            )</code>
+        </line>
+        <line number="93">
+            <code>                          ]),</code>
+        </line>
+        <line hits="1" number="94">
+            <code>                      leading: CircleAvatar(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="95">
+            <code>                        backgroundColor: Colors.white,</code>
+        </line>
+        <line number="96">
+            <code>                        foregroundColor: Colors.black,</code>
+        </line>
+        <line hits="3" number="97">
+            <code>                        child: Text('${course.progress}%'),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="98">
+            <code>                      ),</code>
+        </line>
+        <line number="99">
+            <code>                    ),</code>
+        </line>
+        <line number="100">
+            <code>                  ),</code>
+        </line>
+        <line number="101">
+            <code>                );</code>
+        </line>
+        <line number="102">
+            <code>              },</code>
+        </line>
+        <line number="103">
+            <code>            );</code>
+        </line>
+        <line number="104">
+            <code>          }</code>
+        </line>
+        <line hits="4" number="105">
+            <code>          if (snapshot.hasError) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="106">
+            <code>            // The future has completed with an error.</code>
+        </line>
+        <line hits="6" number="107">
+            <code>            return Text('${snapshot.error}');</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="108">
+            <code>          }</code>
+        </line>
+        <line number="109">
+            <code/>
+        </line>
+        <line number="110">
+            <code>          // The future is still in progress.</code>
+        </line>
+        <line number="111">
+            <code>          // Return the progress indicator widget.</code>
+        </line>
+        <line number="112">
+            <code>          return const Center(</code>
+        </line>
+        <line number="113">
+            <code>            child: CircularProgressIndicator(),</code>
+        </line>
+        <line number="114">
+            <code>          );</code>
+        </line>
+        <line number="115">
+            <code>        },</code>
+        </line>
+        <line number="116">
+            <code>      ),</code>
+        </line>
+        <line number="117">
+            <code/>
+        </line>
+        <line number="118">
+            <code>      // Button to add items.</code>
+        </line>
+        <line hits="4" number="119">
+            <code>      floatingActionButton: FloatingActionButton.extended(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="120">
+            <code>        tooltip: 'New',</code>
+        </line>
+        <line hits="1" number="121">
+            <code>        onPressed: () {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="122">
+            <code>          Navigator.pushNamed(context, '/modules');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="123">
+            <code>        },</code>
+        </line>
+        <line number="124">
+            <code>        icon: const Icon(Icons.add),</code>
+        </line>
+        <line number="125">
+            <code>        label: const Text('Course'),</code>
+        </line>
+        <line number="126">
+            <code>      ),</code>
+        </line>
+        <line number="127">
+            <code>      drawer: const MenuDrawer(),</code>
+        </line>
+        <line number="128">
+            <code>    );</code>
+        </line>
+        <line number="129">
+            <code>  } // end of build()</code>
+        </line>
+        <line number="130">
+            <code>} // end of class MyCoursesPage</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../../"/>
+    <base href="../../../"/>
+</coverage>

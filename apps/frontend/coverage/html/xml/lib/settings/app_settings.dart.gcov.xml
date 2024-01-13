@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="app_settings.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="11" lines-valid="11" package="lib/settings" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:organisation_app/model/app_user.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:shared_preferences/shared_preferences.dart';</code>
+        </line>
+        <line number="4">
+            <code/>
+        </line>
+        <line number="5">
+            <code>// App preferences as a provider</code>
+        </line>
+        <line number="6">
+            <code>class AppSettings with ChangeNotifier {</code>
+        </line>
+        <line number="7">
+            <code>  /* Fields */</code>
+        </line>
+        <line number="8">
+            <code>  AppUser _user;</code>
+        </line>
+        <line number="9">
+            <code>  final SharedPreferences _prefs;</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line number="11">
+            <code>  /* Constructor */</code>
+        </line>
+        <line hits="11" number="12">
+            <code>  AppSettings(SharedPreferences prefs)</code>
+            <hit count="11" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>      : _prefs = prefs,</code>
+        </line>
+        <line hits="22" number="14">
+            <code>        _user = AppUser.fromJsonString(prefs.getString('user') ?? '{}');</code>
+            <hit count="22" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="15">
+            <code/>
+        </line>
+        <line number="16">
+            <code>  /* Getters */</code>
+        </line>
+        <line hits="20" number="17">
+            <code>  AppUser get user =&gt; _user;</code>
+            <hit count="20" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="18">
+            <code/>
+        </line>
+        <line number="19">
+            <code>  /* Setters */</code>
+        </line>
+        <line hits="2" number="20">
+            <code>  Future&lt;void&gt; saveUser(AppUser user) async {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="21">
+            <code>    _user = user;</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="22">
+            <code>    await _prefs.setString('user', user.toJsonString());</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="23">
+            <code>    notifyListeners();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code>  } // end of saveUser()</code>
+        </line>
+        <line number="25">
+            <code/>
+        </line>
+        <line number="26">
+            <code>  /* Methods */</code>
+        </line>
+        <line hits="2" number="27">
+            <code>  bool hasValidUser() {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="28">
+            <code>    return _user.userName.isNotEmpty;</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="29">
+            <code>  } // end of hasValidUser()</code>
+        </line>
+        <line number="30">
+            <code/>
+        </line>
+        <line hits="1" number="31">
+            <code>  Future&lt;void&gt; clearUser() async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="32">
+            <code>    await saveUser(AppUser());</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="33">
+            <code>  } // end of clearUser()</code>
+        </line>
+        <line number="34">
+            <code>} // end of class Preferences</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

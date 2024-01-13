@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="course_controller.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="62" lines-valid="62" package="lib/controller" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'dart:async';</code>
+        </line>
+        <line number="2">
+            <code>import 'dart:convert';</code>
+        </line>
+        <line number="3">
+            <code/>
+        </line>
+        <line number="4">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="5">
+            <code>import 'package:logger/logger.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:organisation_app/model/course.dart';</code>
+        </line>
+        <line number="7">
+            <code>import 'package:organisation_app/model/course_subscription.dart';</code>
+        </line>
+        <line number="8">
+            <code>import 'package:organisation_app/settings/environment.dart';</code>
+        </line>
+        <line number="9">
+            <code>import 'package:universal_html/html.dart';</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line number="11">
+            <code>class CourseController {</code>
+        </line>
+        <line hits="18" number="12">
+            <code>  static final Logger _logger = Logger();</code>
+            <hit count="18" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="21" number="13">
+            <code>  static final _apiUrl = Environment.apiUrl;</code>
+            <hit count="21" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="14">
+            <code>  final http.Client _client;</code>
+        </line>
+        <line number="15">
+            <code>  static const int _timeout = 3;</code>
+        </line>
+        <line number="16">
+            <code/>
+        </line>
+        <line hits="7" number="17">
+            <code>  CourseController({http.Client? client}) : _client = client ?? http.Client();</code>
+            <hit count="7" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="18">
+            <code/>
+        </line>
+        <line number="19">
+            <code>  // Getters</code>
+        </line>
+        <line hits="4" number="20">
+            <code>  http.Client get client =&gt; _client;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="21">
+            <code/>
+        </line>
+        <line hits="5" number="22">
+            <code>  Future&lt;List&lt;Course&gt;&gt; getAllCoursesForUser(String username) async {</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="23">
+            <code>    // Check response from backend.</code>
+        </line>
+        <line hits="5" number="24">
+            <code>    List&lt;Course&gt; courses = [];</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="25">
+            <code/>
+        </line>
+        <line number="26">
+            <code>    // Get the courses for the user from the REST API.</code>
+        </line>
+        <line hits="10" number="27">
+            <code>    String requestUrl = '$_apiUrl/courses/user/$username';</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="28">
+            <code/>
+        </line>
+        <line number="29">
+            <code>    final http.Response response;</code>
+        </line>
+        <line number="30">
+            <code>    try {</code>
+        </line>
+        <line hits="5" number="31">
+            <code>      response = await _client</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="32">
+            <code>          .get(Uri.parse(requestUrl))</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="33">
+            <code>          .timeout(const Duration(seconds: _timeout));</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="34">
+            <code>    } on TimeoutException catch (timeoutException) {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="35">
+            <code>      _logger.e("TimeoutException: ${timeoutException.message}");</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="36">
+            <code>      return courses;</code>
+        </line>
+        <line number="37">
+            <code>    }</code>
+        </line>
+        <line number="38">
+            <code/>
+        </line>
+        <line hits="4" number="39">
+            <code>    int statusCode = response.statusCode;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="40">
+            <code/>
+        </line>
+        <line number="41">
+            <code>    switch (statusCode) {</code>
+        </line>
+        <line hits="4" number="42">
+            <code>      case HttpStatus.ok:</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="43">
+            <code>        _logger.i("HTTP Status 200: OK. Courses found.");</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="44">
+            <code>        try {</code>
+        </line>
+        <line hits="2" number="45">
+            <code>          courses = List&lt;Course&gt;.from(json</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="46">
+            <code>              .decode(utf8.decode(response.bodyBytes))</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="47">
+            <code>              .map((element) =&gt; Course.fromJsonMap(element)));</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="48">
+            <code>        } catch (exception) {</code>
+        </line>
+        <line hits="2" number="49">
+            <code>          _logger.e("Failed to decode the JSON list of courses.");</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="50">
+            <code>        }</code>
+        </line>
+        <line hits="3" number="51">
+            <code>      case HttpStatus.unauthorized:</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="52">
+            <code>        _logger.e("HTTP Status 401: Unauthorized. Username '$username' not "</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="53">
+            <code>            "authorized.");</code>
+        </line>
+        <line number="54">
+            <code>      default:</code>
+        </line>
+        <line hits="6" number="55">
+            <code>        _logger.e(</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="56">
+            <code>            "Unhandled HTTP Status $statusCode. Defaulting to empty courses.");</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="57">
+            <code>    } // end of switch</code>
+        </line>
+        <line number="58">
+            <code/>
+        </line>
+        <line number="59">
+            <code>    return courses;</code>
+        </line>
+        <line number="60">
+            <code>  } // end of getAllCourses()</code>
+        </line>
+        <line number="61">
+            <code/>
+        </line>
+        <line hits="2" number="62">
+            <code>  Future&lt;int&gt; enroll(String userName, int courseId) async {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="63">
+            <code>    CourseSubscription courseSubscription = CourseSubscription(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="64">
+            <code>      moduleId: courseId,</code>
+        </line>
+        <line number="65">
+            <code>      userName: userName,</code>
+        </line>
+        <line number="66">
+            <code>    );</code>
+        </line>
+        <line number="67">
+            <code/>
+        </line>
+        <line hits="4" number="68">
+            <code>    String requestUrl = '$_apiUrl/courses';</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="69">
+            <code>    final http.Response response;</code>
+        </line>
+        <line number="70">
+            <code>    try {</code>
+        </line>
+        <line hits="2" number="71">
+            <code>      response = await _client</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="72">
+            <code>          .post(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="73">
+            <code>            Uri.parse(requestUrl),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="74">
+            <code>            headers: &lt;String, String&gt;{</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="75">
+            <code>              'Content-Type': 'application/json; charset=UTF-8',</code>
+        </line>
+        <line number="76">
+            <code>            },</code>
+        </line>
+        <line hits="2" number="77">
+            <code>            body: courseSubscription.toJsonString(),</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="78">
+            <code>          )</code>
+        </line>
+        <line hits="2" number="79">
+            <code>          .timeout(const Duration(seconds: _timeout));</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="80">
+            <code>    } on TimeoutException catch (timeoutException) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="81">
+            <code>      _logger.e("TimeoutException: ${timeoutException.message}");</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="82">
+            <code>      return HttpStatus.requestTimeout;</code>
+        </line>
+        <line number="83">
+            <code>    }</code>
+        </line>
+        <line number="84">
+            <code/>
+        </line>
+        <line hits="2" number="85">
+            <code>    int statusCode = response.statusCode;</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="86">
+            <code/>
+        </line>
+        <line number="87">
+            <code>    switch (statusCode) {</code>
+        </line>
+        <line hits="2" number="88">
+            <code>      case HttpStatus.created:</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="89">
+            <code>        _logger</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="90">
+            <code>            .i("HTTP Status 201: Created. User '$userName' enrolled in course "</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="91">
+            <code>                "'$courseId'.");</code>
+        </line>
+        <line number="92">
+            <code>        break;</code>
+        </line>
+        <line hits="2" number="93">
+            <code>      case HttpStatus.conflict:</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="94">
+            <code>        _logger.e("HTTP Status 409: Conflict. User '$userName' already "</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="95">
+            <code>            "enrolled in course '$courseId'.");</code>
+        </line>
+        <line number="96">
+            <code>        break;</code>
+        </line>
+        <line number="97">
+            <code>      default:</code>
+        </line>
+        <line hits="4" number="98">
+            <code>        _logger.e(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="99">
+            <code>            "Unhandled HTTP Status $statusCode. Defaulting to enrollment failure.");</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="100">
+            <code>    } // end of switch</code>
+        </line>
+        <line number="101">
+            <code/>
+        </line>
+        <line number="102">
+            <code>    return statusCode;</code>
+        </line>
+        <line number="103">
+            <code>  } // end of enroll()</code>
+        </line>
+        <line number="104">
+            <code/>
+        </line>
+        <line hits="2" number="105">
+            <code>  Future&lt;bool&gt; updateCourse(Course course) async {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="106">
+            <code>    _logger</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="107">
+            <code>        .i("Updating course '${course.name}' with course id '${course.id}'.");</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="108">
+            <code/>
+        </line>
+        <line number="109">
+            <code>    http.Response response;</code>
+        </line>
+        <line number="110">
+            <code/>
+        </line>
+        <line number="111">
+            <code>    try {</code>
+        </line>
+        <line hits="2" number="112">
+            <code>      response = await _client</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="113">
+            <code>          .put(Uri.parse('$_apiUrl/courses/${course.id}'),</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="114">
+            <code>              headers: &lt;String, String&gt;{'Content-Type': 'application/json'},</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="115">
+            <code>              body: course.toJsonString())</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="116">
+            <code>          .timeout(const Duration(seconds: _timeout));</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="117">
+            <code>    } on TimeoutException catch (timeoutException) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="118">
+            <code>      _logger.e("TimeoutException: ${timeoutException.message}");</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="119">
+            <code>      return false;</code>
+        </line>
+        <line number="120">
+            <code>    }</code>
+        </line>
+        <line number="121">
+            <code/>
+        </line>
+        <line hits="4" number="122">
+            <code>    return response.statusCode == HttpStatus.ok;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="123">
+            <code>  }</code>
+        </line>
+        <line number="124">
+            <code/>
+        </line>
+        <line hits="2" number="125">
+            <code>  Future&lt;bool&gt; deleteCourse(Course course) async {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="126">
+            <code>    _logger</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="127">
+            <code>        .i("Deleting course '${course.name}' with course id '${course.id}'.");</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="128">
+            <code/>
+        </line>
+        <line number="129">
+            <code>    http.Response response;</code>
+        </line>
+        <line number="130">
+            <code>    try {</code>
+        </line>
+        <line hits="2" number="131">
+            <code>      response = await _client</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="10" number="132">
+            <code>          .delete(Uri.parse('$_apiUrl/courses/${course.id}'))</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="133">
+            <code>          .timeout(const Duration(seconds: _timeout));</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="134">
+            <code>    } on TimeoutException catch (timeoutException) {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="135">
+            <code>      _logger.e("TimeoutException: ${timeoutException.message}");</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="136">
+            <code>      return false;</code>
+        </line>
+        <line number="137">
+            <code>    }</code>
+        </line>
+        <line number="138">
+            <code/>
+        </line>
+        <line number="139">
+            <code>    // check response from backend</code>
+        </line>
+        <line hits="4" number="140">
+            <code>    return response.statusCode == HttpStatus.ok;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="141">
+            <code>  }</code>
+        </line>
+        <line number="142">
+            <code>} // end of class CourseController</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="module_details_page.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="54" lines-valid="54" package="lib/pages/modules" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="3">
+            <code>import 'package:logger/logger.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/controller/course_controller.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/model/app_user.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:organisation_app/model/module.dart';</code>
+        </line>
+        <line number="7">
+            <code>import 'package:organisation_app/settings/app_settings.dart';</code>
+        </line>
+        <line number="8">
+            <code>import 'package:provider/provider.dart';</code>
+        </line>
+        <line number="9">
+            <code>import 'package:universal_html/html.dart' show HttpStatus;</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line number="11">
+            <code>class ModuleDetailsPage extends StatelessWidget {</code>
+        </line>
+        <line hits="3" number="12">
+            <code>  static final _logger = Logger();</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>  final Module module;</code>
+        </line>
+        <line number="14">
+            <code>  final http.Client _client;</code>
+        </line>
+        <line number="15">
+            <code/>
+        </line>
+        <line hits="3" number="16">
+            <code>  const ModuleDetailsPage(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="17">
+            <code>      {Key? key, required this.module, required http.Client client})</code>
+        </line>
+        <line number="18">
+            <code>      : _client = client,</code>
+        </line>
+        <line hits="3" number="19">
+            <code>        super(key: key);</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="20">
+            <code/>
+        </line>
+        <line hits="3" number="21">
+            <code>  @override</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="22">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="6" number="23">
+            <code>    AppUser user = Provider.of&lt;AppSettings&gt;(context).user;</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code/>
+        </line>
+        <line hits="3" number="25">
+            <code>    return Scaffold(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="26">
+            <code>      appBar: AppBar(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="27">
+            <code>        centerTitle: true,</code>
+        </line>
+        <line hits="12" number="28">
+            <code>        title: Text("Module: ${module.name}"),</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="29">
+            <code>        leading: IconButton(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="30">
+            <code>          icon: const Icon(Icons.arrow_back),</code>
+        </line>
+        <line hits="3" number="31">
+            <code>          onPressed: () =&gt; Navigator.of(context).pop(),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="32">
+            <code>        ),</code>
+        </line>
+        <line number="33">
+            <code>      ),</code>
+        </line>
+        <line hits="3" number="34">
+            <code>      body: SingleChildScrollView(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="35">
+            <code>        padding: const EdgeInsets.all(16.0),</code>
+        </line>
+        <line hits="3" number="36">
+            <code>        child: Column(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="37">
+            <code>          crossAxisAlignment: CrossAxisAlignment.start,</code>
+        </line>
+        <line hits="3" number="38">
+            <code>          children: [</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="39">
+            <code>            _buildModuleDetailCard('Name', module.name, 'ðŸ“œ'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="12" number="40">
+            <code>            _buildModuleDetailCard('ECTS', module.ects.toString(), 'ðŸŽ“'),</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="12" number="41">
+            <code>            _buildModuleDetailCard('SWS', module.sws.toString(), 'ðŸ•’'),</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="42">
+            <code>            _buildModuleDetailCard(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="43">
+            <code>                'Verantwortlich', module.verantwortlich, 'ðŸ‘¤'),</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="44">
+            <code>            _buildModuleDetailCard('Sprachen', module.sprachen, 'ðŸŒ�'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="45">
+            <code>            _buildModuleDetailCard('Lehrform', module.lehrform, 'ðŸ“š'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="46">
+            <code>            _buildModuleDetailCard('Angebot', module.angebot, 'ðŸ”„'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="47">
+            <code>            _buildModuleDetailCard('Aufwand', module.aufwand, 'â�³'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="48">
+            <code>            _buildModuleDetailCard(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="49">
+            <code>                'Voraussetzungen', module.voraussetzungen, 'ðŸ”�'),</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="50">
+            <code>            _buildModuleDetailCard('Ziele', module.ziele, 'ðŸŽ¯'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="51">
+            <code>            _buildModuleDetailCard('Inhalt', module.inhalt, 'ðŸ“–'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="52">
+            <code>            _buildModuleDetailCard(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="53">
+            <code>                'Medien und Methoden', module.medienUndMethoden, 'ðŸ’»'),</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="9" number="54">
+            <code>            _buildModuleDetailCard('Literatur', module.literatur, 'ðŸ“š'),</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="55">
+            <code>          ],</code>
+        </line>
+        <line number="56">
+            <code>        ),</code>
+        </line>
+        <line number="57">
+            <code>      ),</code>
+        </line>
+        <line hits="3" number="58">
+            <code>      floatingActionButton: FloatingActionButton.extended(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="59">
+            <code>        onPressed: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="60">
+            <code>          _logger.i('Enroll button pressed');</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="61">
+            <code>          _logger.i('User: ${user.userName}');</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="5" number="62">
+            <code>          _logger.i('Module: ${module.name}');</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="5" number="63">
+            <code>          _logger.i('Module ID: ${module.id}');</code>
+            <hit count="5" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="64">
+            <code/>
+        </line>
+        <line hits="2" number="65">
+            <code>          int statusCode = await CourseController(client: _client)</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="66">
+            <code>              .enroll(user.userName, module.id);</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="67">
+            <code/>
+        </line>
+        <line hits="1" number="68">
+            <code>          if (!context.mounted) return;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="69">
+            <code/>
+        </line>
+        <line number="70">
+            <code>          // Create a snackbar to show the result of the enrollment.</code>
+        </line>
+        <line number="71">
+            <code>          String message;</code>
+        </line>
+        <line number="72">
+            <code>          MaterialColor backgroundColor;</code>
+        </line>
+        <line number="73">
+            <code/>
+        </line>
+        <line number="74">
+            <code>          switch (statusCode) {</code>
+        </line>
+        <line hits="1" number="75">
+            <code>            case HttpStatus.created:</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="76">
+            <code>              message = 'Success: Enrolled in "${module.name}"!';</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="77">
+            <code>              backgroundColor = Colors.green;</code>
+        </line>
+        <line number="78">
+            <code>              break;</code>
+        </line>
+        <line hits="1" number="79">
+            <code>            case HttpStatus.conflict:</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="80">
+            <code>              message = 'You are already enrolled in "${module.name}".';</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="81">
+            <code>              backgroundColor = Colors.green;</code>
+        </line>
+        <line number="82">
+            <code>              break;</code>
+        </line>
+        <line number="83">
+            <code>            default:</code>
+        </line>
+        <line number="84">
+            <code>              message = 'Ups. Something went wrong! Please try again later...';</code>
+        </line>
+        <line number="85">
+            <code>              backgroundColor = Colors.red;</code>
+        </line>
+        <line number="86">
+            <code>              break;</code>
+        </line>
+        <line number="87">
+            <code>          } // end of switch</code>
+        </line>
+        <line number="88">
+            <code/>
+        </line>
+        <line hits="2" number="89">
+            <code>          ScaffoldMessenger.of(context).showSnackBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="90">
+            <code>            SnackBar(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="91">
+            <code>              content: Text(message),</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="92">
+            <code>              duration: const Duration(seconds: 3),</code>
+        </line>
+        <line number="93">
+            <code>              backgroundColor: backgroundColor,</code>
+        </line>
+        <line number="94">
+            <code>            ),</code>
+        </line>
+        <line number="95">
+            <code>          );</code>
+        </line>
+        <line number="96">
+            <code/>
+        </line>
+        <line hits="2" number="97">
+            <code>          Navigator.of(context).pop();</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="98">
+            <code>        },</code>
+        </line>
+        <line number="99">
+            <code>        label: const Text('Enroll'),</code>
+        </line>
+        <line number="100">
+            <code>        icon: const Icon(Icons.add),</code>
+        </line>
+        <line number="101">
+            <code>        backgroundColor: Colors.red,</code>
+        </line>
+        <line number="102">
+            <code>      ),</code>
+        </line>
+        <line number="103">
+            <code>    );</code>
+        </line>
+        <line number="104">
+            <code>  }</code>
+        </line>
+        <line number="105">
+            <code/>
+        </line>
+        <line hits="3" number="106">
+            <code>  Widget _buildModuleDetailCard(String title, String content, String emoji) {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="107">
+            <code>    return Card(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="108">
+            <code>      margin: const EdgeInsets.symmetric(vertical: 8.0),</code>
+        </line>
+        <line hits="3" number="109">
+            <code>      child: Padding(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="110">
+            <code>        padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="3" number="111">
+            <code>        child: ListTile(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="112">
+            <code>          leading: Text(emoji,</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="113">
+            <code>              style: const TextStyle(</code>
+        </line>
+        <line number="114">
+            <code>                fontSize: 24,</code>
+        </line>
+        <line number="115">
+            <code>              )),</code>
+        </line>
+        <line hits="3" number="116">
+            <code>          title: Text(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="117">
+            <code>            title,</code>
+        </line>
+        <line number="118">
+            <code>            style: const TextStyle(</code>
+        </line>
+        <line number="119">
+            <code>              fontSize: 18,</code>
+        </line>
+        <line number="120">
+            <code>              fontWeight: FontWeight.bold,</code>
+        </line>
+        <line number="121">
+            <code>              color: Colors.white,</code>
+        </line>
+        <line number="122">
+            <code>            ),</code>
+        </line>
+        <line number="123">
+            <code>          ),</code>
+        </line>
+        <line hits="3" number="124">
+            <code>          subtitle: Padding(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="125">
+            <code>            padding: const EdgeInsets.only(top: 8.0),</code>
+        </line>
+        <line hits="3" number="126">
+            <code>            child: Text(content),</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="127">
+            <code>          ),</code>
+        </line>
+        <line number="128">
+            <code>        ),</code>
+        </line>
+        <line number="129">
+            <code>      ),</code>
+        </line>
+        <line number="130">
+            <code>    );</code>
+        </line>
+        <line number="131">
+            <code>  }</code>
+        </line>
+        <line number="132">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../../"/>
+    <base href="../../../"/>
+</coverage>

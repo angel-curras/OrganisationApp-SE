@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="index" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="128" lines-valid="128" package="lib/controller" testname="lcov.info" version="1.6">
+    <sources>
+        <source branches-hit="0" branches-valid="0" filename="module_controller.dart" functions-hit="0" functions-valid="0" lines-hit="29" lines-valid="29" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/">
+            <testCase branches-hit="0" functions-hit="0" lines-hit="29" name="&lt;unnamed&gt;"/>
+        </source>
+        <source branches-hit="0" branches-valid="0" filename="task_controller.dart" functions-hit="0" functions-valid="0" lines-hit="30" lines-valid="30" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/">
+            <testCase branches-hit="0" functions-hit="0" lines-hit="30" name="&lt;unnamed&gt;"/>
+        </source>
+        <source branches-hit="0" branches-valid="0" filename="user_controller.dart" functions-hit="0" functions-valid="0" lines-hit="7" lines-valid="7" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/">
+            <testCase branches-hit="0" functions-hit="0" lines-hit="7" name="&lt;unnamed&gt;"/>
+        </source>
+        <source branches-hit="0" branches-valid="0" filename="course_controller.dart" functions-hit="0" functions-valid="0" lines-hit="62" lines-valid="62" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/">
+            <testCase branches-hit="0" functions-hit="0" lines-hit="62" name="&lt;unnamed&gt;"/>
+        </source>
+    </sources>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

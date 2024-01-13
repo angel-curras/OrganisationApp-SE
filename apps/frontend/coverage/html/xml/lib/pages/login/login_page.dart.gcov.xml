@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="login_page.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="44" lines-valid="44" package="lib/pages/login" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:font_awesome_flutter/font_awesome_flutter.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="4">
+            <code>import 'package:organisation_app/services/login_service.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:provider/provider.dart';</code>
+        </line>
+        <line number="6">
+            <code/>
+        </line>
+        <line number="7">
+            <code>import '../../settings/app_settings.dart';</code>
+        </line>
+        <line number="8">
+            <code/>
+        </line>
+        <line number="9">
+            <code>class LoginPage extends StatelessWidget {</code>
+        </line>
+        <line number="10">
+            <code>  final http.Client _client;</code>
+        </line>
+        <line number="11">
+            <code/>
+        </line>
+        <line hits="4" number="12">
+            <code>  LoginPage({super.key, required http.Client client}) : _client = client;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code/>
+        </line>
+        <line number="14">
+            <code>  // text editing controllers</code>
+        </line>
+        <line number="15">
+            <code>  final usernameController = TextEditingController();</code>
+        </line>
+        <line number="16">
+            <code/>
+        </line>
+        <line hits="4" number="17">
+            <code>  @override</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="18">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="4" number="19">
+            <code>    return Scaffold(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="20">
+            <code>      backgroundColor: Colors.black54,</code>
+        </line>
+        <line hits="4" number="21">
+            <code>      body: SafeArea(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="22">
+            <code>        child: SingleChildScrollView(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="23">
+            <code>          child: Center(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="24">
+            <code>            child: Column(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="25">
+            <code>              mainAxisAlignment: MainAxisAlignment.center,</code>
+        </line>
+        <line hits="4" number="26">
+            <code>              children: [</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="27">
+            <code>                const SizedBox(height: 70),</code>
+        </line>
+        <line number="28">
+            <code/>
+        </line>
+        <line hits="4" number="29">
+            <code>                SizedBox(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="30">
+            <code>                  height: 120,</code>
+        </line>
+        <line hits="4" number="31">
+            <code>                  child: Image.asset(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="32">
+            <code>                    'assets/images/logo.png',</code>
+        </line>
+        <line number="33">
+            <code>                    width: 200,</code>
+        </line>
+        <line number="34">
+            <code>                    height: 200,</code>
+        </line>
+        <line number="35">
+            <code>                    fit: BoxFit.contain,</code>
+        </line>
+        <line number="36">
+            <code>                  ),</code>
+        </line>
+        <line number="37">
+            <code>                ),</code>
+        </line>
+        <line hits="4" number="38">
+            <code>                Image.asset(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="39">
+            <code>                  'assets/images/shadow.png',</code>
+        </line>
+        <line number="40">
+            <code>                  width: 150,</code>
+        </line>
+        <line number="41">
+            <code>                  height: 150,</code>
+        </line>
+        <line number="42">
+            <code>                ),</code>
+        </line>
+        <line number="43">
+            <code/>
+        </line>
+        <line number="44">
+            <code>                // welcome back, you've been missed!</code>
+        </line>
+        <line number="45">
+            <code>                const Text(</code>
+        </line>
+        <line number="46">
+            <code>                  'Welcome back you\'ve been missed!',</code>
+        </line>
+        <line number="47">
+            <code>                  style: TextStyle(</code>
+        </line>
+        <line number="48">
+            <code>                    color: Colors.white60,</code>
+        </line>
+        <line number="49">
+            <code>                    fontSize: 16,</code>
+        </line>
+        <line number="50">
+            <code>                  ),</code>
+        </line>
+        <line number="51">
+            <code>                ),</code>
+        </line>
+        <line number="52">
+            <code/>
+        </line>
+        <line number="53">
+            <code>                const SizedBox(height: 20),</code>
+        </line>
+        <line number="54">
+            <code/>
+        </line>
+        <line number="55">
+            <code>                // username text field</code>
+        </line>
+        <line hits="4" number="56">
+            <code>                TextField(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="57">
+            <code>                  key: const Key('usernameTextField'),</code>
+        </line>
+        <line hits="4" number="58">
+            <code>                  controller: usernameController,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="59">
+            <code>                  decoration: const InputDecoration(</code>
+        </line>
+        <line number="60">
+            <code>                    labelText: 'Enter your name',</code>
+        </line>
+        <line number="61">
+            <code>                    border: OutlineInputBorder(),</code>
+        </line>
+        <line number="62">
+            <code>                  ),</code>
+        </line>
+        <line number="63">
+            <code>                ),</code>
+        </line>
+        <line number="64">
+            <code/>
+        </line>
+        <line number="65">
+            <code>                // Login button</code>
+        </line>
+        <line hits="4" number="66">
+            <code>                LoginButton(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="67">
+            <code>                  key: const Key('loginButton'),</code>
+        </line>
+        <line number="68">
+            <code>                  icon: FontAwesomeIcons.rightToBracket,</code>
+        </line>
+        <line number="69">
+            <code>                  text: 'Login',</code>
+        </line>
+        <line hits="1" number="70">
+            <code>                  loginMethod: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="71">
+            <code>                    BuildContext initialContext = context;</code>
+        </line>
+        <line number="72">
+            <code>                    AppSettings appSettings =</code>
+        </line>
+        <line hits="1" number="73">
+            <code>                        Provider.of&lt;AppSettings&gt;(context, listen: false);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="74">
+            <code/>
+        </line>
+        <line number="75">
+            <code>                    // Get the name from the text field</code>
+        </line>
+        <line hits="2" number="76">
+            <code>                    String name = usernameController.text;</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="77">
+            <code/>
+        </line>
+        <line hits="1" number="78">
+            <code>                    bool result = await LoginService(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="79">
+            <code>                            appSettings: appSettings, client: _client)</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="80">
+            <code>                        .login(name);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="81">
+            <code>                    if (!context.mounted) return;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="82">
+            <code>                    if (result) {</code>
+        </line>
+        <line hits="1" number="83">
+            <code>                      Navigator.pushReplacementNamed(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="84">
+            <code>                          initialContext, '/my_courses');</code>
+        </line>
+        <line number="85">
+            <code>                    } else {</code>
+        </line>
+        <line hits="2" number="86">
+            <code>                      ScaffoldMessenger.of(initialContext).showSnackBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="87">
+            <code>                        const SnackBar(</code>
+        </line>
+        <line number="88">
+            <code>                          content: Text('Invalid username!'),</code>
+        </line>
+        <line number="89">
+            <code>                        ),</code>
+        </line>
+        <line number="90">
+            <code>                      );</code>
+        </line>
+        <line number="91">
+            <code>                    }</code>
+        </line>
+        <line number="92">
+            <code>                  },</code>
+        </line>
+        <line number="93">
+            <code>                  color: Colors.blue,</code>
+        </line>
+        <line number="94">
+            <code>                ),</code>
+        </line>
+        <line number="95">
+            <code/>
+        </line>
+        <line number="96">
+            <code>                const SizedBox(height: 20),</code>
+        </line>
+        <line number="97">
+            <code/>
+        </line>
+        <line number="98">
+            <code>                // continue as guest</code>
+        </line>
+        <line number="99">
+            <code/>
+        </line>
+        <line hits="4" number="100">
+            <code>                Padding(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="101">
+            <code>                  padding: const EdgeInsets.all(8.0),</code>
+        </line>
+        <line hits="4" number="102">
+            <code>                  child: LoginButton(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="103">
+            <code>                    key: const Key('guestLoginButton'),</code>
+        </line>
+        <line number="104">
+            <code>                    icon: FontAwesomeIcons.userNinja,</code>
+        </line>
+        <line number="105">
+            <code>                    text: 'Continue as Guest',</code>
+        </line>
+        <line hits="1" number="106">
+            <code>                    loginMethod: () async {</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="107">
+            <code>                      BuildContext initialContext = context;</code>
+        </line>
+        <line number="108">
+            <code>                      AppSettings appSettings =</code>
+        </line>
+        <line hits="1" number="109">
+            <code>                          Provider.of&lt;AppSettings&gt;(context, listen: false);</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="110">
+            <code>                      bool result = await LoginService(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="111">
+            <code>                              appSettings: appSettings, client: _client)</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="112">
+            <code>                          .login('guest');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="113">
+            <code>                      if (!context.mounted) return;</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="114">
+            <code>                      if (result) {</code>
+        </line>
+        <line hits="1" number="115">
+            <code>                        Navigator.pushReplacementNamed(</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="116">
+            <code>                            initialContext, '/my_courses');</code>
+        </line>
+        <line number="117">
+            <code>                      } else {</code>
+        </line>
+        <line hits="2" number="118">
+            <code>                        ScaffoldMessenger.of(initialContext).showSnackBar(</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="119">
+            <code>                          const SnackBar(</code>
+        </line>
+        <line number="120">
+            <code>                            content: Text('Login failed'),</code>
+        </line>
+        <line number="121">
+            <code>                          ),</code>
+        </line>
+        <line number="122">
+            <code>                        );</code>
+        </line>
+        <line number="123">
+            <code>                      }</code>
+        </line>
+        <line number="124">
+            <code>                    },</code>
+        </line>
+        <line number="125">
+            <code>                    color: const Color(0xffbf0000),</code>
+        </line>
+        <line number="126">
+            <code>                  ),</code>
+        </line>
+        <line number="127">
+            <code>                ),</code>
+        </line>
+        <line number="128">
+            <code>              ],</code>
+        </line>
+        <line number="129">
+            <code>            ),</code>
+        </line>
+        <line number="130">
+            <code>          ),</code>
+        </line>
+        <line number="131">
+            <code>        ),</code>
+        </line>
+        <line number="132">
+            <code>      ),</code>
+        </line>
+        <line number="133">
+            <code>    );</code>
+        </line>
+        <line number="134">
+            <code>  }</code>
+        </line>
+        <line number="135">
+            <code>}</code>
+        </line>
+        <line number="136">
+            <code/>
+        </line>
+        <line number="137">
+            <code>// calls for the login button</code>
+        </line>
+        <line number="138">
+            <code>class LoginButton extends StatelessWidget {</code>
+        </line>
+        <line number="139">
+            <code>  final Color color;</code>
+        </line>
+        <line number="140">
+            <code>  final IconData icon;</code>
+        </line>
+        <line number="141">
+            <code>  final String text;</code>
+        </line>
+        <line number="142">
+            <code>  final VoidCallback loginMethod;</code>
+        </line>
+        <line number="143">
+            <code/>
+        </line>
+        <line hits="4" number="144">
+            <code>  const LoginButton({</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="145">
+            <code>    Key? key,</code>
+        </line>
+        <line number="146">
+            <code>    required this.text,</code>
+        </line>
+        <line number="147">
+            <code>    required this.icon,</code>
+        </line>
+        <line number="148">
+            <code>    required this.color,</code>
+        </line>
+        <line number="149">
+            <code>    required this.loginMethod,</code>
+        </line>
+        <line hits="4" number="150">
+            <code>  }) : super(key: key);</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="151">
+            <code/>
+        </line>
+        <line hits="4" number="152">
+            <code>  @override</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="153">
+            <code>  Widget build(BuildContext context) {</code>
+        </line>
+        <line hits="4" number="154">
+            <code>    return Container(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="155">
+            <code>      margin: const EdgeInsets.only(bottom: 10),</code>
+        </line>
+        <line hits="4" number="156">
+            <code>      child: ElevatedButton.icon(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="157">
+            <code>        icon: Icon(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="4" number="158">
+            <code>          icon,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="159">
+            <code>          color: Colors.white,</code>
+        </line>
+        <line number="160">
+            <code>          size: 20,</code>
+        </line>
+        <line number="161">
+            <code>        ),</code>
+        </line>
+        <line hits="4" number="162">
+            <code>        style: TextButton.styleFrom(</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="163">
+            <code>          padding: const EdgeInsets.all(24),</code>
+        </line>
+        <line hits="4" number="164">
+            <code>          backgroundColor: color,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="165">
+            <code>        ),</code>
+        </line>
+        <line hits="4" number="166">
+            <code>        onPressed: loginMethod,</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="167">
+            <code>        label: Text(text, textAlign: TextAlign.center),</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="168">
+            <code>      ),</code>
+        </line>
+        <line number="169">
+            <code>    );</code>
+        </line>
+        <line number="170">
+            <code>  }</code>
+        </line>
+        <line number="171">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../../"/>
+    <base href="../../../"/>
+</coverage>

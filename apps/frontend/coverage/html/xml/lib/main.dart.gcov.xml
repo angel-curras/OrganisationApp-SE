@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="main.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="2" lines-valid="2" package="lib" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'package:flutter/material.dart';</code>
+        </line>
+        <line number="2">
+            <code>import 'package:flutter_dotenv/flutter_dotenv.dart';</code>
+        </line>
+        <line number="3">
+            <code>import 'package:organisation_app/settings/environment.dart';</code>
+        </line>
+        <line number="4">
+            <code>import 'package:shared_preferences/shared_preferences.dart';</code>
+        </line>
+        <line number="5">
+            <code/>
+        </line>
+        <line number="6">
+            <code>import 'app/app.dart';</code>
+        </line>
+        <line number="7">
+            <code/>
+        </line>
+        <line hits="15" number="8">
+            <code>Future&lt;void&gt; setUpEnvironment() async {</code>
+            <hit count="15" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="45" number="9">
+            <code>  await dotenv.load(fileName: Environment.fileName);</code>
+            <hit count="45" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="10">
+            <code>}</code>
+        </line>
+        <line number="11">
+            <code/>
+        </line>
+        <line number="12">
+            <code>// coverage:ignore-start</code>
+        </line>
+        <line number="13">
+            <code>Future&lt;void&gt; main() async {</code>
+        </line>
+        <line number="14">
+            <code>  await setUpEnvironment();</code>
+        </line>
+        <line number="15">
+            <code>  SharedPreferences prefs = await SharedPreferences.getInstance();</code>
+        </line>
+        <line number="16">
+            <code>  runApp(OrganisationApp(preferences: prefs));</code>
+        </line>
+        <line number="17">
+            <code>} // end of main()</code>
+        </line>
+        <line number="18">
+            <code>// coverage:ignore-end</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../"/>
+    <base href="../"/>
+</coverage>

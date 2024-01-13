@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="index" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="1009" lines-valid="1009" testname="lcov.info" version="1.6">
+    <sources>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="195" lines-valid="195" pathname="lib/pages/modules" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="14" lines-valid="14" pathname="lib/settings" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="52" lines-valid="52" pathname="lib/pages/login" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="5" lines-valid="5" pathname="lib/pages/moodle" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="2" lines-valid="2" pathname="lib" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="79" lines-valid="79" pathname="lib/shared" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="5" lines-valid="5" pathname="lib/pages/chatgpt" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="11" lines-valid="11" pathname="lib/services" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="128" lines-valid="128" pathname="lib/controller" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="210" lines-valid="210" pathname="lib/pages/my_courses" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="162" lines-valid="162" pathname="lib/model" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="5" lines-valid="5" pathname="lib/pages/primuss" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="21" lines-valid="21" pathname="lib/app" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+        <source branches-hit="0" branches-valid="0" functions-hit="0" functions-valid="0" lines-hit="120" lines-valid="120" pathname="lib/pages/todos" prefix="/04_Coding/02_Projects/02_SE_Project_05/apps/frontend/"/>
+    </sources>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+</coverage>

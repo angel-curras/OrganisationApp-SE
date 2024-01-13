@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="task_controller.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="30" lines-valid="30" package="lib/controller" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'dart:convert';</code>
+        </line>
+        <line number="2">
+            <code/>
+        </line>
+        <line number="3">
+            <code>import 'package:http/http.dart' as http;</code>
+        </line>
+        <line number="4">
+            <code>import 'package:logger/logger.dart';</code>
+        </line>
+        <line number="5">
+            <code>import 'package:organisation_app/model/task.dart';</code>
+        </line>
+        <line number="6">
+            <code>import 'package:organisation_app/settings/environment.dart';</code>
+        </line>
+        <line number="7">
+            <code/>
+        </line>
+        <line number="8">
+            <code>class TaskController {</code>
+        </line>
+        <line hits="9" number="9">
+            <code>  static final Logger _logger = Logger();</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="12" number="10">
+            <code>  static final _apiUrl = Environment.apiUrl;</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="11">
+            <code>  final http.Client _client;</code>
+        </line>
+        <line number="12">
+            <code/>
+        </line>
+        <line number="13">
+            <code>  // Getters</code>
+        </line>
+        <line hits="4" number="14">
+            <code>  http.Client get client =&gt; _client;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="15">
+            <code/>
+        </line>
+        <line hits="4" number="16">
+            <code>  TaskController({required http.Client client}) : _client = client;</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="17">
+            <code/>
+        </line>
+        <line hits="3" number="18">
+            <code>  Future&lt;List&lt;Task&gt;&gt; getAllTasksForUser(String username) async {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code>    // access REST interface with get request</code>
+        </line>
+        <line hits="15" number="20">
+            <code>    final response = await _client.get(Uri.parse('$_apiUrl/tasks/$username'));</code>
+            <hit count="15" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="21">
+            <code/>
+        </line>
+        <line number="22">
+            <code>    // check response from backend</code>
+        </line>
+        <line hits="4" number="23">
+            <code>    if (response.statusCode == 200) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="24">
+            <code>      return List&lt;Task&gt;.from(json</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="25">
+            <code>          .decode(utf8.decode(response.bodyBytes))</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="6" number="26">
+            <code>          .map((x) =&gt; Task.fromJsonMap(x)));</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="27">
+            <code>    } else {</code>
+        </line>
+        <line hits="1" number="28">
+            <code>      throw Exception('Failed to load Item list');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="29">
+            <code>    }</code>
+        </line>
+        <line number="30">
+            <code>  }</code>
+        </line>
+        <line number="31">
+            <code/>
+        </line>
+        <line number="32">
+            <code>  // save new item on backend</code>
+        </line>
+        <line hits="3" number="33">
+            <code>  Future&lt;Task&gt; createTask(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="34">
+            <code>      String userName, String taskName, DateTime deadline, int priority) async {</code>
+        </line>
+        <line hits="3" number="35">
+            <code>    Task task = Task(</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="36">
+            <code>      name: taskName,</code>
+        </line>
+        <line number="37">
+            <code>      priority: priority,</code>
+        </line>
+        <line number="38">
+            <code>      deadline: deadline,</code>
+        </line>
+        <line number="39">
+            <code>    );</code>
+        </line>
+        <line number="40">
+            <code/>
+        </line>
+        <line hits="9" number="41">
+            <code>    _logger.i("Creating a new task for user '$userName'. Task: '$task'");</code>
+            <hit count="9" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="42">
+            <code/>
+        </line>
+        <line number="43">
+            <code>    // access REST interface with post request</code>
+        </line>
+        <line hits="15" number="44">
+            <code>    var response = await _client.post(Uri.parse('$_apiUrl/tasks/$userName'),</code>
+            <hit count="15" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="45">
+            <code>        headers: &lt;String, String&gt;{'Content-Type': 'application/json'},</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="46">
+            <code>        body: task.toJsonString());</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="47">
+            <code/>
+        </line>
+        <line number="48">
+            <code>    // check response from backend</code>
+        </line>
+        <line hits="4" number="49">
+            <code>    if (response.statusCode == 200) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="8" number="50">
+            <code>      return Task.fromJsonMap(json.decode(utf8.decode(response.bodyBytes)));</code>
+            <hit count="8" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="51">
+            <code>    } else {</code>
+        </line>
+        <line hits="1" number="52">
+            <code>      throw Exception('Failed to create item');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="53">
+            <code>    }</code>
+        </line>
+        <line number="54">
+            <code>  }</code>
+        </line>
+        <line number="55">
+            <code/>
+        </line>
+        <line number="56">
+            <code>  // Update item on backend</code>
+        </line>
+        <line hits="3" number="57">
+            <code>  Future&lt;void&gt; updateTask(Task task) async {</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="58">
+            <code>    // access REST interface with put request</code>
+        </line>
+        <line hits="18" number="59">
+            <code>    var response = await _client.put(Uri.parse('$_apiUrl/tasks/${task.id}'),</code>
+            <hit count="18" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="60">
+            <code>        headers: &lt;String, String&gt;{'Content-Type': 'application/json'},</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="3" number="61">
+            <code>        body: task.toJsonString());</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="62">
+            <code/>
+        </line>
+        <line number="63">
+            <code>// check response from backend</code>
+        </line>
+        <line hits="4" number="64">
+            <code>    if (response.statusCode != 200) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="65">
+            <code>      throw Exception('Failed to update item');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="66">
+            <code>    }</code>
+        </line>
+        <line number="67">
+            <code>  }</code>
+        </line>
+        <line number="68">
+            <code/>
+        </line>
+        <line number="69">
+            <code>  // delete item on backend</code>
+        </line>
+        <line hits="2" number="70">
+            <code>  Future&lt;void&gt; deleteTask(int id) async {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="71">
+            <code>    // access REST interface with delete request</code>
+        </line>
+        <line hits="10" number="72">
+            <code>    var response = await _client.delete(Uri.parse('$_apiUrl/tasks/$id'));</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="73">
+            <code/>
+        </line>
+        <line number="74">
+            <code>    // check response from backend</code>
+        </line>
+        <line hits="4" number="75">
+            <code>    if (response.statusCode != 200) {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="1" number="76">
+            <code>      throw Exception('Failed to delete item');</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="77">
+            <code>    }</code>
+        </line>
+        <line number="78">
+            <code>  }</code>
+        </line>
+        <line number="79">
+            <code>} // end of class TaskController</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

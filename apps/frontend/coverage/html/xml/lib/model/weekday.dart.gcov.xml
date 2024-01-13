@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="weekday.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="17" lines-valid="17" package="lib/model" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>enum Weekday {</code>
+        </line>
+        <line number="2">
+            <code>  monday,</code>
+        </line>
+        <line number="3">
+            <code>  tuesday,</code>
+        </line>
+        <line number="4">
+            <code>  wednesday,</code>
+        </line>
+        <line number="5">
+            <code>  thursday,</code>
+        </line>
+        <line number="6">
+            <code>  friday,</code>
+        </line>
+        <line number="7">
+            <code>  saturday,</code>
+        </line>
+        <line number="8">
+            <code>  sunday,</code>
+        </line>
+        <line number="9">
+            <code>}</code>
+        </line>
+        <line number="10">
+            <code/>
+        </line>
+        <line number="11">
+            <code>extension WeekdayExtension on Weekday {</code>
+        </line>
+        <line hits="4" number="12">
+            <code>  String toJSON() {</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>    switch (this) {</code>
+        </line>
+        <line hits="4" number="14">
+            <code>      case Weekday.monday:</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="15">
+            <code>        return 'MONDAY';</code>
+        </line>
+        <line hits="4" number="16">
+            <code>      case Weekday.tuesday:</code>
+            <hit count="4" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="17">
+            <code>        return 'TUESDAY';</code>
+        </line>
+        <line hits="3" number="18">
+            <code>      case Weekday.wednesday:</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="19">
+            <code>        return 'WEDNESDAY';</code>
+        </line>
+        <line hits="3" number="20">
+            <code>      case Weekday.thursday:</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="21">
+            <code>        return 'THURSDAY';</code>
+        </line>
+        <line hits="3" number="22">
+            <code>      case Weekday.friday:</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="23">
+            <code>        return 'FRIDAY';</code>
+        </line>
+        <line hits="3" number="24">
+            <code>      case Weekday.saturday:</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="25">
+            <code>        return 'SATURDAY';</code>
+        </line>
+        <line hits="3" number="26">
+            <code>      case Weekday.sunday:</code>
+            <hit count="3" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="27">
+            <code>        return 'SUNDAY';</code>
+        </line>
+        <line number="28">
+            <code>    }</code>
+        </line>
+        <line number="29">
+            <code>  }</code>
+        </line>
+        <line number="30">
+            <code/>
+        </line>
+        <line hits="2" number="31">
+            <code>  static Weekday fromJSON(String weekday) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="32">
+            <code>    switch (weekday.toUpperCase()) {</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="2" number="33">
+            <code>      case 'MONDAY':</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="34">
+            <code>        return Weekday.monday;</code>
+        </line>
+        <line hits="2" number="35">
+            <code>      case 'TUESDAY':</code>
+            <hit count="2" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="36">
+            <code>        return Weekday.tuesday;</code>
+        </line>
+        <line hits="1" number="37">
+            <code>      case 'WEDNESDAY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="38">
+            <code>        return Weekday.wednesday;</code>
+        </line>
+        <line hits="1" number="39">
+            <code>      case 'THURSDAY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="40">
+            <code>        return Weekday.thursday;</code>
+        </line>
+        <line hits="1" number="41">
+            <code>      case 'FRIDAY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="42">
+            <code>        return Weekday.friday;</code>
+        </line>
+        <line hits="1" number="43">
+            <code>      case 'SATURDAY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="44">
+            <code>        return Weekday.saturday;</code>
+        </line>
+        <line hits="1" number="45">
+            <code>      case 'SUNDAY':</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="46">
+            <code>        return Weekday.sunday;</code>
+        </line>
+        <line number="47">
+            <code>      default:</code>
+        </line>
+        <line number="48">
+            <code>        return Weekday.monday;</code>
+        </line>
+        <line number="49">
+            <code>    }</code>
+        </line>
+        <line number="50">
+            <code>  }</code>
+        </line>
+        <line number="51">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>

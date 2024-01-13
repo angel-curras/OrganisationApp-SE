@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="../../jgenhtml.xsl"?><coverage branch-rate="NaN" branches-covered="0" branches-valid="0" complexity="0" date="2024-01-13" filename="app_user.dart" function-rate="NaN" functions-covered="0" functions-valid="0" line-rate="1.0" lines-covered="20" lines-valid="20" package="lib/model" testname="lcov.info" version="1.6">
+    <lines>
+        <line number="1">
+            <code>import 'dart:convert';</code>
+        </line>
+        <line number="2">
+            <code/>
+        </line>
+        <line number="3">
+            <code>enum UserType { guest, student, admin }</code>
+        </line>
+        <line number="4">
+            <code/>
+        </line>
+        <line number="5">
+            <code>extension UserTypeExtension on UserType {</code>
+        </line>
+        <line hits="7" number="6">
+            <code>  String toJSON() {</code>
+            <hit count="7" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="7">
+            <code>    switch (this) {</code>
+        </line>
+        <line hits="7" number="8">
+            <code>      case UserType.guest:</code>
+            <hit count="7" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="9">
+            <code>        return 'GUEST';</code>
+        </line>
+        <line hits="6" number="10">
+            <code>      case UserType.student:</code>
+            <hit count="6" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="11">
+            <code>        return 'STUDENT';</code>
+        </line>
+        <line hits="1" number="12">
+            <code>      case UserType.admin:</code>
+            <hit count="1" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="13">
+            <code>        return 'ADMIN';</code>
+        </line>
+        <line number="14">
+            <code>    }</code>
+        </line>
+        <line number="15">
+            <code>  }</code>
+        </line>
+        <line number="16">
+            <code/>
+        </line>
+        <line hits="12" number="17">
+            <code>  static UserType fromJSON(String userType) {</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="18">
+            <code>    switch (userType) {</code>
+        </line>
+        <line hits="12" number="19">
+            <code>      case 'GUEST':</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="20">
+            <code>        return UserType.guest;</code>
+        </line>
+        <line hits="12" number="21">
+            <code>      case 'STUDENT':</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="22">
+            <code>        return UserType.student;</code>
+        </line>
+        <line hits="10" number="23">
+            <code>      case 'ADMIN':</code>
+            <hit count="10" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="24">
+            <code>        return UserType.admin;</code>
+        </line>
+        <line number="25">
+            <code>      default:</code>
+        </line>
+        <line number="26">
+            <code>        return UserType.guest;</code>
+        </line>
+        <line number="27">
+            <code>    }</code>
+        </line>
+        <line number="28">
+            <code>  }</code>
+        </line>
+        <line number="29">
+            <code>}</code>
+        </line>
+        <line number="30">
+            <code/>
+        </line>
+        <line number="31">
+            <code>class AppUser {</code>
+        </line>
+        <line number="32">
+            <code>  String userName;</code>
+        </line>
+        <line number="33">
+            <code>  String fullName;</code>
+        </line>
+        <line number="34">
+            <code>  UserType userType;</code>
+        </line>
+        <line number="35">
+            <code/>
+        </line>
+        <line hits="12" number="36">
+            <code>  AppUser({</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="37">
+            <code>    this.userName = '',</code>
+        </line>
+        <line number="38">
+            <code>    this.fullName = '',</code>
+        </line>
+        <line number="39">
+            <code>    this.userType = UserType.guest,</code>
+        </line>
+        <line number="40">
+            <code>  });</code>
+        </line>
+        <line number="41">
+            <code/>
+        </line>
+        <line hits="14" number="42">
+            <code>  Map&lt;String, dynamic&gt; toJsonMap() =&gt; {</code>
+            <hit count="14" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="7" number="43">
+            <code>        'user_name': userName,</code>
+            <hit count="7" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="7" number="44">
+            <code>        'full_name': fullName,</code>
+            <hit count="7" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="14" number="45">
+            <code>        'user_type': userType.toJSON(),</code>
+            <hit count="14" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="46">
+            <code>      };</code>
+        </line>
+        <line number="47">
+            <code/>
+        </line>
+        <line hits="24" number="48">
+            <code>  factory AppUser.fromJsonMap(Map&lt;String, dynamic&gt; json) =&gt; AppUser(</code>
+            <hit count="24" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="12" number="49">
+            <code>        userName: json['user_name'] ?? '',</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="12" number="50">
+            <code>        fullName: json['full_name'] ?? '',</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="24" number="51">
+            <code>        userType: UserTypeExtension.fromJSON(json['user_type'] ?? ''),</code>
+            <hit count="24" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="52">
+            <code>      );</code>
+        </line>
+        <line number="53">
+            <code/>
+        </line>
+        <line hits="21" number="54">
+            <code>  String toJsonString() =&gt; jsonEncode(toJsonMap());</code>
+            <hit count="21" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="55">
+            <code/>
+        </line>
+        <line hits="12" number="56">
+            <code>  factory AppUser.fromJsonString(String jsonString) =&gt;</code>
+            <hit count="12" name="&lt;unnamed&gt;"/>
+        </line>
+        <line hits="24" number="57">
+            <code>      AppUser.fromJsonMap(jsonDecode(jsonString));</code>
+            <hit count="24" name="&lt;unnamed&gt;"/>
+        </line>
+        <line number="58">
+            <code>}</code>
+        </line>
+    </lines>
+    <config branch-coverage="true" description-file="false" function-coverage="true" genhtml_hi_limit="90" genhtml_med_limit="75" legend="false" no-sort="false" no-source="false" show-details="false"/>
+    <base href="../../"/>
+    <base href="../../"/>
+</coverage>
