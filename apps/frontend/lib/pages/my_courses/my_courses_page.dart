@@ -43,7 +43,6 @@ class _MyCoursesPageState extends State<MyCoursesPage> {
           IconButton(
             key: const Key("update"),
             icon: const Icon(Icons.update),
-            tooltip: 'Edit Item',
             onPressed: () {
               setState(() {});
             },
