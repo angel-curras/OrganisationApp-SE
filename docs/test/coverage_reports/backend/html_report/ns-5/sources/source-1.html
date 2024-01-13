@@ -1,0 +1,297 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > CourseService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.hm.cs.organisation_app.service</a>
+</div>
+
+<h1>Coverage Summary for Class: CourseService (edu.hm.cs.organisation_app.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CourseService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (42/42)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CourseService$$SpringCGLIB$$0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (42/42)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.hm.cs.organisation_app.service;
+&nbsp;
+&nbsp;import edu.hm.cs.organisation_app.database.CourseRepository;
+&nbsp;import edu.hm.cs.organisation_app.database.ModuleRepository;
+&nbsp;import edu.hm.cs.organisation_app.database.UserRepository;
+&nbsp;import edu.hm.cs.organisation_app.model.Module;
+&nbsp;import edu.hm.cs.organisation_app.model.*;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;import org.springframework.web.server.ResponseStatusException;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a CourseService.
+&nbsp; *
+&nbsp; * @author Angel Curras Sanchez
+&nbsp; */
+&nbsp;@Service
+&nbsp;public class CourseService {
+&nbsp;
+&nbsp;  /* Fields */
+&nbsp;  private final CourseRepository courseRepository;
+&nbsp;  private final ModuleRepository moduleRepository;
+&nbsp;  private final UserRepository userRepository;
+&nbsp;
+&nbsp;
+&nbsp;  /* Constructors */
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Creates a new CourseService.
+&nbsp;   *
+&nbsp;   * @param courseRepository The course repository.
+&nbsp;   * @param moduleRepository The module repository.
+&nbsp;   * @param userRepository   The user repository.
+&nbsp;   */
+&nbsp;  @Autowired
+&nbsp;  public CourseService(CourseRepository courseRepository, ModuleRepository moduleRepository,
+<b class="fc">&nbsp;                       UserRepository userRepository) {</b>
+<b class="fc">&nbsp;    this.courseRepository = courseRepository;</b>
+<b class="fc">&nbsp;    this.moduleRepository = moduleRepository;</b>
+<b class="fc">&nbsp;    this.userRepository = userRepository;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  /* Methods */
+&nbsp;  /* GET */
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Gets all courses for a user.
+&nbsp;   *
+&nbsp;   * @param userName The username.
+&nbsp;   * @return A list of courses.
+&nbsp;   */
+&nbsp;  @Transactional
+&nbsp;  public List&lt;Course&gt; getAllCoursesForUser(String userName) {
+&nbsp;
+&nbsp;    // Check if the user is authorized to create a course.
+<b class="fc">&nbsp;    AppUser user =</b>
+<b class="fc">&nbsp;            userRepository.findById(userName)</b>
+<b class="fc">&nbsp;                    .orElseThrow(</b>
+<b class="fc">&nbsp;                            () -&gt; new ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;User not found.&quot;));</b>
+&nbsp;
+&nbsp;    // Check if the user is already subscribed to this course.
+<b class="fc">&nbsp;    return user.getCourses();</b>
+&nbsp;  } // end of getAllCoursesForUser()
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Gets a course by its id.
+&nbsp;   *
+&nbsp;   * @param courseId The course id.
+&nbsp;   * @return The course.
+&nbsp;   */
+&nbsp;  @Transactional
+&nbsp;  public Course getCourseById(Long courseId) {
+<b class="fc">&nbsp;    return courseRepository.findById(courseId).orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Course not found.&quot;));</b>
+&nbsp;  } // end of getCourseById()
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Gets all tasks for a course.
+&nbsp;   *
+&nbsp;   * @param courseId The course id.
+&nbsp;   * @return A list of tasks.
+&nbsp;   */
+&nbsp;  @Transactional
+&nbsp;  public List&lt;Task&gt; getAllTasksForCourse(Long courseId) {
+<b class="fc">&nbsp;    return courseRepository.findById(courseId).orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Course not found.&quot;)).getTasks();</b>
+&nbsp;  } // end of getAllTasksForCourse()
+&nbsp;
+&nbsp;  /* POST */
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Creates a course.
+&nbsp;   *
+&nbsp;   * @param courseSubscription The course subscription.
+&nbsp;   * @return The created course.
+&nbsp;   */
+&nbsp;  @Transactional
+&nbsp;  public Course createCourse(CourseSubscription courseSubscription) {
+&nbsp;
+&nbsp;    // Get the module and user from the database
+<b class="fc">&nbsp;    Long moduleId = courseSubscription.getModuleId();</b>
+<b class="fc">&nbsp;    String userName = courseSubscription.getUserName();</b>
+&nbsp;
+&nbsp;    // Check if the user is authorized to create a course.
+<b class="fc">&nbsp;    AppUser user =</b>
+<b class="fc">&nbsp;            userRepository.findById(userName)</b>
+<b class="fc">&nbsp;                    .orElseThrow(</b>
+<b class="fc">&nbsp;                            () -&gt; new ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;User not found.&quot;));</b>
+&nbsp;
+&nbsp;    // Check if the module exists.
+<b class="fc">&nbsp;    Module module =</b>
+<b class="fc">&nbsp;            moduleRepository.findById(moduleId)</b>
+<b class="fc">&nbsp;                    .orElseThrow(</b>
+<b class="fc">&nbsp;                            () -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Module not &quot; +</b>
+&nbsp;                                    &quot;found.&quot;));
+&nbsp;
+&nbsp;    // Check if the user is already subscribed to this course.
+<b class="fc">&nbsp;    List&lt;Course&gt; userCourses = user.getCourses();</b>
+<b class="fc">&nbsp;    for (Course course : userCourses) {</b>
+<b class="fc">&nbsp;      if (Objects.equals(course.getModuleId(), moduleId)) {</b>
+<b class="fc">&nbsp;        throw new ResponseStatusException(HttpStatus.CONFLICT, &quot;User already subscribed to this course.&quot;);</b>
+&nbsp;      } // end of if
+<b class="fc">&nbsp;    } // end of for</b>
+&nbsp;
+&nbsp;    // Create the course and save it to the database
+<b class="fc">&nbsp;    Course course = new Course(module, user);</b>
+<b class="fc">&nbsp;    user.addCourse(course);</b>
+<b class="fc">&nbsp;    return courseRepository.save(course);</b>
+&nbsp;
+&nbsp;  } // end of createCourse()
+&nbsp;
+&nbsp;  /* PUT */
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Updates a course by its id.
+&nbsp;   *
+&nbsp;   * @param courseId  The course id.
+&nbsp;   * @param newCourse The new course.
+&nbsp;   * @return The updated course.
+&nbsp;   */
+&nbsp;  @Transactional
+&nbsp;  public Course updateCourseById(Long courseId, Course newCourse) {
+<b class="fc">&nbsp;    Course course = courseRepository.findById(courseId).orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Course not found.&quot;));</b>
+&nbsp;
+&nbsp;    // Update the course.
+<b class="fc">&nbsp;    course.setStartDate(newCourse.getStartDate());</b>
+<b class="fc">&nbsp;    course.setEndDate(newCourse.getEndDate());</b>
+<b class="fc">&nbsp;    course.setLectureWeekday(newCourse.getLectureWeekday());</b>
+<b class="fc">&nbsp;    course.setLectureStartTime(newCourse.getLectureStartTime());</b>
+<b class="fc">&nbsp;    course.setLectureEndTime(newCourse.getLectureEndTime());</b>
+<b class="fc">&nbsp;    course.setLabWeekday(newCourse.getLabWeekday());</b>
+<b class="fc">&nbsp;    course.setLabStartTime(newCourse.getLabStartTime());</b>
+<b class="fc">&nbsp;    course.setLabEndTime(newCourse.getLabEndTime());</b>
+<b class="fc">&nbsp;    course.updateTasks();</b>
+&nbsp;
+&nbsp;    // Save the course to the database.
+<b class="fc">&nbsp;    return courseRepository.save(course);</b>
+&nbsp;  } // end of updateCourseById()
+&nbsp;
+&nbsp;  /* DELETE */
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Deletes a course by its id.
+&nbsp;   *
+&nbsp;   * @param courseId The course id.
+&nbsp;   */
+&nbsp;  @Transactional
+&nbsp;  public void deleteCourseById(Long courseId) {
+<b class="fc">&nbsp;    courseRepository.deleteById(courseId);</b>
+&nbsp;  } // end of deleteCourseById()
+&nbsp;
+&nbsp;  /**
+&nbsp;   * Deletes all courses.
+&nbsp;   */
+&nbsp;  @Transactional
+&nbsp;  public void deleteAll() {
+<b class="fc">&nbsp;    courseRepository.deleteAll();</b>
+&nbsp;  } // end of deleteAll()
+&nbsp;
+&nbsp;} // end of class CourseService
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-01-13 12:58</div>
+</div>
+</body>
+</html>

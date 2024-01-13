@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > TaskController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.hm.cs.organisation_app.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: TaskController (edu.hm.cs.organisation_app.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TaskController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.hm.cs.organisation_app.controller;
+&nbsp;
+&nbsp;import edu.hm.cs.organisation_app.model.Task;
+&nbsp;import edu.hm.cs.organisation_app.service.TaskService;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a TaskController.
+&nbsp; *
+&nbsp; * @author Angel Curras Sanchez
+&nbsp; */
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/tasks&quot;)
+&nbsp;public class TaskController {
+&nbsp;
+<b class="fc">&nbsp;  private static final Logger log = LoggerFactory.getLogger(TaskController.class);</b>
+&nbsp;  /* Fields */
+&nbsp;  TaskService service;
+&nbsp;
+&nbsp;  /* Constructors */
+&nbsp;  @Autowired
+<b class="fc">&nbsp;  public TaskController(TaskService service) {</b>
+<b class="fc">&nbsp;    log.info(&quot;Creating the task controller...&quot;);</b>
+<b class="fc">&nbsp;    this.service = service;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @PostMapping(&quot;&quot;)
+&nbsp;  public Task createTask(@RequestBody Task newTask) {
+<b class="fc">&nbsp;    log.info(&quot;Creating a new task: &quot; + newTask);</b>
+<b class="fc">&nbsp;    Task createdTask = this.service.createTask(newTask);</b>
+<b class="fc">&nbsp;    log.info(&quot;Task created: &quot; + createdTask);</b>
+<b class="fc">&nbsp;    return createdTask;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;  @PostMapping(&quot;/{username}&quot;)
+&nbsp;  public Task createTaskForUser(@RequestBody Task newTask, @PathVariable String username) {
+<b class="fc">&nbsp;    log.info(&quot;Creating a new task for user: &quot; + username + &quot;, Task:&quot; + newTask);</b>
+<b class="fc">&nbsp;    Task createdTask = this.service.createTaskForUser(newTask, username);</b>
+<b class="fc">&nbsp;    log.info(&quot;Task created: &quot; + createdTask);</b>
+<b class="fc">&nbsp;    return createdTask;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  //update task
+&nbsp;  @PutMapping(&quot;/{id}&quot;)
+&nbsp;  public Task updateTask(@RequestBody Task newTask, @PathVariable long id) {
+<b class="fc">&nbsp;    return this.service.updateTask(newTask, id);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  //delete task
+&nbsp;  @DeleteMapping(&quot;/{id}&quot;)
+&nbsp;  public void deleteTask(@PathVariable Long id) {
+<b class="fc">&nbsp;    this.service.deleteTask(id);</b>
+&nbsp;  }
+&nbsp;  
+&nbsp;  // delete all tasks
+&nbsp;  @DeleteMapping(&quot;/deleteAll&quot;)
+&nbsp;  public void deleteAllTasks() {
+<b class="fc">&nbsp;    this.service.deleteAllTasks();</b>
+&nbsp;  }
+&nbsp;  /* Getters and Setters */
+&nbsp;
+&nbsp;
+&nbsp;  /* Methods */
+&nbsp;  @GetMapping(&quot;&quot;)
+&nbsp;  public List&lt;Task&gt; getAllTasks() {
+<b class="fc">&nbsp;    if (this.service.getAllTasks().isEmpty()) {</b>
+<b class="fc">&nbsp;      return new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+<b class="fc">&nbsp;    return this.service.getAllTasks();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @GetMapping(&quot;/{username}&quot;)
+&nbsp;  public List&lt;Task&gt; getAllTasksForUser(@PathVariable String username) {
+<b class="fc">&nbsp;    return this.service.getAllTasksForUser(username);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;} // end of class TaskController
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-01-13 12:58</div>
+</div>
+</body>
+</html>

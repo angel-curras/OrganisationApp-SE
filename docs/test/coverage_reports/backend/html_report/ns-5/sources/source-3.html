@@ -1,0 +1,229 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > TaskService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.hm.cs.organisation_app.service</a>
+</div>
+
+<h1>Coverage Summary for Class: TaskService (edu.hm.cs.organisation_app.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TaskService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (38/38)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TaskService$$SpringCGLIB$$0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (38/38)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.hm.cs.organisation_app.service;
+&nbsp;
+&nbsp;import edu.hm.cs.organisation_app.database.TaskRepository;
+&nbsp;import edu.hm.cs.organisation_app.database.UserRepository;
+&nbsp;import edu.hm.cs.organisation_app.model.AppUser;
+&nbsp;import edu.hm.cs.organisation_app.model.Task;
+&nbsp;import jakarta.transaction.Transactional;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.web.server.ResponseStatusException;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a TaskService.
+&nbsp; *
+&nbsp; * @author Angel Curras Sanchez
+&nbsp; */
+&nbsp;@Service
+&nbsp;public class TaskService {
+&nbsp;
+&nbsp;  /* Fields */
+&nbsp;  private final TaskRepository taskRepository;
+&nbsp;  private final UserRepository userRepository;
+&nbsp;
+&nbsp;  /* Constructors */
+&nbsp;  @Autowired
+<b class="fc">&nbsp;  public TaskService(TaskRepository taskRepository, UserRepository userRepository) {</b>
+<b class="fc">&nbsp;    this.taskRepository = taskRepository;</b>
+<b class="fc">&nbsp;    this.userRepository = userRepository;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  //update task
+&nbsp;  @Transactional
+&nbsp;  public Task updateTask(Task newTask, long id) {
+<b class="fc">&nbsp;    return taskRepository.findById(id)</b>
+<b class="fc">&nbsp;            .map(task -&gt; {</b>
+<b class="fc">&nbsp;              task.setName(newTask.getName());</b>
+<b class="fc">&nbsp;              task.setPriority(newTask.getPriority());</b>
+<b class="fc">&nbsp;              task.setDone(newTask.isDone());</b>
+<b class="fc">&nbsp;              task.setFrequency(newTask.getFrequency());</b>
+<b class="fc">&nbsp;              task.setCalendarEvent(newTask.getCalendarEvent());</b>
+<b class="fc">&nbsp;              task.setDeadline(newTask.getDeadline());</b>
+<b class="fc">&nbsp;              return taskRepository.save(task);</b>
+&nbsp;            })
+<b class="fc">&nbsp;            .orElseGet(() -&gt; {</b>
+<b class="fc">&nbsp;              newTask.setId(id);</b>
+<b class="fc">&nbsp;              return taskRepository.save(newTask);</b>
+&nbsp;            });
+&nbsp;  }
+&nbsp;
+&nbsp;  @Transactional
+&nbsp;  public Task createTask(Task task) {
+<b class="fc">&nbsp;    return taskRepository.save(task);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Transactional
+&nbsp;  public void deleteTask(long id) {
+<b class="fc">&nbsp;    Task task = taskRepository.findById(id)</b>
+<b class="fc">&nbsp;            .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;Task not found.&quot;));</b>
+<b class="fc">&nbsp;    taskRepository.deleteById(id);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Transactional
+&nbsp;  public void deleteAllTasks() {
+<b class="fc">&nbsp;    taskRepository.deleteAll();</b>
+&nbsp;  }
+&nbsp;  /* Getters and Setters */
+&nbsp;
+&nbsp;
+&nbsp;  /* Methods */
+&nbsp;  @Transactional
+&nbsp;  public List&lt;Task&gt; getAllTasks() {
+<b class="fc">&nbsp;    return taskRepository.findAll();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Transactional
+&nbsp;  public List&lt;Task&gt; getAllTasksForUser(String userName) {
+&nbsp;
+&nbsp;    // Check if the user is authorized to create a course.
+<b class="fc">&nbsp;    AppUser user =</b>
+<b class="fc">&nbsp;            userRepository.findById(userName)</b>
+<b class="fc">&nbsp;                    .orElseThrow(</b>
+<b class="fc">&nbsp;                            () -&gt; new ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;User not found.&quot;));</b>
+&nbsp;
+&nbsp;    // Check if the user is already subscribed to this course.
+<b class="fc">&nbsp;    return user.getAllTasks();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Transactional
+&nbsp;  public Task createTaskForUser(Task newTask, String userName) {
+&nbsp;
+&nbsp;
+&nbsp;    // Check if the user is authorized to create a course.
+<b class="fc">&nbsp;    AppUser user =</b>
+<b class="fc">&nbsp;            userRepository.findById(userName)</b>
+<b class="fc">&nbsp;                    .orElseThrow(</b>
+<b class="fc">&nbsp;                            () -&gt; new ResponseStatusException(HttpStatus.UNAUTHORIZED, &quot;User not found.&quot;));</b>
+&nbsp;
+&nbsp;    // Create the task and save it to the database
+<b class="fc">&nbsp;    Task task = new Task(newTask.getName());</b>
+<b class="fc">&nbsp;    task.setPriority(newTask.getPriority());</b>
+<b class="fc">&nbsp;    task.setDone(newTask.isDone());</b>
+<b class="fc">&nbsp;    task.setFrequency(newTask.getFrequency());</b>
+<b class="fc">&nbsp;    task.setCalendarEvent(newTask.getCalendarEvent());</b>
+<b class="fc">&nbsp;    task.setDeadline(newTask.getDeadline());</b>
+&nbsp;
+<b class="fc">&nbsp;    task.setAppUser(user);</b>
+&nbsp;
+<b class="fc">&nbsp;    return taskRepository.save(task);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;} // end of class TaskService
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-01-13 12:58</div>
+</div>
+</body>
+</html>
